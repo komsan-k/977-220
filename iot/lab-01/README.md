@@ -53,4 +53,24 @@ The Arduino programming model consists of:
      digitalWrite(2, LOW);  // LED OFF
      delay(1000);           // wait 1 second
    }
+   ```
 
+6. **Upload Program**  
+   Click the upload button. If upload fails initially, press and hold the "BOOT" button on the ESP32 while uploading.
+
+7. **Observe Output**  
+   The onboard LED should blink every second.
+
+8. **Open Serial Monitor (Optional)**  
+   **Tools → Serial Monitor** to view debug messages.
+
+## Expected Results
+- The ESP32's onboard LED blinks at a 1-second interval.
+- The Arduino IDE successfully compiles and uploads code to the ESP32.
+- Students understand how to select the correct board and COM port.
+
+## Discussion Questions
+1. Why is GPIO2 often used for the onboard LED on ESP32 boards?
+2. What is the function of the `delay()` command in Arduino code?
+3. How can you modify the program to blink the LED twice as fast?
+4. What steps would you take if the Arduino IDE cannot detect the ESP32?
