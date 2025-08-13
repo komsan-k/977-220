@@ -8,6 +8,8 @@
 | 10     | 2       |
 | 11     | 3       |
 
+---
+
 ## 3-Bit Binary to Decimal
 | Binary | Decimal |
 |--------|---------|
@@ -19,6 +21,8 @@
 | 101    | 5       |
 | 110    | 6       |
 | 111    | 7       |
+
+---
 
 ## 4-Bit Binary to Decimal
 | Binary | Decimal |
@@ -39,6 +43,8 @@
 | 1101   | 13      |
 | 1110   | 14      |
 | 1111   | 15      |
+
+---
 
 ## 5-Bit Binary to Decimal
 | Binary | Decimal |
