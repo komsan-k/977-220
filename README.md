@@ -111,4 +111,4 @@ Representative domains include smart cities, healthcare, industrial IoT (IIoT), 
 
 ---
 
-**Note:** For full exercises and bibliographies, refer to the complete LaTeX source or compiled PDF.
+
