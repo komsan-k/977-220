@@ -8,8 +8,6 @@ This textbook provides a concise yet comprehensive foundation for the Internet o
 
 Each chapter opens with learning objectives and closes with a chapter bibliography and exercises. The laboratory chapter uses ESP32, Wi‑Fi, Bluetooth Low Energy (BLE), Mosquitto MQTT, Python, and Node‑RED. This modular structure should support project-driven courses and self-paced learning.
 
-The author thanks the open-source community and the many researchers whose work has shaped the field. Any errors are the author's own—please send corrections and suggestions for future editions.
-
 ---
 
 ## Chapter 1: IoT Concepts and Design Fundamentals
