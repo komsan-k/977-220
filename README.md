@@ -4,7 +4,7 @@
 # Internet of Things: Concepts, Design, and Practice
 
 ## Preface
-This textbook provides a concise yet comprehensive foundation for the Internet of Things (IoT)—from concepts and architectures to device design, platforms, data and analytics, application development, and hands-on laboratories. It is intended for senior undergraduate or graduate students in Electrical and Computer Engineering, Computer Science, or related disciplines, as well as practitioners who need a structured, practical guide.
+This course provides a concise yet comprehensive foundation for the Internet of Things (IoT)—from concepts and architectures to device design, platforms, data and analytics, application development, and hands-on laboratories. It is intended for senior undergraduate or graduate students in Electrical and Computer Engineering, Computer Science, or related disciplines, as well as practitioners who need a structured, practical guide.
 
 Each chapter opens with learning objectives and closes with a chapter bibliography and exercises. The laboratory chapter uses ESP32, Wi‑Fi, Bluetooth Low Energy (BLE), Mosquitto MQTT, Python, and Node‑RED. This modular structure should support project-driven courses and self-paced learning.
 
