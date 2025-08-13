@@ -82,9 +82,9 @@
 | 11110  | 30      |
 | 11111  | 31      |
 
-# Signed Binary to Decimal Conversion (Two’s Complement)
-
 ---
+
+# Signed Binary to Decimal Conversion (Two’s Complement)
 
 ## 3-bit Signed Binary Numbers
 
