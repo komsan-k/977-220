@@ -76,3 +76,30 @@
 | 11110  | 30      |
 | 11111  | 31      |
 
+# Signed Binary to Decimal Conversion (Two’s Complement)
+
+---
+
+## 3-bit Signed Binary Numbers
+
+| Binary | Decimal |
+|--------|---------|
+| 000    | 0       |
+| 001    | 1       |
+| 010    | 2       |
+| 011    | 3       |
+| 100    | -4      |
+| 101    | -3      |
+| 110    | -2      |
+| 111    | -1      |
+
+---
+
+## 2-bit Signed Binary Numbers
+
+| Binary | Decimal |
+|--------|---------|
+| 00     | 0       |
+| 01     | 1       |
+| 10     | -2      |
+| 11     | -1      |
