@@ -1,4 +1,4 @@
-# 977-220
+# 977-220 Module: Electronics and Internet of Things
 
 
 # Course Overview
