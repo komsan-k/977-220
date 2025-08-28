@@ -1,8 +1,6 @@
 
 # Verilog Coding and Waveform Time Simulation using EDA Playground
 
-**Quick-Start Manuscript for Teaching & Labs**
-
 ---
 
 ## 📌 Objectives
