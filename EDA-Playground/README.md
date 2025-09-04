@@ -188,16 +188,3 @@ endmodule
 - Use the EPWave viewer: add signals → zoom → measure.
 - Ensure `$dumpfile` and `$dumpvars` are included and top module name matches.
 
-## 🧪 Exercises
-1. Modify the MUX TB to sweep all input combinations every 5ns.
-2. Add `enable` to the counter (`if (en) q <= q+1;`) and toggle `en` in TB.
-3. Build a 4:1 MUX using 2:1 MUX components.
-4. Create a parameterized clock divider and verify duty cycle.
-5. Inject `#1` gate delays and observe glitches in a naive logic circuit.
-
-## ✅ Submission Checklist
-- Design files and testbenches (clean and commented).
-- EPWave screenshot or saved waveform session.
-- Short notes on what you tested and what you observed.
-
----
