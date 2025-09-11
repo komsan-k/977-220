@@ -50,6 +50,39 @@ This project demonstrates how to use the hidden **wokwi-clock-generator** to dri
 
 ---
 
+## `mychip.chip.v`
+
+```verilog
+// mychip.chip.v
+// Top-level must be named 'wokwi' for Wokwi custom chips.
+
+module wokwi (
+  input  wire CLK,   // clock input (e.g., from wokwi-clock-generator)
+  output reg  OUT0,  // LSB
+  output reg  OUT1,
+  output reg  OUT2,
+  output reg  OUT3   // MSB
+);
+
+  reg [3:0] count = 4'b0000;
+
+  always @(posedge CLK) begin
+    // Compute next value so outputs reflect the incremented count immediately
+    reg [3:0] next;
+    next   = count + 4'd1;
+    count  <= next;
+
+    OUT0   <= next[0];
+    OUT1   <= next[1];
+    OUT2   <= next[2];
+    OUT3   <= next[3];
+  end
+
+endmodule
+```
+
+---
+
 ## Usage
 
 1. Open [Wokwi](https://wokwi.com) and create a new project.  
@@ -68,4 +101,3 @@ This project demonstrates how to use the hidden **wokwi-clock-generator** to dri
 - The clock generator `"frequency"` is in **Hz**. Change `"1000"` to adjust speed.  
 - Your `mychip.chip.json` must define pins: `CLK`, `OUT0`, `OUT1`, `OUT2`, `OUT3`.  
 - The Verilog top module must be named **`wokwi`**.  
-
