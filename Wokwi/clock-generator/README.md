@@ -45,5 +45,5 @@ In the `"connections": [ … ]` section of `diagram.json`, connect the clock gen
 
 ## ✅ Run the Simulation
 
-When you run the simulation, the **wokwi-clock-generator** will drive your chip’s input at the specified frequency — **no Arduino or 555 timer required**.
+When you run the simulation, the **wokwi-clock-generator** will drive your chip’s input at the specified frequency.
 
