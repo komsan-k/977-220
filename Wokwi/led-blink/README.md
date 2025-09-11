@@ -1,4 +1,4 @@
-# Minimal Wokwi Clock Generator Example
+# Simple Wokwi Clock Generator Example
 
 This project demonstrates a **minimal working `diagram.json`** that uses the hidden **`wokwi-clock-generator`** to blink an LED at **1 Hz** — with no Arduino or custom chip required.
 
