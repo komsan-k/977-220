@@ -8,7 +8,7 @@ This schedule outlines the lectures and labwork for the second part of the **977
 
 | Week | Date       | Topic            | Talk Topics                    | Labwork Topics                  |
 |------|------------|------------------|--------------------------------|---------------------------------|
-| 1    | 14/10/2025 | Verilog-FPGA-1   | Digital Systems / Tools        | Xilinx Vivado                   |
+| 1    | 14/10/2025 | Verilog-FPGA-1   | Digital Systems / Tools        | Xilinx Vivado/EDA Playground    |
 | 2    | 15/10/2025 | Verilog-FPGA-2   | FPGA / Architecture            | Xilinx Nexys A7                 |
 | 3    | 16/10/2025 | Verilog-FPGA-3   | Verilog HDL / Digital Logic    | Basic Logic Gates               |
 | 4    | 20/10/2025 | Verilog-FPGA-4   | Design and Synthesis           | Adder Design                    |
@@ -37,7 +37,7 @@ Each lab session includes scripts, exercises, and requires submission of a **Lab
 All lab materials are available on GitHub:
 
 ### Verilog & FPGA Labs
-- [Lab 1: Xilinx Vivado](https://github.com/komsan-k/verilog-fpga-lab-series/tree/main/lab_1_Xilinx_Vivado)  [EDA Playground](https://github.com/komsan-k/977-220/tree/main/EDA-Playground)
+- [Lab 1: Xilinx Vivado](https://github.com/komsan-k/verilog-fpga-lab-series/tree/main/lab_1_Xilinx_Vivado) / [EDA Playground](https://github.com/komsan-k/977-220/tree/main/EDA-Playground)
 - [Lab 2: Nexys A7](https://github.com/komsan-k/verilog-fpga-lab-series/tree/main/Lab_2_Nexys_A7)  
 - [Lab 3: Basic Logic Gates](https://github.com/komsan-k/verilog-fpga-lab-series/tree/main/Lab_3_Basic_Gates)  
 - [Lab 4: Adder Design](https://github.com/komsan-k/verilog-fpga-lab-series/tree/main/Lab_4_Adder)  
