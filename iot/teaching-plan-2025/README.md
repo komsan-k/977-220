@@ -35,6 +35,16 @@ This schedule outlines the lectures and labwork for the second part of the **977
 Each lab session includes scripts, exercises, and requires submission of a **Lab Report (2%)** and a **Quiz (2%)**.  
 All lab materials are available on GitHub:
 
+### IoT Labs
+- [Lab 2: WiFi-RSSI](https://github.com/komsan-k/977-220/tree/main/iot/lab-02)  
+- [Lab 3: IoT End Node](https://github.com/komsan-k/977-220/tree/main/iot/lab-03)  
+- [Lab 4: IoT Device Control](https://github.com/komsan-k/977-220/tree/main/iot/lab-04)  
+- [Lab 5: IoT Platform](https://github.com/komsan-k/977-220/tree/main/iot/lab-05)  
+- [Lab 6: Node-RED Control](https://github.com/komsan-k/977-220/tree/main/iot/lab-06)  
+- [Lab 7: Node-RED Display](https://github.com/komsan-k/977-220/tree/main/iot/lab-07)  
+- [Lab 8: IoT Applications](https://github.com/komsan-k/977-220/tree/main/iot/lab-08)  
+- [Lab 9: BLE Application](https://github.com/komsan-k/977-220/tree/main/iot/lab-09)  
+
 ### Verilog & FPGA Labs
 - [Lab 1: Xilinx Vivado](https://github.com/komsan-k/verilog-fpga-lab-series/tree/main/lab_1_Xilinx_Vivado) / [EDA Playground](https://github.com/komsan-k/977-220/tree/main/EDA-Playground)
 - [Lab 2: Nexys A7](https://github.com/komsan-k/verilog-fpga-lab-series/tree/main/Lab_2_Nexys_A7)  
@@ -48,16 +58,6 @@ All lab materials are available on GitHub:
 - [Lab 10: Display (7-Segment)](https://github.com/komsan-k/verilog-fpga-lab-series/tree/main/Lab_10_Display_7Segment)  
 - [Lab 11: Multiplier](https://github.com/komsan-k/verilog-fpga-lab-series/tree/main/Lab_11_Multiplier)  
 - [Lab 12: Traffic Light Control](https://github.com/komsan-k/verilog-fpga-lab-series/tree/main/Lab_13_Traffic_Control)  
-
-### IoT Labs
-- [Lab 2: WiFi-RSSI](https://github.com/komsan-k/977-220/tree/main/iot/lab-02)  
-- [Lab 3: MQTT Subscribe](https://github.com/komsan-k/977-220/tree/main/iot/lab-03)  
-- [Lab 4: IoT Device Control](https://github.com/komsan-k/977-220/tree/main/iot/lab-04)  
-- [Lab 5: IoT Platform](https://github.com/komsan-k/977-220/tree/main/iot/lab-05)  
-- [Lab 6: Node-RED Control](https://github.com/komsan-k/977-220/tree/main/iot/lab-06)  
-- [Lab 7: Node-RED Display](https://github.com/komsan-k/977-220/tree/main/iot/lab-07)  
-- [Lab 8: IoT Applications](https://github.com/komsan-k/977-220/tree/main/iot/lab-08)  
-- [Lab 9: BLE Application](https://github.com/komsan-k/977-220/tree/main/iot/lab-09)  
 
 ---
 
