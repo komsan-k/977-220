@@ -8,27 +8,26 @@ This schedule outlines the lectures and labwork for the second part of the **977
 
 | Week | Date       | Topic            | Talk Topics                    | Labwork Topics                  |
 |------|------------|------------------|--------------------------------|---------------------------------|
-| 1    | 14/10/2025 | Verilog-FPGA-1   | Digital Systems / Tools        | Xilinx Vivado/EDA Playground    |
-| 2    | 15/10/2025 | Verilog-FPGA-2   | FPGA / Architecture            | Xilinx Nexys A7                 |
-| 3    | 16/10/2025 | Verilog-FPGA-3   | Verilog HDL / Digital Logic    | Basic Logic Gates               |
-| 4    | 20/10/2025 | Verilog-FPGA-4   | Design and Synthesis           | Adder Design                    |
-| 5    | 21/10/2025 | Verilog-FPGA-5   | Combinational Design 1         | MUX and DMUX Design             |
-| 6    | 22/10/2025 | Verilog-FPGA-6   | Combinational Design 2         | Encoder and Decoder Design      |
-| 7    | 27/10/2025 | Verilog-FPGA-7   | Combinational Design 3         | Rotator and Shifter Design      |
-| 8    | 28/10/2025 | Verilog-FPGA-8   | Sequential Design 1            | Simple ALU Design               |
-| 9    | 29/10/2025 | Verilog-FPGA-9   | Sequential Design 2            | Counters and Clock Divider      |
-| 10   | 30/10/2025 | Verilog-FPGA-10  | System Design                  | Display Counter                 |
-| 11   | 03/11/2025 | Verilog-FPGA-11  | Finite State Machines          | Multiplier Design               |
-| 12   | 04/11/2025 | Verilog-FPGA-12  | FPGA Projects & Applications   | Traffic Light Controller        |
-| 13   | 05/11/2025 | IoT-1            | IoT Concepts & Design          | Connecting ESP32 to Wi-Fi       |
-| 14   | 06/11/2025 | IoT-2            | IoT End Nodes                  | Reading Sensor from ESP32       |
-| 15   | 10/11/2025 | IoT-3            | IoT Connectivity 1             | Publishing via MQTT             |
-| 16   | 11/11/2025 | IoT-4            | IoT Connectivity 2             | Subscribing & Controlling Devices|
-| 17   | 13/11/2025 | IoT-5            | IoT Platforms                  | Bi-Directional MQTT             |
-| 18   | 17/11/2025 | IoT-6            | IoT Data Visualization 1       | Controlling via Node-RED        |
-| 19   | 18/11/2025 | IoT-7            | IoT Data Visualization 2       | Displaying on Node-RED          |
-| 20   | 19/11/2025 | IoT-8            | IoT Applications               | Bluetooth Low Energy (BLE)      |
-
+| 1   | 14/10/2025 | IoT-1            | IoT Concepts & Design          | Connecting ESP32 to Wi-Fi       |
+| 2   | 15/10/2025 | IoT-2            | IoT End Nodes                  | Reading Sensor from ESP32       |
+| 3   | 16/10/2025 | IoT-3            | IoT Connectivity 1             | Publishing via MQTT             |
+| 4   | 20/10/2025 | IoT-4            | IoT Connectivity 2             | Subscribing & Controlling Devices|
+| 5   | 21/10/2025 | IoT-5            | IoT Platforms                  | Bi-Directional MQTT             |
+| 6   | 22/10/2025 | IoT-6            | IoT Data Visualization 1       | Controlling via Node-RED        |
+| 7   | 27/10/2025 | IoT-7            | IoT Data Visualization 2       | Displaying on Node-RED          |
+| 8   | 28/10/2025 | IoT-8            | IoT Applications               | Bluetooth Low Energy (BLE)      |
+| 9   | 29/10/2025 | Verilog-FPGA-1   | Digital Systems / Tools        | Xilinx Vivado/EDA Playground    |
+| 10  | 30/10/2025 | Verilog-FPGA-2   | FPGA / Architecture            | Xilinx Nexys A7                 |
+| 11  | 03/11/2025 | Verilog-FPGA-3   | Verilog HDL / Digital Logic    | Basic Logic Gates               |
+| 12  | 04/11/2025 | Verilog-FPGA-4   | Design and Synthesis           | Adder Design                    |
+| 13  | 05/11/2025 | Verilog-FPGA-5   | Combinational Design 1         | MUX and DMUX Design             |
+| 14  | 06/11/2025 | Verilog-FPGA-6   | Combinational Design 2         | Encoder and Decoder Design      |
+| 15  | 10/11/2025 | Verilog-FPGA-7   | Combinational Design 3         | Rotator and Shifter Design      |
+| 16  | 11/11/2025 | Verilog-FPGA-8   | Sequential Design 1            | Simple ALU Design               |
+| 17  | 13/11/2025 | Verilog-FPGA-9   | Sequential Design 2            | Counters and Clock Divider      |
+| 18  | 17/11/2025 | Verilog-FPGA-10  | System Design                  | Display Counter                 |
+| 19  | 18/11/2025 | Verilog-FPGA-11  | Finite State Machines          | Multiplier Design               |
+| 20  | 19/11/2025 | Verilog-FPGA-12  | FPGA Projects & Applications   | Traffic Light Controller        |
 ---
 
 ## 🧪 Labs & GitHub Resources
@@ -51,7 +50,7 @@ All lab materials are available on GitHub:
 - [Lab 12: Traffic Light Control](https://github.com/komsan-k/verilog-fpga-lab-series/tree/main/Lab_13_Traffic_Control)  
 
 ### IoT Labs
-- [Lab 2: MQTT Publish](https://github.com/komsan-k/977-220/tree/main/iot/lab-02)  
+- [Lab 2: WiFi-RSSI](https://github.com/komsan-k/977-220/tree/main/iot/lab-02)  
 - [Lab 3: MQTT Subscribe](https://github.com/komsan-k/977-220/tree/main/iot/lab-03)  
 - [Lab 4: IoT Device Control](https://github.com/komsan-k/977-220/tree/main/iot/lab-04)  
 - [Lab 5: IoT Platform](https://github.com/komsan-k/977-220/tree/main/iot/lab-05)  
