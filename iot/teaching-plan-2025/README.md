@@ -8,8 +8,8 @@ This schedule outlines the lectures and labwork for the second part of the **977
 
 | Week | Date       | Topic            | Talk Topics                    | Labwork Topics                  |
 |------|------------|------------------|--------------------------------|---------------------------------|
-| 1   | 14/10/2025 | IoT-1            | IoT Concepts & Design          | Connecting ESP32 to Wi-Fi       |
-| 2   | 15/10/2025 | IoT-2            | IoT End Nodes                  | Reading Sensor from ESP32       |
+| 1   | 14/10/2025 | IoT-1            | IoT Concepts & Design          | MQTT Paho and simulated sensors  |
+| 2   | 15/10/2025 | IoT-2            | IoT End Nodes                  | ESP32 to Wi-Fi Reading Sensor   |
 | 3   | 16/10/2025 | IoT-3            | IoT Connectivity 1             | Publishing via MQTT             |
 | 4   | 20/10/2025 | IoT-4            | IoT Connectivity 2             | Subscribing & Controlling Devices|
 | 5   | 21/10/2025 | IoT-5            | IoT Platforms                  | Bi-Directional MQTT             |
@@ -36,7 +36,8 @@ Each lab session includes scripts, exercises, and requires submission of a **Lab
 All lab materials are available on GitHub:
 
 ### IoT Labs
-- [Lab 2: WiFi-RSSI](https://github.com/komsan-k/977-220/tree/main/iot/lab-02)  
+- [Lab 1: Paho MQTT & Similated sensor](https://github.com/komsan-k/977-220/tree/main/iot/paho-lab-sensor)
+- [Lab 2: WiFi-RSSI](https://github.com/komsan-k/977-220/tree/main/iot/lab-02)   
 - [Lab 3: IoT End Node](https://github.com/komsan-k/977-220/tree/main/iot/lab-03)  
 - [Lab 4: IoT Device Control](https://github.com/komsan-k/977-220/tree/main/iot/lab-04)  
 - [Lab 5: IoT Platform](https://github.com/komsan-k/977-220/tree/main/iot/lab-05)  
