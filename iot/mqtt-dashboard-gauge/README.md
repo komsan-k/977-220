@@ -79,8 +79,6 @@ while True:
 
 **Filename:** `mqtt_gauge_subscriber.py`
 
-(Full Python script provided in class.)
-
 ```python
 import tkinter as tk
 from tkinter import ttk
