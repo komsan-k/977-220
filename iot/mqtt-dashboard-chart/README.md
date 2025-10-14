@@ -62,7 +62,7 @@ Use the provided script (below) to subscribe and visualize.
 ---
 
 ## 5) Code: `mqtt_linechart_subscriber.py`
-*(Full Python code provided in the lab section.)*
+
 ```python
 import tkinter as tk
 from tkinter import ttk
