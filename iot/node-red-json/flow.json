@@ -1,0 +1,286 @@
+[
+  {
+    "id": "f0b7a8c9e2aa1a1a",
+    "type": "tab",
+    "label": "IoT MQTT JSON Demo",
+    "disabled": false,
+    "info": "Subscribe temperature (MQTT) → JSON parse → Gauge & Chart\nDashboard button → toggle ON/OFF + counter → publish JSON"
+  },
+  {
+    "id": "bkr-1",
+    "type": "mqtt-broker",
+    "name": "HiveMQ (public)",
+    "broker": "broker.hivemq.com",
+    "port": "1883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "willMsg": {},
+    "sessionExpiry": ""
+  },
+  {
+    "id": "ui-base",
+    "type": "ui_base",
+    "theme": { "name": "theme-light" },
+    "site": { "name": "IoT Dashboard" }
+  },
+  {
+    "id": "ui-tab1",
+    "type": "ui_tab",
+    "name": "IoT Monitor & Control",
+    "icon": "dashboard",
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "grp-monitor",
+    "type": "ui_group",
+    "name": "Monitoring",
+    "tab": "ui-tab1",
+    "order": 1,
+    "disp": true,
+    "width": "12",
+    "collapse": false
+  },
+  {
+    "id": "grp-control",
+    "type": "ui_group",
+    "name": "Control",
+    "tab": "ui-tab1",
+    "order": 2,
+    "disp": true,
+    "width": "12",
+    "collapse": false
+  },
+  {
+    "id": "mqtt-in-temp",
+    "type": "mqtt in",
+    "z": "f0b7a8c9e2aa1a1a",
+    "name": "Temperature (string)",
+    "topic": "test/sensor/temperature",
+    "qos": "0",
+    "datatype": "auto",
+    "broker": "bkr-1",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "x": 200,
+    "y": 140,
+    "wires": [
+      [
+        "json-parse",
+        "dbg-raw"
+      ]
+    ]
+  },
+  {
+    "id": "json-parse",
+    "type": "json",
+    "z": "f0b7a8c9e2aa1a1a",
+    "name": "Parse to number",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 430,
+    "y": 140,
+    "wires": [
+      [
+        "chg-to-number",
+        "dbg-parsed"
+      ]
+    ]
+  },
+  {
+    "id": "chg-to-number",
+    "type": "change",
+    "z": "f0b7a8c9e2aa1a1a",
+    "name": "Ensure numeric payload",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "Number(payload)",
+        "tot": "jsonata"
+      }
+    ],
+    "x": 690,
+    "y": 140,
+    "wires": [
+      [
+        "gauge-temp",
+        "chart-temp",
+        "text-last"
+      ]
+    ]
+  },
+  {
+    "id": "gauge-temp",
+    "type": "ui_gauge",
+    "z": "f0b7a8c9e2aa1a1a",
+    "name": "Temperature (°C)",
+    "group": "grp-monitor",
+    "order": 1,
+    "width": 6,
+    "height": 4,
+    "gtype": "gage",
+    "title": "Temperature (°C)",
+    "label": "°C",
+    "format": "{{value | number:2}}",
+    "min": 0,
+    "max": "50",
+    "colors": ["#00b500","#ffC000","#ca3838"],
+    "x": 980,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "chart-temp",
+    "type": "ui_chart",
+    "z": "f0b7a8c9e2aa1a1a",
+    "name": "Temp History",
+    "group": "grp-monitor",
+    "order": 2,
+    "width": 12,
+    "height": 6,
+    "label": "Temperature History",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "0",
+    "ymax": "50",
+    "removeOlder": "12",
+    "removeOlderUnit": "60",
+    "x": 1000,
+    "y": 160,
+    "wires": [[]]
+  },
+  {
+    "id": "text-last",
+    "type": "ui_text",
+    "z": "f0b7a8c9e2aa1a1a",
+    "group": "grp-monitor",
+    "order": 3,
+    "width": 6,
+    "height": 1,
+    "name": "Last Reading",
+    "label": "Latest Temperature",
+    "format": "{{msg.payload | number:2}} °C",
+    "layout": "row-spread",
+    "x": 990,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "dbg-raw",
+    "type": "debug",
+    "z": "f0b7a8c9e2aa1a1a",
+    "name": "Raw MQTT (string)",
+    "active": false,
+    "tosidebar": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 430,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "dbg-parsed",
+    "type": "debug",
+    "z": "f0b7a8c9e2aa1a1a",
+    "name": "Parsed (number)",
+    "active": false,
+    "tosidebar": true,
+    "complete": "true",
+    "targetType": "full",
+    "x": 690,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "btn-toggle",
+    "type": "ui_button",
+    "z": "f0b7a8c9e2aa1a1a",
+    "name": "Toggle Device",
+    "group": "grp-control",
+    "order": 1,
+    "width": 4,
+    "height": 1,
+    "passthru": false,
+    "label": "Toggle Device",
+    "icon": "fa-toggle-on",
+    "payload": "pressed",
+    "payloadType": "str",
+    "x": 200,
+    "y": 360,
+    "wires": [["fn-toggle"]]
+  },
+  {
+    "id": "fn-toggle",
+    "type": "function",
+    "z": "f0b7a8c9e2aa1a1a",
+    "name": "Toggle state & count",
+    "func": "// Maintain state and press counter in flow context\nlet state = flow.get('device_state') || 'OFF';\nlet count = flow.get('command_count') || 0;\n\nstate = (state === 'OFF') ? 'ON' : 'OFF';\ncount += 1;\n\nflow.set('device_state', state);\nflow.set('command_count', count);\n\nmsg.payload = { state: state, press_count: count };\nreturn msg;",
+    "outputs": 1,
+    "x": 440,
+    "y": 360,
+    "wires": [["text-state","mqtt-out-cmd","dbg-cmd"]]
+  },
+  {
+    "id": "text-state",
+    "type": "ui_text",
+    "z": "f0b7a8c9e2aa1a1a",
+    "group": "grp-control",
+    "order": 2,
+    "width": 6,
+    "height": 1,
+    "name": "Current State",
+    "label": "Device / Count",
+    "format": "{{msg.payload.state}} / {{msg.payload.press_count}}",
+    "layout": "row-spread",
+    "x": 720,
+    "y": 320,
+    "wires": []
+  },
+  {
+    "id": "mqtt-out-cmd",
+    "type": "mqtt out",
+    "z": "f0b7a8c9e2aa1a1a",
+    "name": "Publish Control JSON",
+    "topic": "device/control/state",
+    "broker": "bkr-1",
+    "x": 740,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "id": "dbg-cmd",
+    "type": "debug",
+    "z": "f0b7a8c9e2aa1a1a",
+    "name": "Published Command",
+    "active": true,
+    "tosidebar": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 730,
+    "y": 400,
+    "wires": []
+  }
+]
