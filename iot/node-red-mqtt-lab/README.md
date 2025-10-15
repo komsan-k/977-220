@@ -62,7 +62,31 @@ The **Python Publisher** simulates a temperature sensor that generates and publi
 - **Interval:** 5 seconds
 - **Payload:** Floating-point string, e.g., `"25.42"`
 
-**Example Publisher Code:**
+  **Example Publisher Code:**
+```python
+import paho.mqtt.client as mqtt
+import time, random
+
+BROKER = "broker.hivemq.com"
+TOPIC = "test/sensor/temperature"
+
+client = mqtt.Client()
+client.connect(BROKER, 1883, 60)
+client.loop_start()
+
+try:
+    while True:
+        temperature = round(random.uniform(20.0, 30.0), 2)
+        client.publish(TOPIC, str(temperature))
+        print(f"Published Temperature: {temperature}°C")
+        time.sleep(5)
+except KeyboardInterrupt:
+    client.loop_stop()
+    client.disconnect()
+```
+
+**Bidirectional MQTT Script:**
+
 ```python
 import paho.mqtt.client as mqtt
 import time, random, json
