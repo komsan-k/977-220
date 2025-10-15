@@ -239,10 +239,7 @@ This project demonstrates the **integration of IoT communication, GUI programmin
 
 ## 8. Exercises
 1. Modify the gauge to display humidity (0–100%) with blue color.  
-2. Add a digital thermometer widget showing the average temperature.  
-3. Combine multiple MQTT topics (temperature, humidity, light) into one dashboard.  
-4. Create color zones (green/yellow/red) to indicate safe and high temperature levels.  
-5. Extend the dashboard to log temperature values into a CSV file.
+
 
 ---
 
