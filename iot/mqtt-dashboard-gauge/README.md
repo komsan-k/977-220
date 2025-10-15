@@ -59,6 +59,7 @@ sudo apt-get install python3-tk
 
 ### Step 1: Setup the MQTT Broker
 Use a **public broker** like `broker.hivemq.com`.  
+<!--
 Optionally, test using an MQTT publisher (e.g., a Python script or Node-RED flow) that sends random temperature data:
 
 ```python
@@ -73,6 +74,7 @@ while True:
     time.sleep(3)
 ```
 
+-->
 ---
 
 ### Step 2: Write the Subscriber (Dashboard)
