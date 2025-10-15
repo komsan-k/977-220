@@ -1,0 +1,241 @@
+[
+    {
+        "id": "a1b2c3d4e5f6g7h8",
+        "type": "tab",
+        "label": "IoT Temperature and Control Flow",
+        "disabled": false,
+        "info": "Node-RED flow for MQTT-based temperature monitoring and bidirectional control."
+    },
+    {
+        "id": "mqtt_in_temp",
+        "type": "mqtt in",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Temperature Subscriber",
+        "topic": "test/sensor/temperature",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "mqtt_broker_hivemq",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "change_temp",
+                "gauge_temp"
+            ]
+        ]
+    },
+    {
+        "id": "change_temp",
+        "type": "change",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Convert String to Number",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "number(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "x": 440,
+        "y": 120,
+        "wires": [
+            [
+                "debug_temp"
+            ]
+        ]
+    },
+    {
+        "id": "gauge_temp",
+        "type": "ui_gauge",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Temperature Gauge",
+        "group": "ui_dashboard_group",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature (°C)",
+        "label": "°C",
+        "format": "{{value | number:1}}",
+        "min": 0,
+        "max": 50,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 450,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "debug_temp",
+        "type": "debug",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Temperature Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 710,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "ui_button",
+        "type": "ui_button",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Toggle Device",
+        "group": "ui_dashboard_group",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Toggle Device",
+        "color": "",
+        "bgcolor": "",
+        "icon": "fa-power-off",
+        "payload": "toggle",
+        "topic": "",
+        "x": 170,
+        "y": 320,
+        "wires": [
+            [
+                "change_state"
+            ]
+        ]
+    },
+    {
+        "id": "change_state",
+        "type": "change",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Update State & Counter",
+        "rules": [
+            {
+                "t": "set",
+                "p": "device_state",
+                "pt": "flow",
+                "to": "$not($flowContext('device_state'))",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "command_count",
+                "pt": "flow",
+                "to": "($flowContext('command_count')+1)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"state\": $flowContext('device_state') ? 'ON' : 'OFF', \"press_count\": $flowContext('command_count')}",
+                "tot": "jsonata"
+            }
+        ],
+        "x": 430,
+        "y": 320,
+        "wires": [
+            [
+                "mqtt_out_state",
+                "ui_text_status",
+                "debug_control"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_out_state",
+        "type": "mqtt out",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Publish Device State",
+        "topic": "device/control/state",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "mqtt_broker_hivemq",
+        "x": 740,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "ui_text_status",
+        "type": "ui_text",
+        "z": "a1b2c3d4e5f6g7h8",
+        "group": "ui_dashboard_group",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "Device Status Display",
+        "label": "Device Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 750,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "debug_control",
+        "type": "debug",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Control Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1020,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "mqtt_broker_hivemq",
+        "type": "mqtt-broker",
+        "name": "HiveMQ Broker",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closePayload": "",
+        "willTopic": "",
+        "willPayload": ""
+    },
+    {
+        "id": "ui_dashboard_group",
+        "type": "ui_group",
+        "name": "IoT Dashboard",
+        "tab": "ui_dashboard_tab",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "ui_dashboard_tab",
+        "type": "ui_tab",
+        "name": "IoT Control",
+        "icon": "dashboard",
+        "order": 1
+    }
+]
