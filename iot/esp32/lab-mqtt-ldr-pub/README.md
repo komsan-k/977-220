@@ -173,6 +173,83 @@ void reconnect() {
 ```
 
 ---
+# 🧠 6. Code Explanation
+
+| **Section** | **Description** |
+|--------------|----------------|
+| **Wi-Fi Connection** | Connects to the specified SSID and prints IP address upon success. |
+| **MQTT Broker Setup** | Configures the public broker `broker.hivemq.com` at port `1883`. |
+| **LDR Reading** | Reads analog voltage via `analogRead()` from GPIO36. |
+| **Data Publishing** | Converts sensor value to string and sends via MQTT every 10 seconds. |
+| **Loop Logic** | Ensures continuous MQTT connection and publishes at fixed intervals. |
+
+---
+
+# 📟 7. Example Serial Monitor Output
+
+```
+Connecting to MyWiFiNetwork
+........
+WiFi connected
+IP address: 192.168.1.45
+Attempting MQTT connection...connected
+✅ Published LDR Value to esp32/ldr/raw_value: 320
+✅ Published LDR Value to esp32/ldr/raw_value: 1024
+✅ Published LDR Value to esp32/ldr/raw_value: 3890
+```
+
+### 🧾 Observation:
+- When the **LDR is covered**, the published value decreases.
+- When **light increases**, the ADC and MQTT values increase proportionally.
+
+---
+
+# 🌐 8. Monitoring via HiveMQ Dashboard
+
+You can verify the published messages using the **free HiveMQ Web MQTT Client**:
+
+### Steps:
+1. Open the web client: [HiveMQ Web MQTT Client](https://www.hivemq.com/demos/websocket-client/)
+2. Connect to **broker.hivemq.com** on port **8000 (WebSocket)**.
+3. Subscribe to topic:  
+   ```
+   esp32/ldr/raw_value
+   ```
+4. Observe live sensor data from your ESP32.
+
+---
+
+# 🔬 9. Lab Exercises
+
+### 1. Dynamic Interval
+Modify the code to publish data every **5 seconds** instead of 10.
+
+### 2. Light Percentage
+Send both raw and percentage values (0–100%) in JSON format, e.g.:
+```json
+{ "raw": 2800, "percent": 68.4 }
+```
+
+### 3. Local Broker Test
+Install and use a **local Mosquitto broker** to publish and subscribe to the same topic.
+
+### 4. Dual Topic Publishing
+Publish LDR data to two topics — one for **raw value** and one for **percentage**.
+
+### 5. Data Logger
+Combine with the **NTP Lab** to timestamp each reading before publishing.
+
+---
+
+# 🧩 10. Discussion Questions
+
+1. What is the advantage of using MQTT for IoT data transfer?  
+2. Why is the publish interval important in IoT sensor networks?  
+3. What would happen if the MQTT connection fails mid-transmission?  
+4. How could you secure this connection using authentication or TLS?  
+5. How could you extend this experiment to control an LED remotely?  
+
+---
 
 ## ✅ 11. Conclusion
 
