@@ -68,7 +68,7 @@ void setup_wifi() {
     Serial.print(".");
   }
 
-  Serial.println("\\nWiFi connected");
+  Serial.println("\nWiFi connected");
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
 }
@@ -123,8 +123,6 @@ void loop() {
 
 ## 📡 6. Serial Monitor Output Example
 
-When successfully connected and synchronized, the output appears as:
-
 ```
 Connecting to MyWiFiNetwork
 .........
@@ -140,45 +138,34 @@ Current Time (UTC+7): 2025-10-20 10:15:44
 
 ## 🧩 7. Exercises
 
-1. **Time Zone Modification:**  
-   Change the `gmtOffset_sec` value to correspond to your own time zone (e.g., UTC+8 for Singapore = 28800 seconds).  
-
-2. **Daylight Saving:**  
-   Simulate Daylight Saving by setting `daylightOffset_sec = 3600` and observe the time shift.  
-
-3. **Custom NTP Server:**  
-   Replace `pool.ntp.org` with your regional NTP pool, e.g., `th.pool.ntp.org`.  
-
-4. **Display Format:**  
-   Modify the `strftime()` pattern to include day name or AM/PM format, e.g., `"%A %I:%M:%S %p"`.  
-
-5. **LCD/Display Extension:**  
-   Connect a 16×2 LCD or OLED display to show the current time instead of Serial Monitor.  
-
-6. **Timestamping Application:**  
-   Extend the code to print time-stamped sensor readings (temperature, humidity, etc.).  
+1. Modify the `gmtOffset_sec` value to match your time zone.  
+2. Add Daylight Saving (`daylightOffset_sec = 3600`) and observe the result.  
+3. Change the NTP server to `th.pool.ntp.org`.  
+4. Modify the display format to include day name or AM/PM.  
+5. Display the time on a 16×2 LCD or OLED.  
+6. Extend the code to timestamp temperature readings.  
 
 ---
 
 ## 📚 8. Discussion Questions
 
 1. Why is NTP synchronization important in IoT systems?  
-2. What happens if the ESP32 loses Wi-Fi connection — will the time still update?  
-3. How often should NTP synchronization occur in a real IoT system?  
-4. Explain how `configTime()` differs from manually setting the clock.  
-5. How can you ensure long-term clock accuracy in offline IoT devices?  
+2. What happens if Wi-Fi disconnects temporarily?  
+3. How frequently should synchronization occur?  
+4. How does `configTime()` differ from manual time setting?  
+5. How can offline IoT devices maintain accurate time?  
 
 ---
 
 ## ✅ 9. Conclusion
 
-This lab demonstrates how the ESP32 can **synchronize time automatically** using an **NTP server**, a crucial capability in modern IoT systems.  
-Students learned how to:
+This lab demonstrates how ESP32 synchronizes real-time data with NTP servers, allowing accurate timestamps in IoT systems.  
+You have learned to:
 - Connect to Wi-Fi.  
-- Use `configTime()` for real-time clock updates.  
-- Display formatted local time in the serial monitor.  
+- Use `configTime()` for synchronization.  
+- Display formatted real-time values.  
 
-The technique lays the foundation for **timestamped IoT data logging**, **real-time scheduling**, and **synchronized edge devices**.
+This knowledge supports **timestamped IoT data**, **event scheduling**, and **real-time coordination**.
 
 ---
 
@@ -187,17 +174,9 @@ The technique lays the foundation for **timestamped IoT data logging**, **real-t
 - [ESP32 Arduino Core Documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/)  
 - [Network Time Protocol (NTP)](https://www.ntp.org/)  
 - [Arduino time.h Reference](https://www.arduino.cc/reference/en/libraries/time/)  
-- [ESP-IDF time API](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/system_time.html)  
+- [ESP-IDF Time API](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/system_time.html)  
 - [pool.ntp.org Project](https://www.pool.ntp.org/)
 
 ---
 
 📅 **End of Lab Report: ESP32 NTP Synchronization**
-"""
-
-# Save to file
-path = Path("/mnt/data/README_ESP32_NTP_Lab.md")
-path.write_text(lab_ntp_content, encoding="utf-8")
-
-
-
