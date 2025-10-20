@@ -1,4 +1,4 @@
-🌐 Lab: ESP32 Real-Time Clock Synchronization using NTP Server
+# 🌐 Lab: ESP32 Real-Time Clock Synchronization using NTP Server
 
 ## 🧩 1. Objective
 
