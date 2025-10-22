@@ -85,7 +85,7 @@ const int I2C_SDA_PIN = 4;
 const int I2C_SCL_PIN = 5;
 
 // I2C Address (0x48–0x4B depending on module)
-const uint8_t SENSOR_ADDRESS = 0x48;
+const uint8_t SENSOR_ADDRESS = 0x4D;
 
 // Temperature Register (default for LM75/TMP102)
 const uint8_t TEMP_REGISTER = 0x00;
