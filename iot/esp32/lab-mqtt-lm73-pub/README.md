@@ -89,7 +89,7 @@ const long PUBLISH_INTERVAL = 15000; // 15 seconds
 // --- I2C Configuration ---
 const int I2C_SDA_PIN = 4;
 const int I2C_SCL_PIN = 5;
-const uint8_t SENSOR_ADDRESS = 0x48;
+const uint8_t SENSOR_ADDRESS = 0x4D;
 const uint8_t TEMP_REGISTER = 0x00;
 
 // --- Wi-Fi Credentials ---
