@@ -83,7 +83,7 @@ const long PUBLISH_INTERVAL = 15000;     // Publish every 15 seconds
 const int LDR_PIN = 36;          // Analog LDR input
 const int I2C_SDA_PIN = 4;       // I²C SDA
 const int I2C_SCL_PIN = 5;       // I²C SCL
-const uint8_t SENSOR_ADDRESS = 0x48; // I²C temperature sensor address
+const uint8_t SENSOR_ADDRESS = 0x4D; // I²C temperature sensor address
 const uint8_t TEMP_REGISTER = 0x00;  // Register for temperature read
 
 // --- Wi-Fi Credentials ---
