@@ -3,7 +3,7 @@
 
 ## 📘 Overview
 
-This paper presents a **comprehensive investigation of IoT messaging protocols** used for efficient, scalable, and reliable data exchange among heterogeneous IoT devices.  
+This topic presents a **comprehensive investigation of IoT messaging protocols** used for efficient, scalable, and reliable data exchange among heterogeneous IoT devices.  
 It focuses on six major **application-layer protocols** that form the backbone of IoT communication:
 
 - **HTTP** — HyperText Transfer Protocol  
@@ -13,7 +13,7 @@ It focuses on six major **application-layer protocols** that form the backbone o
 - **DDS** — Data Distribution Service  
 - **XMPP** — Extensible Messaging and Presence Protocol  
 
-The study evaluates these protocols based on **architecture, reliability, scalability, interoperability, and suitability** for various IoT environments (edge, fog, and cloud).
+The detail evaluates these protocols based on **architecture, reliability, scalability, interoperability, and suitability** for various IoT environments (edge, fog, and cloud).
 
 ---
 
@@ -28,7 +28,7 @@ The study evaluates these protocols based on **architecture, reliability, scalab
 
 ## 🧩 IoT Reference Model
 
-The authors propose a **Communication-Centric IoT (CIoT)** reference model with the following layers:
+The points propose a **Communication-Centric IoT (CIoT)** reference model with the following layers:
 
 1. **Physical & Data Link Layers** – Technologies such as ZigBee, LoRa, Sigfox, 6LoWPAN.  
 2. **Network & Transport Layers** – Protocols like IPv6, TCP, and UDP enabling end-to-end data flow.  
@@ -94,7 +94,7 @@ Survey data from the **Eclipse Foundation (2015–2019)** confirms that **MQTT**
 
 ---
 
-## 🚀 Conclusion & Future Work
+## 🚀 Conclusion
 
 The paper concludes that **future IoT systems** will depend on:
 - **Hybrid messaging architectures** combining multiple protocols.  
