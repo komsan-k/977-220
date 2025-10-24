@@ -1,0 +1,67 @@
+[
+  {
+    "id": "b2c1b0a9f8e7d6c5",
+    "type": "tab",
+    "label": "ESP32 MQTT Quick Verify",
+    "disabled": false,
+    "info": "Minimal flow to verify MQTT payloads from esp32/sensor_data."
+  },
+  {
+    "id": "a1b2c3d4e5f60708",
+    "type": "mqtt-broker",
+    "name": "HiveMQ Public",
+    "broker": "broker.hivemq.com",
+    "port": "1883",
+    "clientid": "nodered-quick-verify",
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closePayload": "",
+    "closeQos": "0",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": ""
+  },
+  {
+    "id": "c6d5e4f3a2b1908f",
+    "type": "mqtt in",
+    "z": "b2c1b0a9f8e7d6c5",
+    "name": "MQTT In: esp32/sensor_data",
+    "topic": "esp32/sensor_data",
+    "qos": "0",
+    "datatype": "auto",
+    "broker": "a1b2c3d4e5f60708",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "x": 210,
+    "y": 120,
+    "wires": [
+      [
+        "d7e6f5a4b3c29180"
+      ]
+    ]
+  },
+  {
+    "id": "d7e6f5a4b3c29180",
+    "type": "debug",
+    "z": "b2c1b0a9f8e7d6c5",
+    "name": "Payload → Debug",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 470,
+    "y": 120,
+    "wires": []
+  }
+]

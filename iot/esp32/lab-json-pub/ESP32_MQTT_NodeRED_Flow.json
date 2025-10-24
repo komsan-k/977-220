@@ -1,0 +1,30 @@
+[
+  {
+    "id": "f2e1b5c0c5e9f5a1",
+    "type": "tab",
+    "label": "ESP32 MQTT JSON Lab",
+    "disabled": false,
+    "info": "Consumes MQTT JSON from esp32/sensor_data and visualizes on dashboard."
+  },
+  {
+    "id": "b4a9d9a55d9e7a12",
+    "type": "mqtt in",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "HiveMQ: esp32/sensor_data",
+    "topic": "esp32/sensor_data",
+    "qos": "0",
+    "datatype": "auto",
+    "broker": "0d1b0f5a1e2b8a77",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "x": 190,
+    "y": 100,
+    "wires": [
+      [
+        "f3f8a1d3e2f97f44",
+        "b1b2b3b4b5b6b7b8"
+      ]
+    ]
+  }
+]
