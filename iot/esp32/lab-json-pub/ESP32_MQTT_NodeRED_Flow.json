@@ -26,5 +26,441 @@
         "b1b2b3b4b5b6b7b8"
       ]
     ]
+  },
+  {
+    "id": "f3f8a1d3e2f97f44",
+    "type": "json",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "Parse JSON",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 420,
+    "y": 100,
+    "wires": [
+      [
+        "48d2b17d066b16e6"
+      ]
+    ]
+  },
+  {
+    "id": "48d2b17d066b16e6",
+    "type": "function",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "Validate & Enrich",
+    "func": "// Expecting: { temperature_c, ldr_raw, device_id }\n// Add ISO timestamp; normalize types; flag errors.\nconst p = msg.payload || {};\nconst out = {};\nout.device_id = p.device_id || \"ESP32_A1\";\nout.ldr_raw = Number(p.ldr_raw);\n\n// temperature may be a number or the string \"ERROR\"\nlet temp = p.temperature_c;\nlet tempNum = (typeof temp === 'number') ? temp : NaN;\nif (typeof temp === 'string') {\n    // Treat non-numeric strings (e.g. \"ERROR\") as NaN\n    const t = Number(temp);\n    tempNum = Number.isFinite(t) ? t : NaN;\n}\nout.temperature_c = tempNum;\nout.timestamp = new Date().toISOString();\n\n// Build status\nif (!Number.isFinite(out.ldr_raw)) out.ldr_raw = NaN;\nconst errors = [];\nif (!Number.isFinite(out.temperature_c)) errors.push(\"temp_error\");\nif (!Number.isFinite(out.ldr_raw)) errors.push(\"ldr_error\");\nout.status = errors.length ? errors.join(\",\") : \"ok\";\n\nmsg.payload = out;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 640,
+    "y": 100,
+    "wires": [
+      [
+        "7d9a6b6a9e839f7b",
+        "bcafed4e8f7e32c1",
+        "51b2b7e0a3c1a7a2",
+        "a0c3f134d8d7b2c3"
+      ]
+    ]
+  },
+  {
+    "id": "7d9a6b6a9e839f7b",
+    "type": "switch",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "Route OK vs ERROR",
+    "property": "payload.status",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "ok",
+        "vt": "str"
+      },
+      {
+        "t": "else"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 880,
+    "y": 100,
+    "wires": [
+      [
+        "5d3c9b4ce1c3a8b5",
+        "a4f9f2e72e2f4ebf"
+      ],
+      [
+        "e87c6531fbc1f4d3"
+      ]
+    ]
+  },
+  {
+    "id": "5d3c9b4ce1c3a8b5",
+    "type": "change",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "For Chart: temp",
+    "rules": [
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "temperature_c",
+        "tot": "str"
+      },
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.temperature_c",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1130,
+    "y": 60,
+    "wires": [
+      [
+        "0b9a3a2e9b1f7ce4",
+        "8c1c4e4a3e0f1c22"
+      ]
+    ]
+  },
+  {
+    "id": "a4f9f2e72e2f4ebf",
+    "type": "change",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "For Chart: ldr",
+    "rules": [
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "ldr_raw",
+        "tot": "str"
+      },
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.ldr_raw",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1120,
+    "y": 140,
+    "wires": [
+      [
+        "b3dfd1c3a5ef29a8",
+        "c6f2a1b2d3e4f5a6"
+      ]
+    ]
+  },
+  {
+    "id": "0b9a3a2e9b1f7ce4",
+    "type": "ui_chart",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "Temperature (°C)",
+    "group": "0aa6e9d0c5b2f7a8",
+    "order": 2,
+    "width": 12,
+    "height": 6,
+    "label": "Temperature (°C)",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "",
+    "ymax": "",
+    "removeOlder": 12,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": [
+      "#1f77b4",
+      "#aec7e8",
+      "#ff7f0e"
+    ],
+    "useOldStyle": false,
+    "x": 1390,
+    "y": 60,
+    "wires": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "b3dfd1c3a5ef29a8",
+    "type": "ui_chart",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "LDR (raw)",
+    "group": "0aa6e9d0c5b2f7a8",
+    "order": 3,
+    "width": 12,
+    "height": 6,
+    "label": "LDR (raw)",
+    "chartType": "line",
+    "legend": "false",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "",
+    "ymax": "",
+    "removeOlder": 12,
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": [
+      "#2ca02c",
+      "#98df8a",
+      "#d62728"
+    ],
+    "useOldStyle": false,
+    "x": 1380,
+    "y": 140,
+    "wires": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "8c1c4e4a3e0f1c22",
+    "type": "ui_gauge",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "Gauge: Temp °C",
+    "group": "1db77f2e3c4a5b6c",
+    "order": 1,
+    "width": 6,
+    "height": 4,
+    "gtype": "gage",
+    "title": "Temp (°C)",
+    "label": "°C",
+    "format": "{{value}}",
+    "min": "0",
+    "max": "60",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 1390,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "c6f2a1b2d3e4f5a6",
+    "type": "ui_gauge",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "Gauge: LDR",
+    "group": "1db77f2e3c4a5b6c",
+    "order": 2,
+    "width": 6,
+    "height": 4,
+    "gtype": "gage",
+    "title": "LDR (raw)",
+    "label": "ADC",
+    "format": "{{value}}",
+    "min": "0",
+    "max": "4095",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "x": 1380,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "e87c6531fbc1f4d3",
+    "type": "ui_text",
+    "z": "f2e1b5c0c5e9f5a1",
+    "group": "1db77f2e3c4a5b6c",
+    "order": 3,
+    "width": 12,
+    "height": 1,
+    "name": "Status",
+    "label": "Sensor Status",
+    "format": "{{payload.status}} at {{payload.timestamp}}",
+    "layout": "row-spread",
+    "x": 1140,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "bcafed4e8f7e32c1",
+    "type": "ui_text",
+    "z": "f2e1b5c0c5e9f5a1",
+    "group": "0aa6e9d0c5b2f7a8",
+    "order": 1,
+    "width": 12,
+    "height": 1,
+    "name": "Header",
+    "label": "Device / Timestamp",
+    "format": "{{payload.device_id}} — {{payload.timestamp}}",
+    "layout": "row-spread",
+    "x": 910,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "51b2b7e0a3c1a7a2",
+    "type": "debug",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "Raw JSON (parsed)",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 930,
+    "y": 260,
+    "wires": []
+  },
+  {
+    "id": "a0c3f134d8d7b2c3",
+    "type": "change",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "Stringify for logging",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "$string(payload)",
+        "tot": "jsonata"
+      },
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "esp32/sensor_data",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 930,
+    "y": 320,
+    "wires": [
+      [
+        "f8f6f3e2d1c0b9a8"
+      ]
+    ]
+  },
+  {
+    "id": "f8f6f3e2d1c0b9a8",
+    "type": "debug",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "Log line",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1140,
+    "y": 320,
+    "wires": []
+  },
+  {
+    "id": "b1b2b3b4b5b6b7b8",
+    "type": "debug",
+    "z": "f2e1b5c0c5e9f5a1",
+    "name": "Raw MQTT string",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 430,
+    "y": 160,
+    "wires": []
+  },
+  {
+    "id": "0d1b0f5a1e2b8a77",
+    "type": "mqtt-broker",
+    "name": "HiveMQ Public",
+    "broker": "broker.hivemq.com",
+    "port": "1883",
+    "clientid": "nodered-esp32-viewer",
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closePayload": "",
+    "closeQos": "0",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "willMsg": {},
+    "sessionExpiry": ""
+  },
+  {
+    "id": "0aa6e9d0c5b2f7a8",
+    "type": "ui_group",
+    "name": "Live Charts",
+    "tab": "b8b7a6a5a4a3a2a1",
+    "order": 2,
+    "disp": true,
+    "width": "12",
+    "collapse": false
+  },
+  {
+    "id": "1db77f2e3c4a5b6c",
+    "type": "ui_group",
+    "name": "Live Gauges & Status",
+    "tab": "b8b7a6a5a4a3a2a1",
+    "order": 1,
+    "disp": true,
+    "width": "12",
+    "collapse": false
+  },
+  {
+    "id": "b8b7a6a5a4a3a2a1",
+    "type": "ui_tab",
+    "name": "ESP32 MQTT Dashboard",
+    "icon": "dashboard",
+    "disabled": false,
+    "hidden": false
   }
 ]
