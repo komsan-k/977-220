@@ -1,6 +1,5 @@
 # 🌐 Messaging Protocols for the Internet of Things (IoT)
 
----
 
 ## 📘 Overview
 
