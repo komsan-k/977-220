@@ -1,4 +1,4 @@
-# 🌐 Investigating Messaging Protocols for the Internet of Things (IoT)
+# 🌐 Messaging Protocols for the Internet of Things (IoT)
 
 **Authors:** Eyhab Al-Masri, Karan Raj Kalyanam, John Batts, Jonathan Kim, Sharanjit Singh, Tammy Vo, and Charlotte Yan  
 **Institution:** University of Washington Tacoma  
