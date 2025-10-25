@@ -1,0 +1,263 @@
+[
+  {
+    "id": "c75ab2dbf985407a88c77bfeff0c2446",
+    "type": "tab",
+    "label": "ESP32 LED Control",
+    "disabled": false,
+    "info": "MQTT control and dashboard for ESP32 LED (GPIO12) with dimming 0\u2013100%."
+  },
+  {
+    "id": "b8994888ba8746f4ac55dad6ae84cff5",
+    "type": "mqtt-broker",
+    "name": "HiveMQ Public",
+    "broker": "broker.hivemq.com",
+    "port": "1883",
+    "tls": "",
+    "clientid": "",
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "willMsg": {},
+    "sessionExpiry": ""
+  },
+  {
+    "id": "a406a11adb3943f0ba9ef6c70984b2cd",
+    "type": "mqtt out",
+    "z": "c75ab2dbf985407a88c77bfeff0c2446",
+    "name": "Publish to ESP32",
+    "topic": "esp32/led/control",
+    "qos": "0",
+    "retain": "false",
+    "broker": "b8994888ba8746f4ac55dad6ae84cff5",
+    "x": 740,
+    "y": 120,
+    "wires": []
+  },
+  {
+    "id": "5ad6bc2053a641febea79398caf73e4f",
+    "type": "mqtt in",
+    "z": "c75ab2dbf985407a88c77bfeff0c2446",
+    "name": "Observe Commands",
+    "topic": "esp32/led/control",
+    "qos": "0",
+    "datatype": "auto",
+    "broker": "b8994888ba8746f4ac55dad6ae84cff5",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 140,
+    "y": 240,
+    "wires": [
+      [
+        "377d9046fa4a4ff1a3c00f4b34ef6c31",
+        "ed75f56f0c8e4c4987bc82445babca81"
+      ]
+    ]
+  },
+  {
+    "id": "377d9046fa4a4ff1a3c00f4b34ef6c31",
+    "type": "debug",
+    "z": "c75ab2dbf985407a88c77bfeff0c2446",
+    "name": "Debug Commands",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 410,
+    "y": 240,
+    "wires": []
+  },
+  {
+    "id": "f45eac0d74ac4b6daaecc87315dde195",
+    "type": "inject",
+    "z": "c75ab2dbf985407a88c77bfeff0c2446",
+    "name": "ON",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "esp32/led/control",
+    "payload": "on",
+    "payloadType": "str",
+    "x": 140,
+    "y": 60,
+    "wires": [
+      [
+        "a406a11adb3943f0ba9ef6c70984b2cd"
+      ]
+    ]
+  },
+  {
+    "id": "02894adae5804cb4b4b8c43c042216a6",
+    "type": "inject",
+    "z": "c75ab2dbf985407a88c77bfeff0c2446",
+    "name": "OFF",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "esp32/led/control",
+    "payload": "off",
+    "payloadType": "str",
+    "x": 140,
+    "y": 120,
+    "wires": [
+      [
+        "a406a11adb3943f0ba9ef6c70984b2cd"
+      ]
+    ]
+  },
+  {
+    "id": "744386a6fb83482c9d02235e9bea2836",
+    "type": "ui_tab",
+    "z": "c75ab2dbf985407a88c77bfeff0c2446",
+    "name": "ESP32 LED",
+    "icon": "lightbulb",
+    "order": 1,
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "343a6cab9bb54d1dbd7f5f7694673f63",
+    "type": "ui_group",
+    "z": "c75ab2dbf985407a88c77bfeff0c2446",
+    "name": "Controls",
+    "tab": "744386a6fb83482c9d02235e9bea2836",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "f39ae593e9744f1e925eeb88ca8faa4b",
+    "type": "ui_button",
+    "z": "c75ab2dbf985407a88c77bfeff0c2446",
+    "name": "ON",
+    "group": "343a6cab9bb54d1dbd7f5f7694673f63",
+    "order": 1,
+    "width": 3,
+    "height": 1,
+    "passthru": false,
+    "label": "ON",
+    "tooltip": "Turn LED ON (100%)",
+    "color": "",
+    "bgcolor": "",
+    "className": "",
+    "icon": "fa-lightbulb-o",
+    "payload": "on",
+    "payloadType": "str",
+    "topic": "esp32/led/control",
+    "x": 410,
+    "y": 60,
+    "wires": [
+      [
+        "a406a11adb3943f0ba9ef6c70984b2cd"
+      ]
+    ]
+  },
+  {
+    "id": "105ffc3dd3fc46419cd05a7bf4986953",
+    "type": "ui_button",
+    "z": "c75ab2dbf985407a88c77bfeff0c2446",
+    "name": "OFF",
+    "group": "343a6cab9bb54d1dbd7f5f7694673f63",
+    "order": 2,
+    "width": 3,
+    "height": 1,
+    "passthru": false,
+    "label": "OFF",
+    "tooltip": "Turn LED OFF (0%)",
+    "color": "",
+    "bgcolor": "",
+    "className": "",
+    "icon": "fa-power-off",
+    "payload": "off",
+    "payloadType": "str",
+    "topic": "esp32/led/control",
+    "x": 410,
+    "y": 120,
+    "wires": [
+      [
+        "a406a11adb3943f0ba9ef6c70984b2cd"
+      ]
+    ]
+  },
+  {
+    "id": "46edffeefca24bfd86ea22c81d385db4",
+    "type": "ui_slider",
+    "z": "c75ab2dbf985407a88c77bfeff0c2446",
+    "name": "Brightness",
+    "label": "Brightness (%)",
+    "tooltip": "",
+    "group": "343a6cab9bb54d1dbd7f5f7694673f63",
+    "order": 3,
+    "width": 6,
+    "height": 1,
+    "passthru": true,
+    "topic": "esp32/led/control",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "x": 420,
+    "y": 180,
+    "outputs": 1,
+    "payload": "",
+    "payloadType": "num",
+    "wires": [
+      [
+        "a406a11adb3943f0ba9ef6c70984b2cd"
+      ]
+    ]
+  },
+  {
+    "id": "ed75f56f0c8e4c4987bc82445babca81",
+    "type": "ui_text",
+    "z": "c75ab2dbf985407a88c77bfeff0c2446",
+    "group": "343a6cab9bb54d1dbd7f5f7694673f63",
+    "order": 4,
+    "width": 6,
+    "height": 1,
+    "name": "Last Command",
+    "label": "Last Command",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 420,
+    "y": 300,
+    "wires": []
+  }
+]
