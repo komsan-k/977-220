@@ -1,71 +1,73 @@
-This lab integrates Wi-Fi, MQTT communication, and PWM-based dimming control for an LED using the ESP32 platform.
 
-🌐 Lab: MQTT-Based LED Control with ESP32 (Subscriber with Dimming Function)
-🧩 1. Objective
+# 🌐 Lab: MQTT-Based LED Control with ESP32 (Subscriber with Dimming Function)
 
-The objective of this laboratory is to demonstrate MQTT-based device control through an ESP32 subscriber that receives commands to turn an LED on, off, or adjust brightness (0–100%) from an MQTT broker.
+## 🧩 1. Objective
 
-Students will learn to:
+The objective of this laboratory is to demonstrate **MQTT-based device control** through an **ESP32 subscriber** that receives commands to turn an LED **on**, **off**, or **adjust brightness (0–100%)** from an MQTT broker.
 
-Configure ESP32 as an MQTT client and subscriber.
+### Students will learn to:
+- Configure ESP32 as an MQTT client and subscriber.
+- Implement Wi-Fi and MQTT connection routines.
+- Control PWM signals to vary LED brightness based on MQTT messages.
+- Test and visualize MQTT message control using Node-RED or HiveMQ web tools.
 
-Implement Wi-Fi and MQTT connection routines.
+---
 
-Control PWM signals to vary LED brightness based on MQTT messages.
+## ⚙️ 2. Background Theory
 
-Test and visualize MQTT message control using Node-RED or HiveMQ web tools.
+### 2.1 MQTT Communication
+**Message Queuing Telemetry Transport (MQTT)** is a lightweight, publish–subscribe messaging protocol widely used in IoT.  
+It allows devices to publish data or subscribe to topics through a central **broker**.
 
-⚙️ 2. Background Theory
-2.1 MQTT Communication
+#### Key Terms
+| Term | Description |
+|------|--------------|
+| **Broker** | Central server that manages message exchange. |
+| **Topic** | String identifier for message channels. |
+| **Publisher** | Sends data to a topic. |
+| **Subscriber** | Receives messages from a topic. |
 
-Message Queuing Telemetry Transport (MQTT) is a lightweight, publish–subscribe messaging protocol widely used in IoT.
-It allows devices to publish data or subscribe to topics through a broker.
+### 2.2 ESP32 PWM Control
+**Pulse Width Modulation (PWM)** allows control of analog-like output using digital signals.  
+The ESP32 provides multiple PWM channels controlled by the **LEDC (LED Control)** peripheral.
 
-Key Terms:
+The **duty cycle** determines brightness (0–255 in 8-bit resolution):
 
-Term	Description
-Broker	Central server that manages message exchange.
-Topic	String identifier for message channels.
-Publisher	Sends data to a topic.
-Subscriber	Receives messages from a topic.
-2.2 ESP32 PWM Control
+\[
+\text{Duty Cycle (\%)} = \frac{\text{ON Time}}{\text{Period}} \times 100
+\]
 
-Pulse Width Modulation (PWM) allows control of analog-like output using digital signals.
-The ESP32 provides multiple PWM channels controlled by the LED Control (LEDC) peripheral.
-The duty cycle determines brightness (0–255 in 8-bit resolution).
+---
 
-Duty Cycle (%)
-=
-ON Time
-Period
-×
-100
-Duty Cycle (%)=
-Period
-ON Time
-	​
+## 🔌 3. Components and Requirements
 
-×100
-🔌 3. Components and Requirements
-Component	Quantity	Description
-ESP32 Dev Board	1	Any model (e.g., ESP32-WROOM-32)
-LED	1	Any color
-Resistor	1	220 Ω for LED
-Breadboard & Jumper wires	—	For prototyping
-MQTT Broker	1	broker.hivemq.com (public)
-PC	1	Running Arduino IDE & MQTT dashboard (Node-RED / HiveMQ Web)
-⚡ 4. Circuit Diagram
+| Component | Quantity | Description |
+|------------|-----------|--------------|
+| ESP32 Dev Board | 1 | Any model (e.g., ESP32-WROOM-32) |
+| LED | 1 | Any color |
+| Resistor | 1 | 220 Ω for LED |
+| Breadboard & Jumper wires | — | For prototyping |
+| MQTT Broker | 1 | `broker.hivemq.com` (public) |
+| PC | 1 | Running Arduino IDE & MQTT dashboard (Node-RED / HiveMQ Web) |
 
-Connection Table:
+---
 
-ESP32 Pin	Component	Description
-GPIO 12	LED anode (+)	PWM output
-GND	LED cathode (-)	Common ground via 220 Ω resistor
+## ⚡ 4. Circuit Diagram
 
-Description:
-The LED is connected to GPIO 12, configured as a PWM channel for dimming control.
+### Connection Table
+| ESP32 Pin | Component | Description |
+|------------|------------|--------------|
+| GPIO 12 | LED anode (+) | PWM output |
+| GND | LED cathode (−) | Common ground via 220 Ω resistor |
 
-💻 5. Program Code (ESP32 Subscriber with Dimming)
+**Description:**  
+The LED is connected to **GPIO 12**, configured as a **PWM channel** for dimming control.
+
+---
+
+## 💻 5. Program Code (ESP32 Subscriber with Dimming)
+
+```cpp
 #include <WiFi.h>
 #include <PubSubClient.h>
 
@@ -165,15 +167,25 @@ void loop() {
   if (!client.connected()) reconnect();
   client.loop();
 }
+```
 
-🧠 6. Code Explanation
-Section	Description
-Wi-Fi Connection	Connects to specified SSID and obtains local IP address.
-MQTT Setup	Configures MQTT broker and subscribes to topic "esp32/led/control".
-Callback Function	Parses incoming messages and adjusts LED brightness.
-PWM Initialization	Sets 5 kHz PWM frequency and 8-bit resolution for GPIO 12.
-Message Parsing	Handles "on", "off", or numeric (0–100) inputs for dimming.
-📟 7. Example Serial Monitor Output
+---
+
+## 🧠 6. Code Explanation
+
+| Section | Description |
+|----------|--------------|
+| **Wi-Fi Connection** | Connects to specified SSID and obtains local IP address. |
+| **MQTT Setup** | Configures MQTT broker and subscribes to topic `"esp32/led/control"`. |
+| **Callback Function** | Parses incoming messages and adjusts LED brightness. |
+| **PWM Initialization** | Sets 5 kHz PWM frequency and 8-bit resolution for GPIO 12. |
+| **Message Parsing** | Handles `"on"`, `"off"`, or numeric (0–100) inputs for dimming. |
+
+---
+
+## 📟 7. Example Serial Monitor Output
+
+```
 Connecting to MyWiFiNetwork
 .......
 ✅ WiFi connected!
@@ -185,74 +197,62 @@ Attempting MQTT connection...connected ✅
 🔆 LED DIMMED to 50% (Duty: 128)
 📩 Message received: off
 💤 LED OFF (0%)
+```
 
-🌐 8. Testing with MQTT Dashboard
-Option 1 — HiveMQ Web Client
+---
 
-Open: https://www.hivemq.com/demos/websocket-client/
+## 🌐 8. Testing with MQTT Dashboard
 
-Broker: broker.hivemq.com, Port 8000 (WebSocket)
+### Option 1 — HiveMQ Web Client
+- Open: [HiveMQ WebSocket Client](https://www.hivemq.com/demos/websocket-client/)
+- **Broker:** `broker.hivemq.com`, **Port:** 8000 (WebSocket)
+- **Subscribe Topic:** `esp32/led/control`
+- Publish messages: `on`, `off`, `25`, `50`, `75`, `100`
 
-Subscribe Topic: esp32/led/control
+### Option 2 — Node-RED Control Flow
+- Inject node → MQTT out → Debug node  
+- **Topic:** `esp32/led/control`  
+- **Payload:** `on`, `off`, or numeric slider (0–100)
 
-Publish messages:
+---
 
-on
+## 🔬 9. Exercises
 
-off
+1. **Basic Control:** Publish `"on"` and `"off"` commands and observe LED behavior.  
+2. **PWM Dimming Test:** Send `"25"`, `"50"`, `"75"`, and `"100"` messages and record LED brightness.  
+3. **Custom Range:** Modify code to use 10-bit PWM resolution for smoother dimming.  
+4. **Multi-Device Control:** Expand to control two LEDs on GPIO 12 and 14 with different topics.  
+5. **Dashboard Integration:** Design a Node-RED dashboard slider for dynamic brightness adjustment.
 
-25, 50, 75, 100
+---
 
-Option 2 — Node-RED Control Flow
+## 🧾 10. Observation Table
 
-Inject node → MQTT out → Debug node
+| Command | Received Payload | PWM Duty (0–255) | LED Brightness (%) |
+|----------|------------------|------------------|--------------------|
+| on | 255 | 255 | 100 |
+| off | 0 | 0 | 0 |
+| 25 | 25 | 64 | 25 |
+| 50 | 50 | 128 | 50 |
+| 75 | 75 | 191 | 75 |
 
-Topic: esp32/led/control
+---
 
-Payload examples: on, off, or numeric slider (0–100)
+## 🧩 11. Discussion
 
-🔬 9. Exercises
+This experiment demonstrates how **IoT control systems** can integrate **MQTT communication** with hardware-level **PWM** to achieve remote and dynamic lighting control.  
+This architecture can be extended for:
+- Smart home automation (light dimming, fan speed)  
+- Industrial IoT dashboards  
+- Cloud-controlled actuators or motors  
 
-Basic Control:
-Publish "on" and "off" commands and observe LED behavior.
+**Key Insight:** Payload-based message interpretation enables flexible device behavior using a single topic.
 
-PWM Dimming Test:
-Send "25", "50", "75", and "100" messages and record LED brightness.
+---
 
-Custom Range:
-Modify code to use 10-bit PWM resolution for smoother dimming.
+## 📚 12. References
 
-Multi-Device Control:
-Expand to control two LEDs on GPIO 12 and 14 with different topics.
-
-Dashboard Integration:
-Design a Node-RED dashboard slider for dynamic brightness adjustment.
-
-🧾 10. Observation Table
-Command	Received Payload	PWM Duty (0–255)	LED Brightness (%)
-on	255	255	100
-off	0	0	0
-25	25	64	25
-50	50	128	50
-75	75	191	75
-🧩 11. Discussion
-
-This experiment demonstrates how IoT control systems can integrate MQTT communication with hardware-level PWM to achieve remote and dynamic lighting control. The same architecture can be extended for:
-
-Smart home automation (light dimming, fan speed).
-
-Industrial IoT dashboards.
-
-Cloud-controlled actuators or motors.
-
-The key insight is how payload-based interpretation enables flexible device behavior using a single topic.
-
-📚 12. References
-
-MQTT.org, “MQTT Version 3.1.1 Specification.”
-
-Espressif Systems, “ESP32 Technical Reference Manual.”
-
-HiveMQ, “WebSocket MQTT Client Demo.”
-
-PubSubClient Library Documentation — https://pubsubclient.knolleary.net
+1. MQTT.org — *MQTT Version 3.1.1 Specification*  
+2. Espressif Systems — *ESP32 Technical Reference Manual*  
+3. HiveMQ — *WebSocket MQTT Client Demo*  
+4. PubSubClient Library — [https://pubsubclient.knolleary.net](https://pubsubclient.knolleary.net)
