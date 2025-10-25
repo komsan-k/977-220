@@ -1,41 +1,37 @@
 
-# 🌐 Lab: MQTT-Based LED Control with ESP32 (Subscriber with Dimming Function)
+# 🌐 Lab: MQTT-Based LED Control with ESP32 (Subscriber using analogWrite())
 
 ## 🧩 1. Objective
 
-The objective of this laboratory is to demonstrate **MQTT-based device control** through an **ESP32 subscriber** that receives commands to turn an LED **on**, **off**, or **adjust brightness (0–100%)** from an MQTT broker.
+This lab demonstrates **MQTT-based device control** using an **ESP32** subscriber that controls an LED brightness through the **analogWrite()** function.  
+The ESP32 receives MQTT messages (`on`, `off`, or `0–100` for dimming) and adjusts the LED brightness accordingly.
 
 ### Students will learn to:
-- Configure ESP32 as an MQTT client and subscriber.
-- Implement Wi-Fi and MQTT connection routines.
-- Control PWM signals to vary LED brightness based on MQTT messages.
-- Test and visualize MQTT message control using Node-RED or HiveMQ web tools.
+- Configure the ESP32 as an MQTT subscriber.
+- Establish Wi-Fi and MQTT connectivity.
+- Use **analogWrite()** for PWM-based dimming.
+- Test MQTT control using **Node-RED** or **HiveMQ Web Dashboard**.
 
 ---
 
 ## ⚙️ 2. Background Theory
 
 ### 2.1 MQTT Communication
-**Message Queuing Telemetry Transport (MQTT)** is a lightweight, publish–subscribe messaging protocol widely used in IoT.  
-It allows devices to publish data or subscribe to topics through a central **broker**.
+**Message Queuing Telemetry Transport (MQTT)** is a lightweight protocol designed for IoT. It uses a **publish–subscribe** architecture.  
+Devices can publish or subscribe to topics via a **broker**, enabling two-way communication.
 
-#### Key Terms
 | Term | Description |
 |------|--------------|
-| **Broker** | Central server that manages message exchange. |
+| **Broker** | Server that routes messages between publishers and subscribers. |
 | **Topic** | String identifier for message channels. |
-| **Publisher** | Sends data to a topic. |
+| **Publisher** | Sends messages to a topic. |
 | **Subscriber** | Receives messages from a topic. |
 
-### 2.2 ESP32 PWM Control
-**Pulse Width Modulation (PWM)** allows control of analog-like output using digital signals.  
-The ESP32 provides multiple PWM channels controlled by the **LEDC (LED Control)** peripheral.
+### 2.2 PWM Control using analogWrite()
+**Pulse Width Modulation (PWM)** simulates analog voltage by varying the width of digital pulses.  
+On ESP32 (Arduino Core v2.0.9+), `analogWrite()` provides a simple way to output PWM signals without LEDC configuration.
 
-The **duty cycle** determines brightness (0–255 in 8-bit resolution):
-
-\[
-\text{Duty Cycle (\%)} = \frac{\text{ON Time}}{\text{Period}} \times 100
-\]
+\[	ext{Duty Cycle (%) = (ON Time / Period) × 100}\]
 
 ---
 
@@ -43,48 +39,45 @@ The **duty cycle** determines brightness (0–255 in 8-bit resolution):
 
 | Component | Quantity | Description |
 |------------|-----------|--------------|
-| ESP32 Dev Board | 1 | Any model (e.g., ESP32-WROOM-32) |
+| ESP32 Dev Board | 1 | Any model (ESP32-WROOM-32 recommended) |
 | LED | 1 | Any color |
-| Resistor | 1 | 220 Ω for LED |
-| Breadboard & Jumper wires | — | For prototyping |
+| Resistor | 1 | 220 Ω |
+| Breadboard & Jumpers | — | For prototyping |
 | MQTT Broker | 1 | `broker.hivemq.com` (public) |
-| PC | 1 | Running Arduino IDE & MQTT dashboard (Node-RED / HiveMQ Web) |
+| PC | 1 | Running Arduino IDE and Node-RED / HiveMQ Client |
 
 ---
 
 ## ⚡ 4. Circuit Diagram
 
-### Connection Table
 | ESP32 Pin | Component | Description |
 |------------|------------|--------------|
 | GPIO 12 | LED anode (+) | PWM output |
-| GND | LED cathode (−) | Common ground via 220 Ω resistor |
+| GND | LED cathode (−) | Through 220 Ω resistor |
 
 **Description:**  
-The LED is connected to **GPIO 12**, configured as a **PWM channel** for dimming control.
+The LED on **GPIO 12** is controlled by `analogWrite()` to vary brightness smoothly.
 
 ---
 
-## 💻 5. Program Code (ESP32 Subscriber with Dimming)
+## 💻 5. Program Code (ESP32 Subscriber with analogWrite())
 
 ```cpp
 #include <WiFi.h>
 #include <PubSubClient.h>
 
 // ====== WiFi Configuration ======
-const char* ssid = "YOUR_WIFI_SSID";
+const char* ssid     = "YOUR_WIFI_SSID";
 const char* password = "YOUR_WIFI_PASSWORD";
 
 // ====== MQTT Configuration ======
-const char* mqtt_server = "broker.hivemq.com";  // Public broker
-const int mqtt_port = 1883;
-const char* mqtt_topic = "esp32/led/control";   // Subscription topic
+const char* mqtt_server = "broker.hivemq.com";   // Public broker
+const int   mqtt_port   = 1883;
+const char* mqtt_topic  = "esp32/led/control";   // Subscription topic
 
 // ====== LED Configuration ======
-const int LED_PIN = 12;
-const int PWM_CHANNEL = 0;
-const int PWM_FREQ = 5000;
-const int PWM_RES = 8;
+const int LED_PIN = 12;      // GPIO for LED
+const int PWM_MAX = 255;     // analogWrite() range
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -103,7 +96,7 @@ void setup_wifi() {
   Serial.println(WiFi.localIP());
 }
 
-// ====== Callback ======
+// ====== MQTT Callback ======
 void callback(char* topic, byte* payload, unsigned int length) {
   String message;
   for (unsigned int i = 0; i < length; i++) message += (char)payload[i];
@@ -114,20 +107,21 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println(message);
 
   if (message == "on") {
-    ledcWrite(PWM_CHANNEL, 255);
+    analogWrite(LED_PIN, PWM_MAX);  // Full brightness
     Serial.println("💡 LED ON (100%)");
   } else if (message == "off") {
-    ledcWrite(PWM_CHANNEL, 0);
+    analogWrite(LED_PIN, 0);        // Turn off LED
     Serial.println("💤 LED OFF (0%)");
   } else {
-    bool numeric = true;
-    for (unsigned int i = 0; i < message.length(); i++)
-      if (!isDigit(message[i])) numeric = false;
+    bool numeric = message.length() > 0;
+    for (unsigned int i = 0; i < message.length(); i++) {
+      if (!isDigit(message[i])) { numeric = false; break; }
+    }
 
     if (numeric) {
       int percent = constrain(message.toInt(), 0, 100);
-      int duty = map(percent, 0, 100, 0, 255);
-      ledcWrite(PWM_CHANNEL, duty);
+      int duty = map(percent, 0, 100, 0, PWM_MAX);
+      analogWrite(LED_PIN, duty);
       Serial.printf("🔆 LED DIMMED to %d%% (Duty: %d)\n", percent, duty);
     } else {
       Serial.println("⚠️ Invalid command. Use 'on', 'off', or a number 0–100.");
@@ -135,7 +129,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
 }
 
-// ====== Reconnect to MQTT ======
+// ====== MQTT Reconnect ======
 void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
@@ -153,13 +147,12 @@ void reconnect() {
 // ====== Setup ======
 void setup() {
   Serial.begin(115200);
+  pinMode(LED_PIN, OUTPUT);
+  analogWrite(LED_PIN, 0); // Start LED OFF
+
   setup_wifi();
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
-
-  ledcSetup(PWM_CHANNEL, PWM_FREQ, PWM_RES);
-  ledcAttachPin(LED_PIN, PWM_CHANNEL);
-  ledcWrite(PWM_CHANNEL, 0);
 }
 
 // ====== Loop ======
@@ -175,11 +168,11 @@ void loop() {
 
 | Section | Description |
 |----------|--------------|
-| **Wi-Fi Connection** | Connects to specified SSID and obtains local IP address. |
-| **MQTT Setup** | Configures MQTT broker and subscribes to topic `"esp32/led/control"`. |
-| **Callback Function** | Parses incoming messages and adjusts LED brightness. |
-| **PWM Initialization** | Sets 5 kHz PWM frequency and 8-bit resolution for GPIO 12. |
-| **Message Parsing** | Handles `"on"`, `"off"`, or numeric (0–100) inputs for dimming. |
+| **Wi-Fi Connection** | Connects to Wi-Fi network and prints local IP. |
+| **MQTT Setup** | Defines broker and topic for LED control. |
+| **Callback Function** | Interprets MQTT messages and controls LED brightness. |
+| **analogWrite()** | Writes PWM value (0–255) directly to GPIO pin. |
+| **Loop** | Keeps MQTT client connected continuously. |
 
 ---
 
@@ -205,31 +198,31 @@ Attempting MQTT connection...connected ✅
 
 ### Option 1 — HiveMQ Web Client
 - Open: [HiveMQ WebSocket Client](https://www.hivemq.com/demos/websocket-client/)
-- **Broker:** `broker.hivemq.com`, **Port:** 8000 (WebSocket)
-- **Subscribe Topic:** `esp32/led/control`
-- Publish messages: `on`, `off`, `25`, `50`, `75`, `100`
+- **Broker:** `broker.hivemq.com`, Port `8000`
+- **Topic:** `esp32/led/control`
+- Publish: `on`, `off`, `25`, `50`, `75`, `100`
 
-### Option 2 — Node-RED Control Flow
-- Inject node → MQTT out → Debug node  
+### Option 2 — Node-RED Flow
+- Inject → MQTT out → Debug nodes  
 - **Topic:** `esp32/led/control`  
-- **Payload:** `on`, `off`, or numeric slider (0–100)
+- **Payload:** `"on"`, `"off"`, or numeric (0–100)
 
 ---
 
 ## 🔬 9. Exercises
 
-1. **Basic Control:** Publish `"on"` and `"off"` commands and observe LED behavior.  
-2. **PWM Dimming Test:** Send `"25"`, `"50"`, `"75"`, and `"100"` messages and record LED brightness.  
-3. **Custom Range:** Modify code to use 10-bit PWM resolution for smoother dimming.  
-4. **Multi-Device Control:** Expand to control two LEDs on GPIO 12 and 14 with different topics.  
-5. **Dashboard Integration:** Design a Node-RED dashboard slider for dynamic brightness adjustment.
+1. Publish `"on"` and `"off"` commands to test LED control.  
+2. Test dimming using values `25`, `50`, `75`, and `100`.  
+3. Modify to use another GPIO (e.g., GPIO 14).  
+4. Control multiple LEDs with separate topics.  
+5. Create a Node-RED dashboard slider for real-time dimming.
 
 ---
 
 ## 🧾 10. Observation Table
 
-| Command | Received Payload | PWM Duty (0–255) | LED Brightness (%) |
-|----------|------------------|------------------|--------------------|
+| Command | Payload | Duty (0–255) | LED Brightness (%) |
+|----------|----------|---------------|--------------------|
 | on | 255 | 255 | 100 |
 | off | 0 | 0 | 0 |
 | 25 | 25 | 64 | 25 |
@@ -240,13 +233,8 @@ Attempting MQTT connection...connected ✅
 
 ## 🧩 11. Discussion
 
-This experiment demonstrates how **IoT control systems** can integrate **MQTT communication** with hardware-level **PWM** to achieve remote and dynamic lighting control.  
-This architecture can be extended for:
-- Smart home automation (light dimming, fan speed)  
-- Industrial IoT dashboards  
-- Cloud-controlled actuators or motors  
-
-**Key Insight:** Payload-based message interpretation enables flexible device behavior using a single topic.
+This experiment simplifies **PWM control** using `analogWrite()` on ESP32, enabling efficient MQTT-based LED dimming.  
+The architecture can be applied to smart lighting, fan control, or any actuator requiring variable intensity.
 
 ---
 
