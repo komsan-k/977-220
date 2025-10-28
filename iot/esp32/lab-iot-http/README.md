@@ -219,16 +219,7 @@ It provides a foundation for:
 
 ---
 
-## ✍️ 12. Author
-
-**Author:** Dr. Komsan Kanjanasit  
-**Publisher:** College of Computing, Prince of Songkla University, Thailand  
-**Edition:** First Edition (2025)  
-**ISBN (e-book):** 978-616-271-830-4
-
----
-
-## 📚 13. References
+## ✍️ 12. References
 
 1. Espressif Systems. *ESP32 Arduino Core Documentation.* [https://docs.espressif.com/](https://docs.espressif.com/)  
 2. Arduino. *HTTPClient Library Reference.* [https://www.arduino.cc/reference/en/libraries/httpclient/](https://www.arduino.cc/reference/en/libraries/httpclient/)  
