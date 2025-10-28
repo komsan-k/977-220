@@ -1,0 +1,111 @@
+[
+  {
+    "id": "b5c0cfe3c5f2c001",
+    "type": "tab",
+    "label": "ESP32 HTTP Ingest",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "b5c0cfe3c5f2c002",
+    "type": "http in",
+    "z": "b5c0cfe3c5f2c001",
+    "name": "GET /ingest",
+    "url": "/ingest",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 130,
+    "y": 100,
+    "wires": [
+      [
+        "b5c0cfe3c5f2c003"
+      ]
+    ]
+  },
+  {
+    "id": "b5c0cfe3c5f2c003",
+    "type": "function",
+    "z": "b5c0cfe3c5f2c001",
+    "name": "Record & Reply",
+    "func": "// Read query params from ESP32\nconst q = msg.req && msg.req.query ? msg.req.query : {};\nconst device_id = (q.device_id || \"unknown\").toString();\nlet count = parseInt(q.count, 10);\nif (isNaN(count)) count = null;\n\n// Initialize store\nlet devices = flow.get('devices') || {};\n\n// Update store (only if count provided)\nconst now = new Date().toISOString();\nif (!devices[device_id]) {\n    devices[device_id] = { lastCount: null, lastAt: null, hits: 0 };\n}\nif (count !== null) {\n    devices[device_id].lastCount = count;\n    devices[device_id].lastAt = now;\n}\ndevices[device_id].hits = (devices[device_id].hits || 0) + 1;\n\nflow.set('devices', devices);\n\n// CORS + JSON response\nmsg.headers = {\n    \"Content-Type\": \"application/json\",\n    \"Access-Control-Allow-Origin\": \"*\"\n};\n\nmsg.payload = {\n    status: \"ok\",\n    received: { device_id, count },\n    stored: devices[device_id]\n};\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 330,
+    "y": 100,
+    "wires": [
+      [
+        "b5c0cfe3c5f2c004",
+        "b5c0cfe3c5f2c006"
+      ]
+    ]
+  },
+  {
+    "id": "b5c0cfe3c5f2c004",
+    "type": "http response",
+    "z": "b5c0cfe3c5f2c001",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 540,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "b5c0cfe3c5f2c005",
+    "type": "http in",
+    "z": "b5c0cfe3c5f2c001",
+    "name": "GET /metrics",
+    "url": "/metrics",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 130,
+    "y": 180,
+    "wires": [
+      [
+        "b5c0cfe3c5f2c007"
+      ]
+    ]
+  },
+  {
+    "id": "b5c0cfe3c5f2c007",
+    "type": "function",
+    "z": "b5c0cfe3c5f2c001",
+    "name": "List Devices",
+    "func": "const devices = flow.get('devices') || {};\nmsg.headers = {\n  \"Content-Type\": \"application/json\",\n  \"Access-Control-Allow-Origin\": \"*\"\n};\nmsg.payload = {\n  devices,\n  countDevices: Object.keys(devices).length,\n  generatedAt: new Date().toISOString()\n};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 330,
+    "y": 180,
+    "wires": [
+      [
+        "b5c0cfe3c5f2c004",
+        "b5c0cfe3c5f2c006"
+      ]
+    ]
+  },
+  {
+    "id": "b5c0cfe3c5f2c006",
+    "type": "debug",
+    "z": "b5c0cfe3c5f2c001",
+    "name": "Debug Payload",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 550,
+    "y": 180,
+    "wires": []
+  }
+]
