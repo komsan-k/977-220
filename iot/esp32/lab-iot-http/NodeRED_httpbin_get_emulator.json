@@ -1,0 +1,74 @@
+[
+  {
+    "id": "tab-httpbin",
+    "type": "tab",
+    "label": "httpbin-get-emulator",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "in-get",
+    "type": "http in",
+    "z": "tab-httpbin",
+    "name": "GET /get",
+    "url": "/get",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 120,
+    "y": 120,
+    "wires": [
+      [
+        "fn-echo"
+      ]
+    ]
+  },
+  {
+    "id": "fn-echo",
+    "type": "function",
+    "z": "tab-httpbin",
+    "name": "Build httpbin-like JSON",
+    "func": "// Build an httpbin-like response\nconst req = msg.req;\nconst args = (req && req.query) ? req.query : {};\nconst headers = (req && req.headers) ? req.headers : {};\nconst host = headers.host || \"localhost:1880\";\nconst proto = (headers[\"x-forwarded-proto\"]) || (req.secure ? \"https\" : \"http\");\nconst url = `${proto}://${host}${req.originalUrl || req.url || \"/get\"}`;\n\n// best-effort client IP\nconst origin = headers[\"x-forwarded-for\"] || (req.ip || (req.connection && req.connection.remoteAddress) || \"0.0.0.0\");\n\nmsg.headers = {\n  \"Content-Type\": \"application/json\",\n  \"Access-Control-Allow-Origin\": \"*\"\n};\n\nmsg.payload = {\n  args: args,\n  headers: headers,\n  origin: origin,\n  url: url\n};\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 360,
+    "y": 120,
+    "wires": [
+      [
+        "out-resp",
+        "dbg"
+      ]
+    ]
+  },
+  {
+    "id": "out-resp",
+    "type": "http response",
+    "z": "tab-httpbin",
+    "name": "HTTP 200",
+    "statusCode": "",
+    "headers": {},
+    "x": 610,
+    "y": 120,
+    "wires": []
+  },
+  {
+    "id": "dbg",
+    "type": "debug",
+    "z": "tab-httpbin",
+    "name": "Debug Payload",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 600,
+    "y": 180,
+    "wires": []
+  }
+]
