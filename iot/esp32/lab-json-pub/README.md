@@ -68,7 +68,6 @@ Before uploading the code, install the following libraries using **Arduino IDE â
 ### 5.2 Complete Code: ESP32 MQTT JSON Publisher
 
 ```cpp
-#include <WiFi.h>
 #include <PubSubClient.h>
 #include <Wire.h>
 #include <ArduinoJson.h>
@@ -146,7 +145,7 @@ void publish_data() {
   StaticJsonDocument<200> doc;
   doc["device_id"] = "ESP32_A1";
   doc["ldr_raw"] = ldrValue;
-  doc["temperature_c"] = (temperature != -999.0) ? temperature : "ERROR";
+  doc["temperature_c"] = temperature;
 
   char jsonBuffer[200];
   serializeJson(doc, jsonBuffer);
