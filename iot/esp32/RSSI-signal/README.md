@@ -1,221 +1,190 @@
-# 📡 Lab: Measuring Wi-Fi RSSI using ESP32 (Arduino)
+# 📡 Adding Wi-Fi RSSI Monitoring and Distance Estimation to ESP32 MQTT JSON Publisher (LDR & I²C Temperature Sensor)
 
 ## 🧩 1. Objective
-This laboratory exercise demonstrates how to measure and analyze the **Wi-Fi signal strength (RSSI)** using an **ESP32** microcontroller programmed via the **Arduino IDE**.  
+This guide extends the existing **ESP32 MQTT JSON Publisher** project to include both **Wi-Fi signal strength (RSSI)** and **approximate distance estimation** based on signal attenuation.  
 
 Students will learn to:
-- Connect an ESP32 to a Wi-Fi network and retrieve its **RSSI (Received Signal Strength Indicator)**.
-- Scan and display the RSSI of nearby Wi-Fi networks.
-- Implement **smoothing (averaging)** and **visual indication** of signal quality using LEDs.
-- Estimate **approximate distance** from RSSI using a path-loss model.
+- Measure Wi-Fi signal strength using `WiFi.RSSI()`.
+- Estimate approximate distance from the router using a simple path-loss model.
+- Integrate both RSSI and distance readings into the same JSON message.
+- Verify the extended JSON payload using MQTT dashboards (e.g., HiveMQ WebSocket Client).
 
 ---
 
-## ⚙️ 2. Background Theory
+## ⚙️ 2. Required Changes Overview
 
-### 2.1 RSSI Overview  
-**RSSI (Received Signal Strength Indicator)** is a measure of the power level that a device receives from a wireless access point (AP).  
-- It is typically expressed in **dBm (decibels relative to 1 milliwatt)**.  
-- The values are **negative numbers**, with higher (closer to 0) values indicating a stronger signal.  
-  - Example:  
-    - -40 dBm → Excellent  
-    - -65 dBm → Good  
-    - -80 dBm → Weak  
-
-### 2.2 Measurement Importance  
-RSSI is crucial for:
-- **Network diagnostics** and range optimization.  
-- **IoT deployments**, ensuring sensor nodes remain connected within coverage zones.  
-- **Adaptive communication systems**, where data rate or transmission power adjusts based on signal quality.
+| Step | Description |
+|------|--------------|
+| 1 | Add a function to read RSSI values |
+| 2 | Compute approximate distance from RSSI |
+| 3 | Integrate both into the JSON payload |
+| 4 | Increase JSON buffer size |
+| 5 | Verify via Serial Monitor and MQTT broker |
 
 ---
 
-## 🧰 3. Required Components
+## 💻 3. Code Integration Steps
 
-| Component | Description |
-|------------|-------------|
-| ESP32 Dev Board | Wi-Fi/Bluetooth-enabled microcontroller |
-| USB Cable | Programming interface to PC |
-| Wi-Fi Access Point | Any Wi-Fi router or hotspot |
-| Optional LED | For visual indication of signal strength |
-| Resistor (330 Ω) | For LED current limiting (optional) |
-
----
-
-## 🔌 4. Circuit Diagram
-
-| Connection | ESP32 Pin | Description |
-|-------------|------------|-------------|
-| LED (optional) | GPIO2 | Built-in or external LED |
-| GND | GND | Common ground |
-| VCC | 3.3V | Power for LED or sensor |
-
-> ⚠️ **Note:** Most ESP32 boards have an onboard LED connected to **GPIO2**.
-
----
-
-## 💻 5. Arduino Code
-
-### 5.1 Basic RSSI Reader
+### Step 1: Add RSSI Reading Function
+Insert this code before your `setup()` function:
 ```cpp
-#include <WiFi.h>
-
-const char* SSID = "YOUR_SSID";
-const char* PASS = "YOUR_PASSWORD";
-
-void setup() {
-  Serial.begin(115200);
-  WiFi.mode(WIFI_STA);
-  WiFi.setSleep(false);
-  WiFi.begin(SSID, PASS);
-
-  Serial.print("Connecting to "); Serial.println(SSID);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(300);
-    Serial.print(".");
-  }
-  Serial.println("\nConnected!");
-  Serial.print("IP: "); Serial.println(WiFi.localIP());
+// --- RSSI Reading Helper ---
+long readRssiRaw() {
+  return WiFi.RSSI();  // Returns signal strength in dBm (negative value)
 }
+```
 
-void loop() {
-  if (WiFi.status() == WL_CONNECTED) {
-    long rssi = WiFi.RSSI();
-    Serial.print("RSSI: ");
-    Serial.print(rssi);
-    Serial.println(" dBm");
+(Optional) Add a simple averaging filter for smoother readings:
+```cpp
+long rssiBuf[8];
+int  rssiCount = 0, rssiIndex = 0;
+
+long readRssiAvg() {
+  long value = WiFi.RSSI();
+  rssiBuf[rssiIndex] = value;
+  rssiIndex = (rssiIndex + 1) % 8;
+  if (rssiCount < 8) rssiCount++;
+  long sum = 0;
+  for (int i = 0; i < rssiCount; i++) sum += rssiBuf[i];
+  return sum / rssiCount;
+}
+```
+
+---
+
+### Step 2: Add Distance Estimation Function
+Add this below the RSSI function:
+```cpp
+// --- Distance Estimation from RSSI ---
+// Reference model: d = 10 ^ ((RSSI_ref - RSSI) / (10 * n))
+float estimateDistance(long rssi) {
+  const float RSSI_REF = -40.0;  // RSSI at 1 meter (adjust experimentally)
+  const float PATH_LOSS_EXP = 2.2;  // 2.0=open space, 2.7–3.5 indoor
+  float distance = pow(10.0, (RSSI_REF - (float)rssi) / (10.0 * PATH_LOSS_EXP));
+  return distance;
+}
+```
+
+---
+
+### Step 3: Integrate RSSI and Distance into JSON Payload
+Inside your existing `publish_data()` function, after reading sensors, add:
+```cpp
+long rssi = readRssiAvg();         // RSSI in dBm
+float distance_m = estimateDistance(rssi);  // Approx. distance in meters
+```
+
+Then include both in the JSON object:
+```cpp
+doc["rssi_dbm"] = rssi;
+doc["distance_m"] = distance_m;
+```
+
+---
+
+### Step 4: Adjust JSON Document Size
+Update your JSON declaration to allocate more space:
+```cpp
+StaticJsonDocument<300> doc;
+```
+
+---
+
+### Step 5: Final `publish_data()` Example
+```cpp
+void publish_data() {
+  int ldrValue = analogRead(LDR_PIN);
+  float temperature = readI2CTemperature();
+  long rssi = readRssiAvg();
+  float distance_m = estimateDistance(rssi);
+
+  StaticJsonDocument<300> doc;
+  doc["device_id"] = "ESP32_A1";
+  doc["ldr_raw"] = ldrValue;
+  doc["temperature_c"] = (temperature != -999.0) ? temperature : "ERROR";
+  doc["rssi_dbm"] = rssi;
+  doc["distance_m"] = distance_m;  // NEW FIELD
+
+  char jsonBuffer[300];
+  serializeJson(doc, jsonBuffer);
+
+  if (client.publish(TOPIC, jsonBuffer)) {
+    Serial.printf("✅ Published JSON → %s: %s\n", TOPIC, jsonBuffer);
   } else {
-    Serial.println("WiFi disconnected");
+    Serial.printf("❌ Publish failed. MQTT state: %d\n", client.state());
   }
-  delay(1000);
 }
 ```
 
-### 5.2 Scanning Nearby Networks
+---
+
+## 🌐 6. Example JSON Output
+When viewed in the MQTT dashboard:
+```json
+{
+  "device_id": "ESP32_A1",
+  "ldr_raw": 2548,
+  "temperature_c": 26.5,
+  "rssi_dbm": -63,
+  "distance_m": 2.38
+}
+```
+
+---
+
+## 📊 7. Verification Steps
+
+1. **Serial Monitor:**  
+   Verify real-time RSSI (dBm) and distance (m) values printed on the serial monitor.
+
+2. **MQTT Dashboard:**  
+   Subscribe to `esp32/sensor_data` and confirm that `"rssi_dbm"` and `"distance_m"` fields appear.
+
+3. **Movement Test:**  
+   Move the ESP32 closer/farther from the Wi-Fi router and note both RSSI and distance values.
+
+| Location | RSSI (dBm) | Distance (m) |
+|-----------|------------|--------------|
+| Near router | -45 | 0.9 |
+| 5 meters away | -60 | 2.3 |
+| Behind a wall | -70 | 5.4 |
+
+---
+
+## 🧠 8. Discussion
+- **RSSI** measures received signal power; **distance estimation** uses empirical formulas.  
+- Distance values are **approximate** and affected by environment, walls, and antenna orientation.  
+- Ideal for **RSSI-based IoT localization** or **signal strength diagnostics** in wireless sensor networks.
+
+---
+
+## 🧩 9. Optional Enhancement: RSSI Quality Label
+You can classify signal quality in human-readable form:
 ```cpp
-#include <WiFi.h>
-
-void setup() {
-  Serial.begin(115200);
-  WiFi.mode(WIFI_STA);
-  WiFi.disconnect(true);
-  delay(100);
-
-  Serial.println("Scanning...");
-  int n = WiFi.scanNetworks();
-  if (n == 0) {
-    Serial.println("No networks found.");
-  } else {
-    for (int i = 0; i < n; i++) {
-      Serial.printf("[%2d] SSID: %-20s RSSI: %4d dBm  %s\n",
-                    i, WiFi.SSID(i).c_str(), WiFi.RSSI(i),
-                    (WiFi.encryptionType(i) == WIFI_AUTH_OPEN) ? "OPEN" : "SECURED");
-    }
-  }
-}
-
-void loop() {}
+const char* quality;
+if (rssi > -60) quality = "Excellent";
+else if (rssi > -70) quality = "Good";
+else quality = "Weak";
+doc["rssi_quality"] = quality;
 ```
 
-### 5.3 LED-Based Signal Indicator
-```cpp
-#include <WiFi.h>
-
-const char* SSID = "YOUR_SSID";
-const char* PASS = "YOUR_PASSWORD";
-const int LED_PIN = 2;
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(LED_PIN, OUTPUT);
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(SSID, PASS);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(300);
-    Serial.print(".");
-  }
-  Serial.println("\nConnected.");
-}
-
-void loop() {
-  long rssi = WiFi.RSSI();
-
-  if (rssi > -60) {
-    digitalWrite(LED_PIN, HIGH);
-  } else if (rssi > -70) {
-    digitalWrite(LED_PIN, millis() / 300 % 2);
-  } else {
-    digitalWrite(LED_PIN, millis() / 100 % 2);
-  }
-
-  Serial.printf("RSSI: %ld dBm\n", rssi);
-  delay(200);
-}
-```
-
-### 5.4 Distance Estimation
-```cpp
-#include <WiFi.h>
-
-const float RSSI_AT_1M = -40.0;
-const float PATH_LOSS_EXP = 2.2;
-
-void setup() {
-  Serial.begin(115200);
-  WiFi.begin("YOUR_SSID", "YOUR_PASSWORD");
-  while (WiFi.status() != WL_CONNECTED) { delay(300); Serial.print("."); }
-  Serial.println("\nConnected.");
-}
-
-void loop() {
-  long rssi = WiFi.RSSI();
-  float distance = pow(10.0, (RSSI_AT_1M - rssi) / (10.0 * PATH_LOSS_EXP));
-  Serial.printf("RSSI: %ld dBm  ≈ Distance: %.2f m\n", rssi, distance);
-  delay(1000);
+Sample MQTT payload:
+```json
+{
+  "device_id": "ESP32_A1",
+  "ldr_raw": 2600,
+  "temperature_c": 27.3,
+  "rssi_dbm": -68,
+  "distance_m": 4.8,
+  "rssi_quality": "Good"
 }
 ```
 
 ---
 
-## 📊 6. Experimental Verification
-
-### Expected Serial Output
-```
-Connecting to MyWiFiNetwork
-........
-Connected!
-IP: 192.168.1.45
-RSSI: -58 dBm
-RSSI: -60 dBm
-```
-
-| Distance (m) | RSSI (dBm) |
-|---------------|-------------|
-| 1             | -42         |
-| 3             | -55         |
-| 5             | -63         |
-| 10            | -70         |
-
----
-
-## 🔍 7. Discussion
-- RSSI decreases as distance increases due to path loss.  
-- Variations occur from interference or antenna orientation.  
-- Averaging improves signal stability.  
-- Path-loss estimation provides only approximate distances.
-
----
-
-## 🧠 8. Exercises
-1. Compute and display average RSSI over 10 samples.  
-2. Plot RSSI vs distance.  
-3. Compare multiple routers.  
-4. Log RSSI data to SD or MQTT broker.
-
----
-
-## 📎 9. References
+## 📎 10. References
 1. Espressif Systems, *ESP32 Wi-Fi API Reference*  
-2. IEEE 802.11 Standard, *RSSI Measurement Fundamentals*  
-3. Arduino Reference: [WiFi.RSSI()](https://www.arduino.cc/en/Reference/WiFiRSSI)  
-4. Espressif Docs: [RSSI API](https://docs.espressif.com/)
+2. ArduinoJson Library by Benoit Blanchon  
+3. Nick O’Leary, *PubSubClient MQTT Library*  
+4. HiveMQ MQTT Web Client: [https://www.hivemq.com/demos/websocket-client/](https://www.hivemq.com/demos/websocket-client/)  
+5. Path Loss Model: *Rappaport, Wireless Communications: Principles and Practice*, 2nd Ed.
