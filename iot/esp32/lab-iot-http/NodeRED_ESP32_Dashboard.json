@@ -1,0 +1,252 @@
+[
+  {
+    "id": "tab-esp32-dash",
+    "type": "tab",
+    "label": "ESP32 HTTP Dashboard",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "ui-tab-esp32",
+    "type": "ui_tab",
+    "z": "",
+    "name": "ESP32 Monitor",
+    "icon": "dashboard",
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "ui-group-live",
+    "type": "ui_group",
+    "z": "",
+    "name": "Live Counters",
+    "tab": "ui-tab-esp32",
+    "order": 1,
+    "disp": true,
+    "width": "12",
+    "collapse": false
+  },
+  {
+    "id": "in-get-dash",
+    "type": "http in",
+    "z": "tab-esp32-dash",
+    "name": "GET /get",
+    "url": "/get",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 140,
+    "y": 120,
+    "wires": [
+      [
+        "fn-record-reply-fanout"
+      ]
+    ]
+  },
+  {
+    "id": "fn-record-reply-fanout",
+    "type": "function",
+    "z": "tab-esp32-dash",
+    "name": "Record, Reply & Fan-out",
+    "func": "// Parse query\nconst q = (msg.req && msg.req.query) ? msg.req.query : {};\nconst device_id = (q.device_id || \"unknown\").toString();\nlet count = parseInt(q.count, 10);\nif (isNaN(count)) count = null;\n\n// Store in flow context\nlet devices = flow.get('devices') || {};\nconst now = new Date().toISOString();\nif (!devices[device_id]) {\n  devices[device_id] = { lastCount: null, lastAt: null, hits: 0 };\n}\nif (count !== null) {\n  devices[device_id].lastCount = count;\n  devices[device_id].lastAt = now;\n}\ndevices[device_id].hits = (devices[device_id].hits || 0) + 1;\nflow.set('devices', devices);\n\n// Build httpbin-like response\nconst headers = (msg.req && msg.req.headers) || {};\nconst host = headers.host || \"localhost:1880\";\nconst proto = headers[\"x-forwarded-proto\"] || (msg.req.secure ? \"https\" : \"http\");\nconst fullUrl = `${proto}://${host}${msg.req.originalUrl || msg.req.url || \"/get\"}`;\nconst origin = headers[\"x-forwarded-for\"] || msg.req.ip || (msg.req.connection && msg.req.connection.remoteAddress) || \"\";\n\n// 1) HTTP response\nconst resp = {\n  payload: {\n    args: q,\n    headers: headers,\n    origin: origin,\n    url: fullUrl\n  },\n  headers: {\n    \"Content-Type\": \"application/json\",\n    \"Access-Control-Allow-Origin\": \"*\"\n  }\n};\n\n// 2) Chart point\nconst chart = {\n  topic: device_id,\n  payload: count,\n  _timestamp: Date.now()\n};\n\n// 3) Status bundle for ui_text widgets\nconst status = {\n  payload: {\n    device_id,\n    count,\n    lastAt: devices[device_id].lastAt\n  }\n};\n\nreturn [resp, chart, status];",
+    "outputs": 3,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 390,
+    "y": 120,
+    "wires": [
+      [
+        "out-http"
+      ],
+      [
+        "ui-chart"
+      ],
+      [
+        "chg-device",
+        "chg-count",
+        "chg-time",
+        "dbg-status"
+      ]
+    ]
+  },
+  {
+    "id": "out-http",
+    "type": "http response",
+    "z": "tab-esp32-dash",
+    "name": "HTTP 200",
+    "statusCode": "",
+    "headers": {},
+    "x": 630,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "ui-chart",
+    "type": "ui_chart",
+    "z": "tab-esp32-dash",
+    "name": "Counter over time",
+    "group": "ui-group-live",
+    "order": 1,
+    "width": 12,
+    "height": 7,
+    "label": "Counter over time",
+    "chartType": "line",
+    "legend": "true",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "",
+    "dot": false,
+    "ymin": "",
+    "ymax": "",
+    "removeOlder": "12",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "3600",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": [],
+    "useOldStyle": false,
+    "x": 650,
+    "y": 140,
+    "wires": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "chg-device",
+    "type": "change",
+    "z": "tab-esp32-dash",
+    "name": "payload := device_id",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.device_id",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 660,
+    "y": 200,
+    "wires": [
+      [
+        "ui-text-device"
+      ]
+    ]
+  },
+  {
+    "id": "ui-text-device",
+    "type": "ui_text",
+    "z": "tab-esp32-dash",
+    "group": "ui-group-live",
+    "order": 2,
+    "width": 6,
+    "height": 1,
+    "name": "Latest Device",
+    "label": "Latest Device",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 890,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "chg-count",
+    "type": "change",
+    "z": "tab-esp32-dash",
+    "name": "payload := count",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.count",
+        "tot": "msg"
+      }
+    ],
+    "x": 640,
+    "y": 240,
+    "wires": [
+      [
+        "ui-text-count"
+      ]
+    ]
+  },
+  {
+    "id": "ui-text-count",
+    "type": "ui_text",
+    "z": "tab-esp32-dash",
+    "group": "ui-group-live",
+    "order": 3,
+    "width": 6,
+    "height": 1,
+    "name": "Latest Count",
+    "label": "Latest Count",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 890,
+    "y": 240,
+    "wires": []
+  },
+  {
+    "id": "chg-time",
+    "type": "change",
+    "z": "tab-esp32-dash",
+    "name": "payload := lastAt",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.lastAt",
+        "tot": "msg"
+      }
+    ],
+    "x": 650,
+    "y": 280,
+    "wires": [
+      [
+        "ui-text-time"
+      ]
+    ]
+  },
+  {
+    "id": "ui-text-time",
+    "type": "ui_text",
+    "z": "tab-esp32-dash",
+    "group": "ui-group-live",
+    "order": 4,
+    "width": 12,
+    "height": 1,
+    "name": "Last Update",
+    "label": "Last Update",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 890,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "dbg-status",
+    "type": "debug",
+    "z": "tab-esp32-dash",
+    "name": "Status Bundle",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 650,
+    "y": 320,
+    "wires": []
+  }
+]
