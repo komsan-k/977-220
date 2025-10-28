@@ -34,7 +34,7 @@ long readRssiRaw() {
 }
 ```
 
-(Optional) Add a simple averaging filter for smoother readings:
+Add a simple averaging filter for smoother readings:
 ```cpp
 long rssiBuf[8];
 int  rssiCount = 0, rssiIndex = 0;
