@@ -154,16 +154,7 @@ This structure serves as a foundation for scalable IoT dashboards, analytics, an
 
 ---
 
-## ✍️ 12. Author
-
-**Author:** Dr. Komsan Kanjanasit  
-**Publisher:** College of Computing, Prince of Songkla University, Thailand  
-**Edition:** First Edition (2025)  
-**ISBN (e-book):** 978-616-271-830-4
-
----
-
-## 📚 13. References
+## ✍️ 12. References
 
 1. Node-RED Documentation — [https://nodered.org/docs/](https://nodered.org/docs/)  
 2. ESP32 Arduino Core — [https://docs.espressif.com/](https://docs.espressif.com/)  
