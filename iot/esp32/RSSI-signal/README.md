@@ -153,7 +153,7 @@ void loop() {
 }
 ```
 
-### 5.4 (Optional) Distance Estimation
+### 5.4 Distance Estimation
 ```cpp
 #include <WiFi.h>
 
