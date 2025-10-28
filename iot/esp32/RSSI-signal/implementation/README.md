@@ -158,7 +158,7 @@ When viewed in the MQTT dashboard:
 
 ---
 
-## 🧩 9. Optional Enhancement: RSSI Quality Label
+## 🧩 9. Enhancement: RSSI Quality Label
 You can classify signal quality in human-readable form:
 ```cpp
 const char* quality;
