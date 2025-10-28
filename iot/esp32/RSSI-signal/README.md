@@ -7,7 +7,7 @@ Students will learn to:
 - Connect an ESP32 to a Wi-Fi network and retrieve its **RSSI (Received Signal Strength Indicator)**.
 - Scan and display the RSSI of nearby Wi-Fi networks.
 - Implement **smoothing (averaging)** and **visual indication** of signal quality using LEDs.
-- Optionally estimate **approximate distance** from RSSI using a path-loss model.
+- Estimate **approximate distance** from RSSI using a path-loss model.
 
 ---
 
