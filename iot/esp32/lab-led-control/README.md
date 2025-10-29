@@ -213,7 +213,7 @@ Attempting MQTT connection...connected ✅
 
 1. Publish `"on"` and `"off"` commands to test LED control.  
 2. Test dimming using values `25`, `50`, `75`, and `100`.  
-3. Modify to use another GPIO (e.g., GPIO 14).  
+3. Modify to use another GPIO (e.g., GPIO 2).  
 4. Control multiple LEDs with separate topics.  
 5. Create a Node-RED dashboard slider for real-time dimming.
 
