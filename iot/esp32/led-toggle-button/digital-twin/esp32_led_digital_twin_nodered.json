@@ -135,7 +135,7 @@
     "type": "function",
     "z": "e43e09d6dffb4cb2",
     "name": "Format state text",
-    "func": "let s = String(msg.payload).toUpperCase();\nif (s === '1' || s === 'ON' || s === 'TRUE') s = 'ON';\nelse if (s === '0' || s === 'OFF' || s === 'FALSE') s = 'OFF';\nmsg.payload = 'LED State: ' + s;\nmsg.state = s;\nreturn msg;",
+    "func": "let s = String(msg.payload).toUpperCase();\nif (s === '1' || s === 'ON' || s === 'TRUE') s = 'ON';\nelse if (s === '0' || s === 'OFF' || s === 'FALSE') s = 'OFF';\nmsg.payload = 'LED State: ' + s;\nmsg.state = s; // keep a clean state\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
     "initialize": "",
@@ -146,9 +146,55 @@
     "wires": [
       [
         "ui_text_state",
-        "ui_toast_state"
+        "ui_toast_state",
+        "to_led_payload"
       ]
     ]
+  },
+  {
+    "id": "to_led_payload",
+    "type": "function",
+    "z": "e43e09d6dffb4cb2",
+    "name": "Prepare LED value",
+    "func": "let s = (msg.state !== undefined) ? String(msg.state).toUpperCase() : String(msg.payload).toUpperCase();\nif (s === '1' || s === 'ON' || s === 'TRUE') s = 'ON';\nelse s = 'OFF';\nmsg.payload = s;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 420,
+    "y": 60,
+    "wires": [
+      [
+        "ui_led_indicator"
+      ]
+    ]
+  },
+  {
+    "id": "ui_led_indicator",
+    "type": "ui_led",
+    "z": "e43e09d6dffb4cb2",
+    "group": "ui_group_main",
+    "order": 3,
+    "width": "3",
+    "height": "1",
+    "label": "LED",
+    "labelPlacement": "left",
+    "colorForValue": [
+      {
+        "color": "#d62728",
+        "value": "OFF",
+        "valueType": "str"
+      },
+      {
+        "color": "#2ca02c",
+        "value": "ON",
+        "valueType": "str"
+      }
+    ],
+    "allowColorForValueInMessage": false,
+    "shape": "dot",
+    "name": "LED status",
+    "x": 660,
+    "y": 60,
+    "wires": []
   },
   {
     "id": "ui_text_state",
@@ -163,7 +209,7 @@
     "format": "{{msg.payload}}",
     "layout": "row-spread",
     "x": 650,
-    "y": 80,
+    "y": 100,
     "wires": []
   },
   {
@@ -188,7 +234,7 @@
     "id": "map_state_num",
     "type": "function",
     "z": "e43e09d6dffb4cb2",
-    "name": "State\u2192Number",
+    "name": "State→Number",
     "func": "let s = String(msg.payload).toUpperCase();\nlet n = (s === '1' || s === 'ON' || s === 'TRUE') ? 1 : 0;\nreturn {payload: n};",
     "outputs": 1,
     "noerr": 0,
@@ -339,7 +385,7 @@
     "id": "map_btn_to_num",
     "type": "function",
     "z": "e43e09d6dffb4cb2",
-    "name": "Button\u2192Number",
+    "name": "Button→Number",
     "func": "let s = String(msg.payload).toUpperCase();\nlet n = (s.includes('PRESS')) ? 1 : 0;\nreturn {payload: n};",
     "outputs": 1,
     "noerr": 0,
