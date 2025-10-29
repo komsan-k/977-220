@@ -155,7 +155,7 @@ Call `loopTwin();` inside your main `loop()` function.
 ---
 Download the ready-to-use Arduino file:
 
-📦 [ESP32_LED_Digital_Twin.ino]([https://github.com/komsan-k/977-220/blob/main/iot/esp32/led-toggle-button/digital-twin/esp32_led_digital_twin_nodered.json](https://github.com/komsan-k/977-220/blob/main/iot/esp32/led-toggle-button/digital-twin/ESP32_LED_Digital_Twin.ino)
+📦 [ESP32_LED_Digital_Twin.ino]([[https://github.com/komsan-k/977-220/blob/main/iot/esp32/led-toggle-button/digital-twin/esp32_led_digital_twin_nodered.json](https://github.com/komsan-k/977-220/blob/main/iot/esp32/led-toggle-button/digital-twin/ESP32_LED_Digital_Twin.ino)]
 ---
 
 ## 🔍 7. Testing Procedure
