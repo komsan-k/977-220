@@ -95,7 +95,8 @@ Update your existing **“LED Toggle with Interrupt and Debounce”** sketch to 
 
 const char* WIFI_SSID = "YOUR_WIFI";
 const char* WIFI_PASS = "YOUR_PASS";
-const char* MQTT_HOST = "192.168.1.10";   // Your MQTT broker IP
+const char* MQTT_HOST = "broker.hivemq.com";
+//const char* MQTT_HOST = "192.168.1.10";   // Your MQTT broker IP
 const int   MQTT_PORT = 1883;
 
 const char* TOPIC_STATE = "iot/lab/led/state";
