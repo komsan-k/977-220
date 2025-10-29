@@ -47,7 +47,7 @@ The setup involves two connected parts:
 ### Step 1: Download and Import
 Download the ready-to-use Node-RED flow file:
 
-📦 [esp32_led_digital_twin_nodered.json]([esp32_led_digital_twin_nodered.json](https://github.com/komsan-k/977-220/blob/main/iot/esp32/led-toggle-button/digital-twin/esp32_led_digital_twin_nodered.json))
+📦 [esp32_led_digital_twin_nodered.json](https://github.com/komsan-k/977-220/blob/main/iot/esp32/led-toggle-button/digital-twin/esp32_led_digital_twin_nodered.json)
 
 Then import it into Node-RED:
 1. Open Node-RED editor (`http://localhost:1880`)
