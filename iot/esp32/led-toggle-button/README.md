@@ -37,7 +37,6 @@ Students will learn how to:
 
 ```cpp
 // === ESP32 LED Toggle with Button Interrupt + Debounce ===
-// Author: Dr. Komsan Kanjanasit
 // Description: Toggle LED on GPIO12 using button on GPIO14 via interrupt with debounce and Serial print feedback.
 
 const int LED_PIN = 12;       // LED connected to GPIO12
