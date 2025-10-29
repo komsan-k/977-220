@@ -209,5 +209,4 @@ This firmware combines **button interrupt with debounce** and **MQTT integration
 ## 📎 11. References
 1. Node-RED Official Docs – [https://nodered.org/docs/](https://nodered.org/docs/)  
 2. Eclipse Mosquitto MQTT Broker – [https://mosquitto.org](https://mosquitto.org)  
-3. Espressif Systems – *ESP32 Wi-Fi & MQTT Examples*  
-4. Dr. Komsan Kanjanasit, *ESP32 Interrupt Labs (2025)*  
+3. Espressif Systems – *ESP32 Wi-Fi & MQTT Examples*   
