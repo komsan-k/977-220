@@ -1,4 +1,4 @@
-# 🔬 Lab 1: Fundamentals of Verilog HDL (Expanded)
+# 🔬 Lab 1: Fundamentals of Verilog HDL 
 
 ## 🧩 1. Objective
 This laboratory introduces the **core syntax, modeling styles, and simulation concepts** in Verilog HDL. Students will:
