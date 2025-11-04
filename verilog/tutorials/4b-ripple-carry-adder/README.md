@@ -1,4 +1,4 @@
-# 🔬 4-bit Ripple Carry Adder --- Instantiation
+# 🔬 4-bit Ripple Carry Adder (RCA) --- Instantiation
 
 ## 🧩 1. Full Adder Module (Building Block)
 
@@ -16,7 +16,7 @@ This **Full Adder** handles 1-bit addition with carry propagation.
 
 ------------------------------------------------------------------------
 
-## 🧮 2. 4-bit Ripple Carry Adder Module (Instantiation Example)
+## 🧮 2. 4-bit RCA Module (Instantiation Example)
 
 ``` verilog
 module RippleCarryAdder4(
