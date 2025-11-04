@@ -132,20 +132,15 @@ Used in **UART or serial communication** to format a complete frame.
   ------------------------------------------------------------------------------------------
   Concept             Symbol          Example                        Description
   ------------------- --------------- ------------------------------ -----------------------
-  **Concatenation**   `{}`            `{A, B}`                       Joins signals side by
+  Concatenation   `{}`            `{A, B}`                       Joins signals side by
                                                                      side
 
-  **Replication**     `{N{}}`         `{3{2'b01}}`                   Repeats a pattern
+  Replication     `{N{}}`         `{3{2'b01}}`                   Repeats a pattern
                                                                      multiple times
 
-  **Multi-output      `{cout, sum}`   `{cout, sum} = a + b + cin;`   Assigns multiple
-  assignment**                                                       outputs simultaneously
+  Multi-output      `{cout, sum}`   `{cout, sum} = a + b + cin;`   Assigns multiple
+  assignment                                                       outputs simultaneously
   ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
-**Author:** Dr. Komsan Kanjanasit\
-**Publisher:** College of Computing, Prince of Songkla University,
-Thailand\
-**Edition:** First Edition (2025)\
-**License:** CC BY 4.0 --- Free to use with attribution
