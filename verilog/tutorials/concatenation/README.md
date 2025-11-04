@@ -134,11 +134,11 @@ Used in **UART or serial communication** to format a complete frame.
   ------------------- --------------- ------------------------------ -----------------------
   Concatenation   `{}`            `{A, B}`                       Joins signals side by
                                                                      side
+
   Replication     `{N{}}`         `{3{2'b01}}`                   Repeats a pattern
                                                                      multiple times
+
   Multi-output      `{cout, sum}`   `{cout, sum} = a + b + cin;`   Assigns multiple
   assignment                                                       outputs simultaneously
   ------------------------------------------------------------------------------------------
-
-------------------------------------------------------------------------
 
