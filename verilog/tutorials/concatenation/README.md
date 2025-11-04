@@ -144,8 +144,4 @@ Used in **UART or serial communication** to format a complete frame.
 
 ------------------------------------------------------------------------
 
-**Author:** Dr. Komsan Kanjanasit\
-**Publisher:** College of Computing, Prince of Songkla University,
-Thailand\
-**Edition:** First Edition (2025)\
-**License:** CC BY 4.0 --- Free to use with attribution
+
