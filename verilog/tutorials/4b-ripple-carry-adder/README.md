@@ -1,4 +1,4 @@
-# 🔬 4-bit Ripple Carry Adder --- Instantiation and Explanation
+# 🔬 4-bit Ripple Carry Adder --- Instantiation
 
 ## 🧩 1. Full Adder Module (Building Block)
 
