@@ -87,7 +87,7 @@ endmodule
 
 ------------------------------------------------------------------------
 
-## 🧪 6. Suggested Testbench (Optional)
+## 🧪 6. Suggested Testbench 
 
 ``` verilog
 module tb_RippleCarryAdder4;
@@ -111,8 +111,3 @@ endmodule
 
 ------------------------------------------------------------------------
 
-**Author:** Dr. Komsan Kanjanasit\
-**Publisher:** College of Computing, Prince of Songkla University,
-Thailand\
-**Edition:** First Edition (2025)\
-**License:** CC BY 4.0 --- Free to use with attribution
