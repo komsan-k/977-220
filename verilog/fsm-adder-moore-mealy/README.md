@@ -40,15 +40,11 @@ An FSM consists of:
 
 ## 🧩 FSM Classifications
 
-  ------------------------------------------------------------------------
-  **FSM Type**    **Output Depends On**    **Example in Serial Adder**
-  --------------- ------------------------ -------------------------------
-  **Moore**       Current State only       Output (Sum, Carry) changes
-                                           *after* state transition
+| **FSM Type** | **Output Depends On**     | **Example in Serial Adder**                                |
+|---------------|---------------------------|-------------------------------------------------------------|
+| **Moore**     | Current State only        | Output (Sum, Carry) changes *after* state transition        |
+| **Mealy**     | Current State + Inputs    | Output changes *immediately* with input                     |
 
-  **Mealy**       Current State + Inputs   Output changes *immediately*
-                                           with input
-  ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
