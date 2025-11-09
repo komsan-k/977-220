@@ -19,26 +19,36 @@ full adder** and a **carry register**.\
 It adds one bit per clock cycle starting from the **least significant
 bit (LSB)**.
 
-### 2.2 FSM Design Approach
+### 🧠 2.2 FSM Design Approach
 
-A **Finite State Machine (FSM)** has: - A finite set of **states** -
-Defined **inputs and outputs** - A **state transition function** and
-**output function**
+A **Finite State Machine (FSM)** is a computational model used to design
+**sequential logic systems** such as digital controllers and adders.
 
-FSMs are classified as:
+------------------------------------------------------------------------
+
+## 🔹 FSM Characteristics
+
+An FSM consists of:
+
+-   A **finite set of states**
+-   Defined **inputs and outputs**
+-   A **state transition function** (determines next state)
+-   An **output function** (produces outputs based on current state
+    and/or inputs)
+
+------------------------------------------------------------------------
+
+## 🧩 FSM Classifications
 
   ------------------------------------------------------------------------
-  FSM Type       Output Depends On       Example in Serial Adder
-  -------------- ----------------------- ---------------------------------
-  **Moore**      Current State only      Output (Sum, Carry) changes after
-                                         state transition
+  **FSM Type**    **Output Depends On**    **Example in Serial Adder**
+  --------------- ------------------------ -------------------------------
+  **Moore**       Current State only       Output (Sum, Carry) changes
+                                           *after* state transition
 
-  **Mealy**      Current State + Inputs  Output changes immediately with
-                                         input
+  **Mealy**       Current State + Inputs   Output changes *immediately*
+                                           with input
   ------------------------------------------------------------------------
-
-In this lab, both FSM types are implemented for the **4-bit serial
-adder**.
 
 ------------------------------------------------------------------------
 
