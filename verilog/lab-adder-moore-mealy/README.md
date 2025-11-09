@@ -204,35 +204,29 @@ endmodule
 
 ## 📊 5. Simulation Results
 
-  Time (ns)   A      B      Moore_SUM   Mealy_SUM   done
-  ----------- ------ ------ ----------- ----------- ------
-  10          0110   0011   ----        ----        0
-  30          0110   0011   1001        1001        1
-  60          1111   0001   0000        0000        1
+| **Time (ns)** | **A**   | **B**   | **Moore_SUM** | **Mealy_SUM** | **done** |
+|---------------|---------|---------|----------------|----------------|----------|
+| 10            | 0110    | 0011    | ----           | ----           | 0        |
+| 30            | 0110    | 0011    | 1001           | 1001           | 1        |
+| 60            | 1111    | 0001    | 0000           | 0000           | 1        |
 
-✅ Both FSMs produce the same logical result, but **Mealy** output
-reacts **faster** to input changes.
+✅ Both FSMs produce the same logical result, but **Mealy** output reacts **faster** to input changes.
 
-------------------------------------------------------------------------
+---
 
 ## 💡 6. Key Differences
 
-  ------------------------------------------------------------------------
-  Feature              Moore FSM                 Mealy FSM
-  -------------------- ------------------------- -------------------------
-  Output depends on    State only                State + Input
+| **Feature**           | **Moore FSM**             | **Mealy FSM**                 |
+|------------------------|---------------------------|--------------------------------|
+| **Output depends on**  | State only                | State + Input                 |
+| **Timing behavior**    | Synchronized (stable)     | Immediate (faster)            |
+| **Complexity**         | Easier to debug           | Requires careful timing       |
+| **Hardware usage**     | More registers            | Slightly fewer registers      |
+| **Application**        | Safer design, fewer glitches | Faster response, less latency |
 
-  Timing behavior      Synchronized (stable)     Immediate (faster)
-
-  Complexity           Easier to debug           Requires careful timing
-
-  Hardware usage       More registers            Slightly fewer registers
-
-  Application          Safer design, fewer       Faster response, less
-                       glitches                  latency
-  ------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
+
 
 ## 🧩 7. Exercises
 
