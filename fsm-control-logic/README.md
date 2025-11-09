@@ -36,12 +36,12 @@ may lead to complex timing.
 
 ## ⚙️ FSM Design Process
 
-1.  Define the problem or control sequence.\
-2.  Identify the number of states.\
-3.  Draw the state diagram with transitions.\
-4.  Assign binary codes to the states.\
-5.  Write the transition and output logic.\
-6.  Implement in Verilog.\
+1.  Define the problem or control sequence.
+2.  Identify the number of states.
+3.  Draw the state diagram with transitions.
+4.  Assign binary codes to the states.
+5.  Write the transition and output logic.
+6.  Implement in Verilog.
 7.  Simulate and test.
 
 ------------------------------------------------------------------------
@@ -128,15 +128,15 @@ byte.
 
 ### FSM States
 
--   IDLE\
--   START\
--   RECEIVE\
+-   IDLE
+-   START
+-   RECEIVE
 -   STOP
 
 ### Implementation Steps
 
-1.  Draw state diagram.\
-2.  Write Verilog code.\
+1.  Draw state diagram.
+2.  Write Verilog code.
 3.  Simulate and verify functionality.
 
 ------------------------------------------------------------------------
@@ -144,15 +144,15 @@ byte.
 ## 🧱 Hierarchical FSM Design
 
 FSMs can be modularized for complexity management: - Each sub-FSM
-handles a part of the control logic.\
+handles a part of the control logic.
 - Common in **protocol controllers** and **CPU subsystems**.
 
 ------------------------------------------------------------------------
 
 ## ⚙️ FSM as a Control Unit
 
-FSMs manage datapath operations such as: - Instruction decoding in CPUs\
-- Step control in ALUs\
+FSMs manage datapath operations such as: - Instruction decoding in CPUs
+- Step control in ALUs
 - Packet parsing in network interfaces
 
 ------------------------------------------------------------------------
@@ -175,8 +175,8 @@ end
 
 ## 🧰 Debugging FSMs
 
--   Monitor **state transitions** using waveform viewers.\
--   Add **one-hot debug outputs**.\
+-   Monitor **state transitions** using waveform viewers.
+-   Add **one-hot debug outputs**.
 -   Use **Integrated Logic Analyzer (ILA)** cores on FPGA for real-time
     monitoring.
 
@@ -184,9 +184,9 @@ end
 
 ## ⚠️ Common Design Mistakes
 
--   Incomplete state transition definitions.\
--   Missing default branches.\
--   Using blocking assignments instead of non-blocking.\
+-   Incomplete state transition definitions.
+-   Missing default branches.
+-   Using blocking assignments instead of non-blocking.
 -   Mixing Moore and Mealy logic incorrectly.
 
 ------------------------------------------------------------------------
@@ -219,10 +219,10 @@ efficiently. A well-designed FSM improves **modularity**,
 ## 🧩 Exercises
 
 1.  Design a **3-state FSM** for a vending machine (IDLE, COIN,
-    DISPENSE).\
-2.  Create a **Mealy FSM** for detecting `1101` in a serial bit stream.\
-3.  Modify a **Moore FSM** to include a resettable state.\
-4.  Simulate a **UART receiver FSM** with start, data, and stop bits.\
+    DISPENSE).
+2.  Create a **Mealy FSM** for detecting `1101` in a serial bit stream.
+3.  Modify a **Moore FSM** to include a resettable state.
+4.  Simulate a **UART receiver FSM** with start, data, and stop bits.
 5.  Design a **hierarchical FSM** for a simplified CPU control unit.
 
 ------------------------------------------------------------------------
