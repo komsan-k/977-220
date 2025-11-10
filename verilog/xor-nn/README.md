@@ -70,11 +70,11 @@ $$
 where  
 $$
 \[
-f(x) = $$
-$$ \begin{cases}
+f(x) = 
+\begin{cases}
 1, & \text{if } x > 0 \[6pt]
 0, & \text{if } x \le 0
-\end{cases} $$
+\end{cases} 
 \]
 $$
 
