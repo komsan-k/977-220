@@ -79,7 +79,7 @@ f(x) =
 $$
 
 ✅ **Explanation:**
-- \( A \) and \( B \) are input signals (0 or 1).  
+- $$\( A \) and \( B \)$$ are input signals (0 or 1).  
 - \( H_1 \) and \( H_2 \) are outputs from the **hidden layer neurons**.  
 - \( W_{ij} \) and \( W_{ok} \) are **weights** connecting layers.  
 - \( b_i \) and \( b_o \) are **biases**.  
