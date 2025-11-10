@@ -68,6 +68,7 @@ Y = f(W_{o1}H_1 + W_{o2}H_2 + b_o)
 $$
 
 where  
+
 $$
 \[
 f(x) = 
@@ -77,6 +78,7 @@ f(x) =
 \end{cases} 
 \]
 $$
+
 
 ✅ **Explanation:**
 - $$\( A \)$$ and $$\( B \)$$ are input signals (0 or 1).  
