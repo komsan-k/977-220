@@ -56,27 +56,21 @@ Weights and biases are fixed constants pre-trained offline.
 The operation of the XOR neural network can be represented mathematically as follows:
 
 $$
-\[
 H_i = f(W_{i1}A + W_{i2}B + b_i)
-\]
 $$
 
 $$
-\[
 Y = f(W_{o1}H_1 + W_{o2}H_2 + b_o)
-\]
 $$
 
 where  
 
 $$
-\[
 f(x) = 
 \begin{cases}
 1, & \text{if } x > 0 \\
 0, & \text{if } x \le 0
 \end{cases} 
-\]
 $$
 
 
