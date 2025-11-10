@@ -50,18 +50,38 @@ Weights and biases are fixed constants pre-trained offline.
 
 ---
 
+
 ### 3.3 Mathematical Model
 
-\(
+The operation of the XOR neural network can be represented mathematically as follows:
+
+\[
 H_i = f(W_{i1}A + W_{i2}B + b_i)
-\)
+\]
 
-\(
+\[
 Y = f(W_{o1}H_1 + W_{o2}H_2 + b_o)
-\)
+\]
 
-where \( f(x) = 1 \) if \( x > 0 \), else 0.
+where  
 
+\[
+f(x) =
+\begin{cases}
+1, & \text{if } x > 0 \[6pt]
+0, & \text{if } x \le 0
+\end{cases}
+\]
+
+✅ **Explanation:**
+- \( A \) and \( B \) are input signals (0 or 1).  
+- \( H_1 \) and \( H_2 \) are outputs from the **hidden layer neurons**.  
+- \( W_{ij} \) and \( W_{ok} \) are **weights** connecting layers.  
+- \( b_i \) and \( b_o \) are **biases**.  
+- \( f(x) \) is the **activation function** that determines neuron output based on the weighted sum.
+
+
+---
 ---
 
 ## 💻 4. Verilog Implementation
@@ -202,7 +222,4 @@ Students will be able to:
 
 ---
 
-**Author:** Dr. Komsan Kanjanasit  
-**Publisher:** College of Computing, Prince of Songkla University, Thailand  
-**Edition:** First Edition (2025)  
-**License:** CC BY 4.0 — Free to use with attribution
+
