@@ -1,4 +1,4 @@
-# 🔬 Lab: Implementing a Simple Artificial Neural Network (ANN)
+# 🔬 Python: Implementing a Simple Artificial Neural Network (ANN)
 
 ## 🧩 1. Objective
 This lab introduces the fundamental principles of **Artificial Neural Networks (ANNs)** by implementing a simple feedforward network for logical pattern learning (e.g., XOR function).  
@@ -29,10 +29,10 @@ y = f\left(\sum_{i=1}^{n} w_i x_i + b \right)
 $$
 
 where:  
-- $$ x_i $$: input  
-- \(w_i\): weight  
-- \(b\): bias  
-- \(f(\cdot)\): activation function  
+- $$x_i$$: input  
+- $$w_i$$: weight  
+- $$b$$: bias  
+- $$f(\cdot)$$: activation function  
 
 ### 3.2 Network Structure
 | Layer | Description |
