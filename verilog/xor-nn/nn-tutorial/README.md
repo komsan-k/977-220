@@ -29,7 +29,7 @@ y = f\left(\sum_{i=1}^{n} w_i x_i + b \right)
 $$
 
 where:  
-- \(x_i\): input  
+- $$ x_i $$: input  
 - \(w_i\): weight  
 - \(b\): bias  
 - \(f(\cdot)\): activation function  
