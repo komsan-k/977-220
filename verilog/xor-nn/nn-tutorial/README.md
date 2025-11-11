@@ -24,9 +24,9 @@ Students will:
 ### 3.1 Artificial Neuron
 Each neuron performs:
 
-\[
+$$
 y = f\left(\sum_{i=1}^{n} w_i x_i + b \right)
-\]
+$$
 
 where:  
 - \(x_i\): input  
