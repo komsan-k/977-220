@@ -94,12 +94,13 @@ $$
 
 where  
 $$
-f(x) = 
-$$\begin{cases}
+f(x) =
+\begin{cases}
 1, & \text{if } x > 0 \\[4pt]
 0, & \text{if } x \le 0
-$$\end{cases}
+\end{cases}
 $$
+
 
 This small network learns to output 1 only when inputs \( A \) and \( B \) are different.
 
