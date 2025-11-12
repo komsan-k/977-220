@@ -58,7 +58,7 @@ $$
 w_{new} = w_{old} - \eta \frac{\partial L}{\partial w}
 $$
 
-where $$ \eta $$ is the learning rate.
+where $$\eta$$ is the learning rate.
 
 4. **Iteration (Epochs)**  
    - The process repeats over many examples until the model converges (error minimized).
@@ -71,10 +71,10 @@ Activation functions introduce non-linearity, enabling the ANN to learn complex 
 
 | Function | Equation | Range | Common Use |
 |-----------|-----------|--------|-------------|
-| **Sigmoid** | $$ f(x) = \frac{1}{1 + e^{-x}} $$ | (0,1) | Binary classification |
-| **ReLU** | $$ f(x) = \max(0,x) $$ | [0,∞) | Deep networks |
-| **tanh** | \( f(x) = \tanh(x) \) | (-1,1) | Centered data |
-| **Softmax** | \( f_i(x) = \frac{e^{x_i}}{\sum_j e^{x_j}} \) | (0,1) | Multi-class output |
+| **Sigmoid** | $$f(x) = \frac{1}{1 + e^{-x}}$$ | (0,1) | Binary classification |
+| **ReLU** | $$f(x) = \max(0,x)$$ | [0,∞) | Deep networks |
+| **tanh** | $$f(x) = \tanh(x)$$ | (-1,1) | Centered data |
+| **Softmax** | $$f_i(x) = \frac{e^{x_i}}{\sum_j e^{x_j}}$$ | (0,1) | Multi-class output |
 
 ---
 
