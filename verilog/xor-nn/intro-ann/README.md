@@ -93,12 +93,14 @@ Y = f(W_{o1}H_1 + W_{o2}H_2 + b_o)
 $$
 
 where  
+
+
 $$
-f(x) =
+f(x) = 
 \begin{cases}
-1, & \text{if } x > 0 \\[4pt]
+1, & \text{if } x > 0 \\
 0, & \text{if } x \le 0
-\end{cases}
+\end{cases} 
 $$
 
 
