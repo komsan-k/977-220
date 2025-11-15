@@ -43,7 +43,7 @@ endmodule
 ------------------------------------------------------------------------
 
 ## 2. Stopwatch Top Module
-
+<!---
 Save as **`stopwatch.v`**:
 
 ``` verilog
@@ -57,7 +57,7 @@ module stopwatch (
     output [3:0] cs_tens,
     output [3:0] cs_ones
 );
-<!---
+
     wire [3:0] cs_tens_int, cs_ones_int;
     reg  cs_rollover;
 
@@ -114,10 +114,10 @@ module stopwatch (
         .tens(min_tens),
         .ones(min_ones)
     );
-<---
+
 endmodule
 ```
-
+<---
 ------------------------------------------------------------------------
 
 ## 3. Testbench for Simulation
