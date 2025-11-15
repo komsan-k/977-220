@@ -10,14 +10,6 @@
 
 ------------------------------------------------------------------------
 
-## 📉 Penalty Formula
-
-\[ `\text{Final Mark}`{=tex} = 4% - 0.5%
-`\times `{=tex}`\left`{=tex}`\lfloor `{=tex}`\frac{\text{Minutes Late After\ 10{:}00}}{15}`{=tex}
-`\right`{=tex}`\rfloor`{=tex} \]
-
-------------------------------------------------------------------------
-
 ## ⏰ No Penalty Period
 
   Time Submitted   Penalty   Final Mark
@@ -44,37 +36,3 @@
                                                                below**
   ------------------------------------------------------------------------------
 
-------------------------------------------------------------------------
-
-## 📝 Example Calculations
-
-### Submit at 10:07
-
--   Late by 7 minutes\
--   Deduction = 0.5%\
--   **Final = 3.5%**
-
-### Submit at 10:28
-
--   28 minutes late → 2 penalty blocks\
--   **Final = 3.0%**
-
-### Submit at 10:43
-
--   43 minutes late → 3 penalty blocks\
--   **Final = 2.5%**
-
-------------------------------------------------------------------------
-
-## 🎯 Evaluation Rubric (4% Total)
-
-  Criterion                   Description                    Marks
-  --------------------------- ------------------------------ ----------
-  BCD Counter Functionality   Correct counting & rollover    **1.5%**
-  Stopwatch Integration       cs → sec → min chaining        **1.5%**
-  Simulation Output           Waveforms + monitor logs       **0.7%**
-  Code Quality                Readable, commented, correct   **0.3%**
-
-------------------------------------------------------------------------
-
-Generated automatically for stopwatch simulation assessment.
