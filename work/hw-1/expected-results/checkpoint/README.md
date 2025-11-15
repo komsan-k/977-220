@@ -1,25 +1,24 @@
-# Checkpoint & Evaluation Criteria (Updated)
+# Checkpoint & Evaluation Criteria 
 
 ## Session Details
 
 -   **Time:** 9:30--11:00\
--   **Total Marks:** **4%**\
+-   **Total Marks:** **4%**
 -   **Penalty Policy:**
-    -   **No deduction from 9:30 → 10:00**\
+    -   **No deduction from 9:30 → 10:00**
     -   **After 10:00 → deduct 0.5% every 15 minutes**
 
 ------------------------------------------------------------------------
 
 ## 📉 Penalty Formula
 
-\[ ext{Final Mark} = 4% - 0.5% imes `\left`{=tex}`\lfloor `{=tex}rac{
-ext{Minutes Late After 10{:}00}}{15} ightfloor \]
+\[ `\text{Final Mark}`{=tex} = 4% - 0.5%
+`\times `{=tex}`\left`{=tex}`\lfloor `{=tex}`\frac{\text{Minutes Late After\ 10{:}00}}{15}`{=tex}
+`\right`{=tex}`\rfloor`{=tex} \]
 
 ------------------------------------------------------------------------
 
-## 📊 Time & Score Breakdown
-
-### ⏰ No Penalty Period
+## ⏰ No Penalty Period
 
   Time Submitted   Penalty   Final Mark
   ---------------- --------- ------------
@@ -27,15 +26,23 @@ ext{Minutes Late After 10{:}00}}{15} ightfloor \]
 
 ------------------------------------------------------------------------
 
-### ⚠️ Penalty After 10:00
+# 📉 Penalty After 10:00 (Table Format)
 
-  Time Slot          Minutes Late After 10:00   Penalty         Final Mark
-  ------------------ -------------------------- --------------- ---------------------
-  **10:00--10:14**   0--14 min                  −0.5%           **3.50%**
-  **10:15--10:29**   15--29 min                 −1.0%           **3.00%**
-  **10:30--10:44**   30--44 min                 −1.5%           **2.50%**
-  **10:45--10:59**   45--59 min                 −2.0%           **2.00%**
-  **After 11:00**    ≥ 60 min                   −2.5% or more   **1.50% and below**
+  ------------------------------------------------------------------------------
+  Time Slot          Minutes Late After  Penalty (--0.5% per   Final Mark (from
+                     10:00               15 min)               4%)
+  ------------------ ------------------- --------------------- -----------------
+  **10:00--10:14**   0--14 min           −0.5%                 **3.50%**
+
+  **10:15--10:29**   15--29 min          −1.0%                 **3.00%**
+
+  **10:30--10:44**   30--44 min          −1.5%                 **2.50%**
+
+  **10:45--10:59**   45--59 min          −2.0%                 **2.00%**
+
+  **After 11:00**    ≥ 60 min            −2.5% or more         **1.50% and
+                                                               below**
+  ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
