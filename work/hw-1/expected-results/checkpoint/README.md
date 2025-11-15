@@ -29,5 +29,15 @@
 | 10:45–10:59     | 45–59 min                 | −2.0%                        | 2.00%                  |
 | After 11:00     | ≥ 60 min                  | −2.5% or more                | 1.50% and below        |
 
+------------------------------------------------------------------------
+
+## 🎯 Evaluation Rubric (4% Total)
+
+| Criterion                 | Description                    | Marks   |
+|---------------------------|--------------------------------|---------|
+| BCD Counter Functionality | Correct counting & rollover    | **1.5%** |
+| Stopwatch Integration     | cs → sec → min chaining        | **1.5%** |
+| Simulation Output         | Waveforms + monitor logs       | **0.7%** |
+| Code Quality              | Readable, commented, correct   | **0.3%** |
 
 
