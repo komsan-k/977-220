@@ -1,11 +1,11 @@
 # Verilog Stopwatch Simulation (BCD Counter)
 
-This README provides instructions for simulating a **BCD-based
-stopwatch** (minute / second / centi-second) using Verilog.\
-It includes:\
-- BCD counter module\
-- Stopwatch top module\
-- Simulation testbench\
+This provides instructions for simulating a **BCD-based
+stopwatch** (minute / second / centi-second) using Verilog.
+It includes:
+- BCD counter module
+- Stopwatch top module
+- Simulation testbench
 - Instructions for running the simulation
 
 ------------------------------------------------------------------------
@@ -199,12 +199,8 @@ endmodule
 ## 5. Notes
 
 -   This simulation uses a simplified stopwatch that counts **00--99**
-    for all counters.\
+    for all counters.
 -   You may modify the logic to restrict seconds/minutes to **59** for a
     realistic stopwatch.
 
-------------------------------------------------------------------------
 
-## 6. Author
-
-Generated automatically for Verilog training and simulation workflow.
