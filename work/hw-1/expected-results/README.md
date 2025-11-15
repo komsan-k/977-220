@@ -1,6 +1,6 @@
 # Expected Result Pattern for Verilog Stopwatch Simulation
 
-This README provides the **expected output pattern** for the stopwatch
+This provides the **expected output pattern** for the stopwatch
 simulation using the provided Verilog testbench.
 
 ------------------------------------------------------------------------
