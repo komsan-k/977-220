@@ -19,7 +19,7 @@ Target platform:
 
 Each week contains:
 
-* 4 time slots
+* 4 time slots (12 hours)
 * 3 hours per slot
 
 ---
