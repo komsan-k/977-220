@@ -94,6 +94,7 @@ ANN → BNN → CNN
 | Week 2 | FPGA Calculator         |
 | Week 3 | UART + GPIO System      |
 | Week 4 | FPGA XOR Neural Network |
+| Week 5 | Mini Project |
 
 ---
 
