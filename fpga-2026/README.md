@@ -1,6 +1,6 @@
 # FPGA 4-Week Course Plan
 
-## Verilog, Vivado, IP Integrator, and AI on FPGA
+## FPGA, Verilog, Vivado, IP Integrator, and AI Haradware 
 
 ---
 
@@ -122,7 +122,7 @@ ANN → BNN → CNN
 
 Students will be able to:
 
-* Understand FPGA architecture
+* Understand FPGA haradware
 * Design digital systems using Verilog/SystemVerilog
 * Simulate FPGA circuits
 * Implement FPGA systems on Nexys A7
