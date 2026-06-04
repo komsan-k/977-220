@@ -68,7 +68,7 @@ Each week contains:
 
 ---
 
-# 🔁 Recommended Educational Flow
+# 🔁 Educational Flow
 
 ```text id="4tyqvy"
 Week 1:
@@ -122,12 +122,13 @@ ANN → BNN → CNN
 
 Students will be able to:
 
+* Understand FPGA architecture
 * Design digital systems using Verilog/SystemVerilog
 * Simulate FPGA circuits
 * Implement FPGA systems on Nexys A7
 * Build hierarchical FPGA architectures
 * Use Vivado IP Integrator
-* Understand basic FPGA AI acceleration concepts
+* Understand basic AI acceleration concepts on FPGA
 
 ---
 
