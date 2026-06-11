@@ -24,6 +24,14 @@ Each week contains:
 
 ---
 
+## 📚 Teaching Book
+A teaching textbook is available here:
+
+📖 **977-114* Verilog HDL and FPGA: A Practical Approach to Digital and Logic Design*  
+🔗 https://github.com/komsan-k/verilog-fpga-ebook
+
+---
+
 # 🗓️ Week 1 — Verilog / SystemVerilog Fundamentals
 
 | Slot   | Topic                                               | Description                                       |
