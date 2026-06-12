@@ -27,8 +27,8 @@ Each week contains:
 ## 📚 Teaching Book
 A teaching textbook is available here:
 
-📖 *Verilog HDL and FPGA: A Practical Approach to Digital and Logic Design*  
-🔗 [E-Book online](https://github.com/komsan-k/verilog-fpga-ebook)
+📖 *Komsan Kanjanasit, (2025), Verilog HDL and FPGA: A Practical Approach to Digital and Logic Design*  
+🔗 [E-Book](https://github.com/komsan-k/verilog-fpga-ebook)
 
 📖 *AMD Vivado™ In-Depth Tutorials*  
 🔗 [Xilnx GitHub](https://github.com/Xilinx/Vivado-Design-Tutorials)
