@@ -31,7 +31,7 @@ A teaching textbook is available here:
 🔗 [E-Book](https://github.com/komsan-k/verilog-fpga-ebook)
 
 📖 *AMD Vivado™ In-Depth Tutorials*  
-🔗 [Xilnx GitHub](https://github.com/Xilinx/Vivado-Design-Tutorials)
+🔗 [Xilinx GitHub](https://github.com/Xilinx/Vivado-Design-Tutorials)
 
 ---
 
