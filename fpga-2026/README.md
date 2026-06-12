@@ -30,6 +30,9 @@ A teaching textbook is available here:
 📖 *Verilog HDL and FPGA: A Practical Approach to Digital and Logic Design*  
 🔗 https://github.com/komsan-k/verilog-fpga-ebook
 
+📖 *AMD Vivado™ In-Depth Tutorials*  
+🔗 [Xilnx Github](https://github.com/Xilinx/Vivado-Design-Tutorials)
+
 ---
 
 # 🗓️ Week 1 — Verilog / SystemVerilog Fundamentals
