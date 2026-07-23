@@ -34,6 +34,16 @@ A teaching textbook is available here:
 🔗 [Xilinx GitHub](https://github.com/Xilinx/Vivado-Design-Tutorials)
 
 ---
+| Component         |   Marks |
+| ----------------- | ------: |
+| Week 1 Assessment |      20 |
+| Week 2 Assessment |      20 |
+| Week 3 Assessment |      20 |
+| Week 4 Assessment |      20 |
+| Mini Project      |      20 |
+| **Total**         | **100** |
+
+---
 
 # 🗓️ Week 1 — Verilog / SystemVerilog Fundamentals
 
