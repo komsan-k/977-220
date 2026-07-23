@@ -34,16 +34,6 @@ A teaching textbook is available here:
 🔗 [Xilinx GitHub](https://github.com/Xilinx/Vivado-Design-Tutorials)
 
 ---
-| Component         |   Marks |
-| ----------------- | ------: |
-| Week 1 Assessment |      20 |
-| Week 2 Assessment |      20 |
-| Week 3 Assessment |      20 |
-| Week 4 Assessment |      20 |
-| Mini Project      |      20 |
-| **Total**         | **100** |
-
----
 
 # 🗓️ Week 1 — Verilog / SystemVerilog Fundamentals
 
@@ -172,4 +162,107 @@ After completing this course, students can continue to:
 This course provides a practical introduction to FPGA system design using Verilog, Vivado, and AI-based FPGA concepts. Students progressively learn from basic digital logic to intelligent FPGA architectures suitable for modern embedded and CPS applications.
 
 ---
+# 📊 Course Evaluation (100 Marks)
 
+| Component | Marks |
+|-----------|------:|
+| Week 1 Assessment | 20 |
+| Week 2 Assessment | 20 |
+| Week 3 Assessment | 20 |
+| Week 4 Assessment | 20 |
+| Mini Project | 20 |
+| **Total** | **100** |
+
+---
+
+## 🗓️ Week 1: Verilog/SystemVerilog Fundamentals (20 Marks)
+
+| Assessment Item | Marks |
+|-----------------|------:|
+| Quiz (Digital Logic & Verilog Fundamentals) | 5 |
+| Laboratory Completion (Combinational, Sequential & FSM Labs) | 8 |
+| HDL Coding Style & Documentation | 3 |
+| FPGA Demonstration & Oral Explanation | 4 |
+| **Total** | **20** |
+
+---
+
+## 🗓️ Week 2: Vivado FPGA Design Flow (20 Marks)
+
+| Assessment Item | Marks |
+|-----------------|------:|
+| Quiz (Vivado Design Flow & Simulation) | 5 |
+| Laboratory Completion (Simulation & FPGA Implementation) | 8 |
+| FPGA Implementation & Debugging | 3 |
+| Live Demonstration | 4 |
+| **Total** | **20** |
+
+---
+
+## 🗓️ Week 3: Hierarchical FPGA & IP Design (20 Marks)
+
+| Assessment Item | Marks |
+|-----------------|------:|
+| Quiz (Hierarchy, MAC & IP Integrator) | 5 |
+| Laboratory Completion (Adder, MAC & IP Labs) | 8 |
+| System Integration & Design Quality | 3 |
+| Demonstration & Technical Discussion | 4 |
+| **Total** | **20** |
+
+---
+
+## 🗓️ Week 4: AI on FPGA (20 Marks)
+
+| Assessment Item | Marks |
+|-----------------|------:|
+| Quiz (ANN, BNN & CNN Fundamentals) | 5 |
+| Laboratory Completion (AI-FPGA Labs) | 8 |
+| AI Hardware Design & Optimization | 3 |
+| Final Demonstration | 4 |
+| **Total** | **20** |
+
+---
+
+# 🎯 Mini Project (20 Marks)
+
+Students complete **one FPGA-based project** individually or in teams (maximum **3 students**).
+
+## Evaluation Rubric
+
+| Criteria | Marks |
+|----------|------:|
+| System Design & Innovation | 4 |
+| Verilog/SystemVerilog Design Quality | 4 |
+| FPGA Implementation & Functionality | 4 |
+| Hardware Integration & Verification | 3 |
+| Demonstration & Technical Presentation | 3 |
+| Report & Documentation | 2 |
+| **Total** | **20** |
+
+---
+
+# 📈 Grade Scale
+
+| Grade | Score |
+|-------|------:|
+| A | 80–100 |
+| B+ | 75–79 |
+| B | 70–74 |
+| C+ | 65–69 |
+| C | 60–64 |
+| D+ | 55–59 |
+| D | 50–54 |
+| F | Below 50 |
+
+---
+
+## 📋 Assessment Summary
+
+| Assessment | Marks |
+|------------|------:|
+| Week 1 Assessment | 20 |
+| Week 2 Assessment | 20 |
+| Week 3 Assessment | 20 |
+| Week 4 Assessment | 20 |
+| Mini Project | 20 |
+| **Total** | **100** |
