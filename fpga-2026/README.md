@@ -252,17 +252,6 @@ Students complete **one FPGA-based project** individually or in teams (maximum *
 | C | 60–64 |
 | D+ | 55–59 |
 | D | 50–54 |
-| F | Below 50 |
+| E | Below 50 |
 
----
 
-## 📋 Assessment Summary
-
-| Assessment | Marks |
-|------------|------:|
-| Week 1 Assessment | 20 |
-| Week 2 Assessment | 20 |
-| Week 3 Assessment | 20 |
-| Week 4 Assessment | 20 |
-| Mini Project | 20 |
-| **Total** | **100** |
