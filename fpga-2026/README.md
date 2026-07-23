@@ -50,10 +50,10 @@ A teaching textbook is available here:
 
 | Slot   | Topic                               | Description                              |
 | ------ | ----------------------------------- | ---------------------------------------- |
-| Slot 1 | Vivado-1: Simulation & Testbench    | Behavioral simulation using Vivado       |
-| Slot 2 | Vivado-2: Hello FPGA                | LED blinking and FPGA programming        |
-| Slot 3 | Vivado-3: FPGA Combinational Design | Implement combinational circuits on FPGA |
-| Slot 4 | Vivado-4: FPGA FSM Implementation   | Deploy FSM design to Nexys A7            |
+| Slot 5 | Vivado-1: Simulation & Testbench    | Behavioral simulation using Vivado       |
+| Slot 6 | Vivado-2: Hello FPGA                | LED blinking and FPGA programming        |
+| Slot 7 | Vivado-3: FPGA Combinational Design | Implement combinational circuits on FPGA |
+| Slot 8 | Vivado-4: FPGA FSM Implementation   | Deploy FSM design to Nexys A7            |
 
 ---
 
@@ -61,10 +61,10 @@ A teaching textbook is available here:
 
 | Slot   | Topic                              | Description                             |
 | ------ | ---------------------------------- | --------------------------------------- |
-| Slot 1 | Vivado-Hierarchy: Adder Study Case | Hierarchical 4-bit/8-bit adder design   |
-| Slot 2 | Vivado-MAC Design                  | Multiply-Accumulate unit implementation |
-| Slot 3 | Vivado-IP Core-1                   | AXI GPIO, UARTLite, BRAM                |
-| Slot 4 | Vivado-IP Core-2                   | MicroBlaze + IP Integrator system       |
+| Slot 9 | Vivado-Hierarchy: Adder Study Case | Hierarchical 4-bit/8-bit adder design   |
+| Slot 10 | Vivado-MAC Design                  | Multiply-Accumulate unit implementation |
+| Slot 11 | Vivado-IP Core-1                   | AXI GPIO, UARTLite, BRAM                |
+| Slot 12 | Vivado-IP Core-2                   | MicroBlaze + IP Integrator system       |
 
 ---
 
@@ -72,10 +72,10 @@ A teaching textbook is available here:
 
 | Slot   | Topic                        | Description                           |
 | ------ | ---------------------------- | ------------------------------------- |
-| Slot 1 | AI-FPGA: ANN (XOR Function)  | Simple neural network implementation  |
-| Slot 2 | AI-FPGA: ANN (Smart Traffic) | FPGA-based smart traffic ANN          |
-| Slot 3 | AI-FPGA: BNN                 | Binary Neural Network basics          |
-| Slot 4 | AI-FPGA: CNN                 | Intro to CNN accelerator architecture |
+| Slot 13 | AI-FPGA: ANN (XOR Function)  | Simple neural network implementation  |
+| Slot 14 | AI-FPGA: ANN (Smart Traffic) | FPGA-based smart traffic ANN          |
+| Slot 15 | AI-FPGA: BNN                 | Binary Neural Network basics          |
+| Slot 16 | AI-FPGA: CNN                 | Intro to CNN accelerator architecture |
 
 ---
 
