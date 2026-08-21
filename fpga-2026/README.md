@@ -235,8 +235,7 @@ Students complete **one FPGA-based project** individually or in teams (maximum *
 | Verilog/SystemVerilog Design Quality | 4 |
 | FPGA Implementation & Functionality | 4 |
 | Hardware Integration & Verification | 3 |
-| Demonstration & Technical Presentation | 3 |
-| Report & Documentation | 2 |
+| Demonstration & Technical Presentation | 5 |
 | **Total** | **20** |
 
 ---
