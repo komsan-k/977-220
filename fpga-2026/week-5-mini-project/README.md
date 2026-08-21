@@ -1030,14 +1030,13 @@ A recommended report structure is:
 
 | Criterion                |   Marks |
 | ------------------------ | ------: |
-| Design correctness       |      20 |
-| HDL implementation       |      20 |
-| Testbench and simulation |      15 |
-| FPGA implementation      |      15 |
-| Hardware demonstration   |      15 |
-| Analysis and discussion  |      10 |
-| Documentation            |       5 |
-| **Total**                | **100** |
+| Design correctness       |      4 |
+| HDL implementation       |      4 |
+| Testbench and simulation |      4 |
+| FPGA implementation      |      3 |
+| Hardware demonstration   |      3 |
+| Analysis and discussion  |      2 |
+| **Total**                | **20** |
 
 ---
 
