@@ -83,9 +83,7 @@ Thus,
 $$
 \boxed{
 \text{Combinational Logic}
-==========================
-
-\text{Present Input}
+= \text{Present Input}
 \rightarrow
 \text{Present Output}
 }
@@ -993,9 +991,7 @@ Conceptually,
 
 $$
 T_{pd}
-======
-
-T_{\text{logic}}
+= T_{\text{logic}}
 +
 T_{\text{routing}}.
 $$
