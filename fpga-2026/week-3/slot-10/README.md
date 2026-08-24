@@ -98,9 +98,7 @@ followed by
 
 $$
 Y_{\text{new}}
-==============
-
-Y_{\text{old}}+P.
+= Y_{\text{old}}+P.
 $$
 
 ---
@@ -260,9 +258,7 @@ The operation is
 
 $$
 ACC[n+1]
-========
-
-ACC[n]+A[n]B[n].
+= ACC[n]+A[n]B[n].
 $$
 
 The architecture is
@@ -453,9 +449,7 @@ The waveform should verify
 
 $$
 ACC[n+1]
-========
-
-ACC[n]+A[n]B[n].
+= ACC[n]+A[n]B[n].
 $$
 
 ---
@@ -507,27 +501,21 @@ Consider
 
 $$
 \mathbf{x}
-==========
-
-[x_0,x_1,x_2,x_3]
+= [x_0,x_1,x_2,x_3]
 $$
 
 and
 
 $$
 \mathbf{w}
-==========
-
-[w_0,w_1,w_2,w_3].
+= [w_0,w_1,w_2,w_3].
 $$
 
 The dot product is
 
 $$
 y
-=
-
-x_0w_0+x_1w_1+x_2w_2+x_3w_3.
+= x_0w_0+x_1w_1+x_2w_2+x_3w_3.
 $$
 
 A single MAC can calculate this sequentially:
@@ -543,9 +531,7 @@ After four cycles,
 
 $$
 ACC
-===
-
-\sum_{i=0}^{3}x_iw_i.
+= \sum_{i=0}^{3}x_iw_i.
 $$
 
 ---
