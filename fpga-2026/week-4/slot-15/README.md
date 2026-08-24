@@ -193,7 +193,7 @@ $$
 For an (N)-input binary neuron,
 
 $$
-P = \operatorname{popcount}\overline{X\oplus W}.
+P = \operatorname{popcount}\left(X \operatorname{XNOR} W\right).
 $$
 
 The equivalent bipolar dot product is
@@ -246,11 +246,9 @@ $$
 The activation can then be implemented using a threshold:
 
 $$
-y=
-\begin{cases}
+y = \begin{cases}
 1,&P\geq T\
-0,&P<T
-\end{cases}
+0,&P<T \end{cases}
 $$
 
 where (T) is the neuron threshold.
@@ -807,18 +805,14 @@ Using 32-bit floating-point weights requires
 
 $$
 1,000,000\times32
-=================
-
-32,000,000\text{ bits}.
+= 32,000,000\text{ bits}.
 $$
 
 Using binary weights requires only
 
 $$
 1,000,000\times1
-================
-
-1,000,000\text{ bits}.
+= 1,000,000\text{ bits}.
 $$
 
 The theoretical weight-storage reduction relative to FP32 is therefore
@@ -958,9 +952,7 @@ The predicted class can be selected using
 
 $$
 \hat{C}
-=======
-
-\arg\max_j P_j.
+= \arg\max_j P_j.
 $$
 
 This introduces students to the basic architecture used by larger FPGA-based BNN classifiers.
