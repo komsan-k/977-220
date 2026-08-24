@@ -57,9 +57,7 @@ Therefore,
 $$
 \boxed{
 \text{Sequential Logic}
-=======================
-
-\text{Current Input}
+= \text{Current Input}
 +
 \text{Previous State}
 }
@@ -360,9 +358,7 @@ Therefore,
 $$
 \boxed{
 \text{Counter}
-==============
-
-\text{Register}
+= \text{Register}
 +
 \text{Increment Logic}
 }
