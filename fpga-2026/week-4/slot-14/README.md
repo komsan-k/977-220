@@ -35,8 +35,8 @@ A **smart traffic controller** changes the signal timing according to current tr
 
 In this laboratory, two simplified traffic measurements are considered:
 
-* (X_1): number of vehicles waiting on **Road A**
-* (X_2): number of vehicles waiting on **Road B**
+* ($$X_1$$): number of vehicles waiting on **Road A**
+* ($$X_2$$): number of vehicles waiting on **Road B**
 
 The ANN processes these inputs and classifies the current traffic condition.
 
@@ -49,15 +49,17 @@ The ANN processes these inputs and classifies the current traffic condition.
 
 Thus, the FPGA implements the basic pipeline
 
-[
+$$
+\boxed{
 \text{Traffic Sensors}
 \rightarrow
 \text{ANN}
 \rightarrow
 \text{Traffic Classification}
 \rightarrow
-\text{Signal Timing}.
-]
+\text{Signal Timing}
+}
+$$
 
 ---
 
@@ -113,10 +115,10 @@ $$
 
 where
 
-* (X_1) and (X_2) are traffic inputs,
-* (W_{ij}) represents ANN weights,
-* (b_i) represents the neuron bias,
-* (H_i) represents a hidden-layer output.
+* ($$X_1$$) and ($$X_2$$) are traffic inputs,
+* ($$W_{ij}$$) represents ANN weights,
+* ($$b_i$$) represents the neuron bias,
+* ($$H_i$$) represents a hidden-layer output.
 
 For the three hidden neurons,
 
@@ -186,7 +188,7 @@ $$
 can be quantized using a scale factor (S=16):
 
 $$
-W=\operatorname{round}(16w)=12.
+W = round(16w) = 12.
 $$
 
 The FPGA then performs integer multiply-accumulate operations:
@@ -476,7 +478,7 @@ endmodule
 
 ## 📊 9. Expected Simulation Results
 
-| Road A (X_1) | Road B (X_2) | Total Traffic | ANN Class | Condition | Green Time |
+| Road A ($$X_1$$) | Road B ($$X_2$$) | Total Traffic | ANN Class | Condition | Green Time |
 | -----------: | -----------: | ------------: | :-------: | --------- | ---------: |
 |            1 |            1 |             2 |    `00`   | Low       |       10 s |
 |            3 |            3 |             6 |    `01`   | Medium    |       20 s |
@@ -612,18 +614,14 @@ Training can be performed using Python with a traffic dataset:
 
 $$
 \mathcal{D}
-===========
-
-{(X_1,X_2,C)}.
+= {(X_1,X_2,C)}.
 $$
 
 The training process determines
 
 $$
-W^*,b^*
-=======
-
-\arg\min_{W,b}
+W^* ,b^*
+= \arg\min_{W,b}
 \mathcal{L}(C,\hat{C}).
 $$
 
@@ -635,9 +633,7 @@ The FPGA evaluates
 
 $$
 \hat{C}
-=======
-
-F_{\mathrm{ANN}}(X;W^*,b^*)
+= F_{\mathrm{ANN}}(X;W^*,b^*)
 $$
 
 in real time.
@@ -694,7 +690,7 @@ as a basic **AI-at-the-edge architecture**.
    Modify the network to accept
 
    $$
-   X=[X_1,X_2,X_3].
+   X = [X_1,X_2,X_3].
    $$
 
 3. **Real ANN Weights**
@@ -729,15 +725,15 @@ as a basic **AI-at-the-edge architecture**.
 8. **Advanced Challenge — Two-Way Adaptive Traffic Control**
    Modify the ANN so that it determines both:
 
-   $$
-   \text{Which road receives green?}
-   $$
+ $$
+\text{Which road receives green?}
+$$
 
-   and
+and
 
-   $$
-   \text{How long should it remain green?}
-   $$
+$$
+\text{How long should it remain green?}
+$$
 
 ---
 
