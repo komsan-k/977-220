@@ -542,9 +542,7 @@ A neural-network neuron computes
 
 $$
 z
-=
-
-\sum_{i=0}^{N-1}w_ix_i+b.
+= \sum_{i=0}^{N-1}w_ix_i+b.
 $$
 
 The main part
@@ -614,9 +612,7 @@ An FIR filter computes
 
 $$
 y[n]
-====
-
-\sum_{k=0}^{N-1}
+= \sum_{k=0}^{N-1}
 h[k]x[n-k].
 $$
 
@@ -624,9 +620,7 @@ For a 4-tap FIR filter,
 
 $$
 y[n]
-====
-
-h_0x[n]+h_1x[n-1]+h_2x[n-2]+h_3x[n-3].
+= h_0x[n]+h_1x[n-1]+h_2x[n-2]+h_3x[n-3].
 $$
 
 Each term requires multiplication and accumulation.
@@ -993,18 +987,14 @@ A simple pipelined architecture can use
 
 $$
 P[n]
-====
-
-A[n]B[n]
+= A[n]B[n]
 $$
 
 followed by
 
 $$
 ACC[n+1]
-========
-
-ACC[n]+P[n-1].
+= ACC[n]+P[n-1].
 $$
 
 ---
@@ -1292,7 +1282,7 @@ Add a register after the multiplication stage and compare timing.
    Compute
 
    $$
-   Y=A_0B_0+A_1B_1+A_2B_2+A_3B_3.
+   Y = A_0B_0 + A_1B_1 + A_2B_2 + A_3B_3.
    $$
 
 4. **MAC Counter**
@@ -1323,8 +1313,7 @@ Add a register after the multiplication stage and compare timing.
 Implement
 
 $$
-z=
-w_0x_0+w_1x_1+w_2x_2+w_3x_3+b.
+z = w_0x_0 + w_1x_1 + w_2x_2 + w_3x_3+b.
 $$
 
 The datapath is
