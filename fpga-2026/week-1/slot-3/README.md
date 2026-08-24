@@ -61,8 +61,7 @@ Therefore,
 
 $$
 \boxed{
-\text{Sequential Logic}
-=======================
+\text{Sequential Logic}=
 
 \text{Current Inputs}
 +
