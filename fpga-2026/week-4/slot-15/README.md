@@ -161,6 +161,10 @@ $$
 M = X \operatorname{XNOR} W.
 $$
 
+$$
+\overline{\oplus{XW}
+$$
+
 For example,
 
 ```text
