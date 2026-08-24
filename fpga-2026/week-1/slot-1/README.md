@@ -1202,16 +1202,12 @@ Students should fill the table using simulation results.
 1. **3-Input AND Gate**
    Implement
 
-   $$
-   Y=ABC.
-   $$
+   $$ Y=ABC. $$
 
 2. **3-Input Majority Gate**
    Implement
 
-   $$
-   Y=AB+AC+BC.
-   $$
+   $$ Y=AB+AC+BC. $$
 
 3. **4-to-1 Multiplexer**
    Design a 4-input MUX.
