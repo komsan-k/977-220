@@ -113,7 +113,7 @@ $$
 
 Their multiplication produces
 
-| (x_i) | (w_i) | (x_iw_i) |
+| ($$x_i$$) | ($$w_i$$) | ($$x_iw_i$$) |
 | :---: | :---: | :------: |
 |  (-1) |  (-1) |   (+1)   |
 |  (-1) |  (+1) |   (-1)   |
@@ -158,7 +158,7 @@ $$
 The FPGA computes
 
 $$
-M=X\operatorname{XNOR}W.
+M=X XNOR W.
 $$
 
 For example,
@@ -193,7 +193,7 @@ $$
 For an (N)-input binary neuron,
 
 $$
-P=\operatorname{popcount}(X\operatorname{XNOR}W).
+P = \operatorname{popcount}\left(X \operatorname{XNOR} W\right).
 $$
 
 The equivalent bipolar dot product is
