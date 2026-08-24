@@ -1266,14 +1266,14 @@ Discuss why different combinational functions require different LUT resources.
    Implement
 
    $$
-   A+B
-   $$
+A + B
+$$
 
-   and
+and
 
-   $$
-   A-B.
-   $$
+$$
+A - B.
+$$
 
 7. **Parity Generator**
    Generate even parity for a 4-bit input.
@@ -1282,7 +1282,7 @@ Discuss why different combinational functions require different LUT resources.
    Implement
 
    $$
-   Y=AB+AC+BC.
+   Y = AB + AC + BC.
    $$
 
 9. **One-Hot Decoder**
