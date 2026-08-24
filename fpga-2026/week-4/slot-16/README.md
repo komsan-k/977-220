@@ -212,7 +212,7 @@ $$
 z=\sum_{i=1}^{N}w_ix_i+b.
 $$
 
-For a (3\times3) kernel,
+For a ($$3\times3$$) kernel,
 
 $$
 N=9.
@@ -232,10 +232,8 @@ Therefore,
 
 $$
 Y=
-\begin{cases}
-z,&z>0\
-0,&z\leq0.
-\end{cases}
+\begin{cases} z,&z>0\
+0,&z\leq0. \end{cases}
 $$
 
 In hardware, ReLU can be implemented using a sign comparison.
@@ -280,11 +278,8 @@ After convolution and pooling, the extracted feature can be passed to a classifi
 For this introductory lab, a simple threshold classifier is used:
 
 $$
-C=
-\begin{cases}
-1,&F\geq T\
-0,&F<T.
-\end{cases}
+C= \begin{cases} 1,&F\geq T\
+0,&F<T. \end{cases}
 $$
 
 ---
