@@ -162,7 +162,7 @@ M = X \operatorname{XNOR} W.
 $$
 
 $$
-\overline{\oplus{XW}
+M=\overline{X\oplus W}
 $$
 
 For example,
