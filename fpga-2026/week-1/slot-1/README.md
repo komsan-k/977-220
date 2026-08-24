@@ -278,17 +278,17 @@ $$
 Two important Boolean identities are
 
 $$
-\overline{AB} =============
-
+\overline{AB}
+=
 \overline{A}+\overline{B}
 $$
 
 and
 
 $$
-\overline{A+B} ==============
-
-\overline{A},\overline{B}.
+\overline{A+B}
+=
+\overline{A}\,\overline{B}
 $$
 
 These identities are important in digital circuit simplification.
