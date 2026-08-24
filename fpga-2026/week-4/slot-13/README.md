@@ -54,10 +54,10 @@ The XOR problem is important in neural-network education because it demonstrates
 A single perceptron computes
 
 $$
-Y=f(W_1A+W_2B+b)
+Y = f(W_1A + W_2B + b)
 $$
 
-where (W_1) and (W_2) are weights and (b) is the bias.
+where $W_1$ and $W_2$ are the **weights**, and $b$ is the **bias**.
 
 A single perceptron can only create one linear decision boundary. However, the XOR input classes are not linearly separable.
 
