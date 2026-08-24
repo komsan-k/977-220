@@ -689,9 +689,9 @@ as a basic **AI-at-the-edge architecture**.
 2. **Three-Road ANN**
    Modify the network to accept
 
-   $$
-   X = [X_1,X_2,X_3].
-   $$
+  $$
+X = [X_1, X_2, X_3].
+$$
 
 3. **Real ANN Weights**
    Train a small neural network in Python and replace the manually selected thresholds with trained weights and biases.
