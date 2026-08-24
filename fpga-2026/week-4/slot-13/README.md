@@ -674,8 +674,7 @@ The software training stage finds weights and biases that minimize a loss functi
 
 $$
 W^*, b^*
-=
-\arg\min_{W,b}
+= \arg\min_{W,b}
 \mathcal{L}(Y,\hat{Y}).
 $$
 
