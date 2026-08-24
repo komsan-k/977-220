@@ -99,14 +99,12 @@ Therefore,
 
 $$
 \boxed{
+\begin{aligned}
 \text{FSM}
-==========
-
-\text{State Register}
-+
-\text{Next-State Logic}
-+
-\text{Output Logic}
+&= \text{State Register} \\
+&\quad + \text{Next-State Logic} \\
+&\quad + \text{Output Logic}
+\end{aligned}
 }
 $$
 
@@ -1699,10 +1697,7 @@ The fundamental FSM relationship is
 
 $$
 \boxed{
-S_{next}
-========
-
-f(S_{current},X)
+S_{\text{next}} = f(S_{\text{current}}, X)
 }
 $$
 
