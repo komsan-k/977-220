@@ -1081,15 +1081,15 @@ Record LUT, register, and I/O utilization.
 3. **Adder/Subtractor**
    Add a control input that selects
 
-   $$
-   A+B
-   $$
+$$
+A + B
+$$
 
-   or
+or
 
-   $$
-   A-B.
-   $$
+$$
+A - B.
+$$
 
 4. **Overflow Detection**
    Add an overflow flag for signed arithmetic.
