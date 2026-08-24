@@ -278,16 +278,14 @@ $$
 Two important Boolean identities are
 
 $$
-\overline{AB}
-=
+\overline{AB} =
 \overline{A}+\overline{B}
 $$
 
 and
 
 $$
-\overline{A+B}
-=
+\overline{A+B} =
 \overline{A}\,\overline{B}
 $$
 
