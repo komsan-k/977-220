@@ -911,9 +911,7 @@ Therefore,
 $$
 \boxed{
 \text{Automatic Verification}
-
 >
-
 \text{Manual Inspection}
 }
 $$
@@ -1373,22 +1371,22 @@ Students should record:
 1. **NAND Gate Simulation**
    Implement and verify
 
-   $$
-   Y=\overline{AB}.
-   $$
+  $$
+Y = \overline{AB}.
+$$
 
 2. **XOR Gate Simulation**
    Implement
 
    $$
-   Y=A\oplus B.
+   Y = A\oplus B.
    $$
 
 3. **Three-Input Majority Circuit**
    Implement
 
    $$
-   Y=AB+AC+BC.
+   Y = AB + AC + BC.
    $$
 
 4. **4-to-1 Multiplexer**
