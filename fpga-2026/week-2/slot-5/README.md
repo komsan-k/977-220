@@ -1378,7 +1378,7 @@ $$
 2. **XOR Gate Simulation**
    Implement
 
-   $$
+ $$
 Y = A \oplus B.
 $$
 
