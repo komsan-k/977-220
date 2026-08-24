@@ -458,7 +458,7 @@ endmodule
 
 The expected behavior is
 
-|  A  |  B  | (H_1) | (H_2) | ANN Output (Y) | XOR |
+|  A  |  B  | ($$H_1$$) | ($$H_2$$) | ANN Output (Y) | XOR |
 | :-: | :-: | :---: | :---: | :------------: | :-: |
 |  0  |  0  |   0   |   1   |        0       |  0  |
 |  0  |  1  |   1   |   1   |        1       |  1  |
@@ -483,7 +483,7 @@ $$
 A=0,\qquad B=1.
 $$
 
-### Step 1 — Hidden Neuron (H_1)
+### Step 1 — Hidden Neuron ($$H_1$$)
 
 $$
 z_1=2A+2B-1
@@ -505,7 +505,7 @@ $$
 H_1=1.
 $$
 
-### Step 2 — Hidden Neuron (H_2)
+### Step 2 — Hidden Neuron ($$H_2$$)
 
 $$
 z_2=-2A-2B+3
@@ -673,8 +673,9 @@ $$
 The software training stage finds weights and biases that minimize a loss function such as
 
 $$
-W^*,b^*
-= \arg\min_{W,b}
+W^*, b^*
+=
+\arg\min_{W,b}
 \mathcal{L}(Y,\hat{Y}).
 $$
 
