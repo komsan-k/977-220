@@ -1265,7 +1265,7 @@ Discuss why different combinational functions require different LUT resources.
 6. **4-Bit Adder/Subtractor**
    Implement
 
-   $$
+$$
 A + B
 $$
 
