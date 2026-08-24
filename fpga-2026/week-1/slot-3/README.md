@@ -61,11 +61,11 @@ Therefore,
 
 $$
 \boxed{
-\text{Sequential Logic}=
-
-\text{Current Inputs}
-+
-\text{Stored State}
+\begin{aligned}
+\text{Sequential Logic}
+&= \text{Current Inputs} \\
+&\quad + \text{Stored State}
+\end{aligned}
 }
 $$
 
