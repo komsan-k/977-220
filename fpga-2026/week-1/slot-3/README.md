@@ -1732,15 +1732,13 @@ Create a counter with:
 The behavior is
 
 $$
-COUNT_{next}
-============
-
+COUNT_{\text{next}} =
 \begin{cases}
-0,&reset=1\
-DATA,&load=1\
-COUNT+1,&enable=1,\ dir=1\
-COUNT-1,&enable=1,\ dir=0\
-COUNT,&\text{otherwise}.
+0, & reset = 1,\\
+DATA, & load = 1,\\
+COUNT + 1, & enable = 1,\; dir = 1,\\
+COUNT - 1, & enable = 1,\; dir = 0,\\
+COUNT, & \text{otherwise}.
 \end{cases}
 $$
 
