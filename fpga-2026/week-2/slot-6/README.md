@@ -163,12 +163,9 @@ would toggle the LED every clock cycle.
 The output frequency would be approximately
 
 $$
-f_{LED}
-=======
-
-# \frac{f_{clk}}{2}
-
-50~\text{MHz}.
+f_{\text{LED}}
+= \frac{f_{\text{clk}}}{2}
+= 50~\text{MHz}.
 $$
 
 This is far too fast to observe.
@@ -185,9 +182,7 @@ For a counter bit (n),
 
 $$
 f_n
-===
-
-\frac{f_{clk}}
+= \frac{f_{clk}}
 {2^{n+1}}.
 $$
 
@@ -203,9 +198,7 @@ For example,
 
 $$
 f_{25}
-======
-
-\frac{100\times10^6}{2^{26}}
+= \frac{100\times10^6}{2^{26}}
 \approx1.49~\text{Hz}.
 $$
 
@@ -836,9 +829,7 @@ For a counter bit (n),
 
 $$
 f_{LED}
-=======
-
-\frac{f_{clk}}
+= \frac{f_{clk}}
 {2^{n+1}}.
 $$
 
@@ -858,9 +849,7 @@ then
 
 $$
 f_{LED}
-=======
-
-\frac{100\times10^6}{2^{26}}
+= \frac{100\times10^6}{2^{26}}
 \approx1.49~\text{Hz}.
 $$
 
@@ -868,9 +857,7 @@ The corresponding period is
 
 $$
 T_{LED}
-=======
-
-\frac{1}{1.49}
+= \frac{1}{1.49}
 \approx0.671~\text{s}.
 $$
 
@@ -962,9 +949,7 @@ The required number of clock cycles is
 
 $$
 N
-=
-
-# 100\times10^6\times0.5
+= 100\times10^6\times0.5
 
 50,000,000.
 $$
