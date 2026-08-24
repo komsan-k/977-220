@@ -949,9 +949,8 @@ The required number of clock cycles is
 
 $$
 N
-= 100\times10^6\times0.5
-
-50,000,000.
+= 100 \times 10^{6} \times 0.5
+= 50{,}000{,}000.
 $$
 
 The LED toggles every 50 million cycles, producing a full 1-second ON/OFF period.
