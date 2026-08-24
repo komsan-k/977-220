@@ -109,9 +109,7 @@ The convolution output at one location is
 
 $$
 Y(i,j)
-======
-
-\sum_{m=0}^{2}
+= \sum_{m=0}^{2}
 \sum_{n=0}^{2}
 X(i+m,j+n)K(m,n).
 $$
@@ -155,8 +153,7 @@ The objective of this laboratory is not image-quality optimization but understan
 Consider the image window
 
 $$
-X=
-\begin{bmatrix}
+X = \begin{bmatrix}
 1 & 2 & 3\
 1 & 2 & 4\
 0 & 1 & 5
@@ -177,9 +174,7 @@ $$
 Then
 
 $$
-Y
-=
-
+Y =
 (1)(-1)+(2)(0)+(3)(1)
 $$
 
