@@ -673,8 +673,7 @@ $$
 The software training stage finds weights and biases that minimize a loss function such as
 
 $$
-W^*, b^* = \arg\min_{W,b}
-\mathcal{L}(Y,\hat{Y}).
+W^*, b^* = \arg\min_{W,b} \mathcal{L}(Y,\hat{Y}).
 $$
 
 The trained values are then transferred to the FPGA.
