@@ -1281,9 +1281,9 @@ Add a register after the multiplication stage and compare timing.
 3. **Four-Term Dot Product**
    Compute
 
-   $$
-   Y = A_0B_0 + A_1B_1 + A_2B_2 + A_3B_3.
-   $$
+ $$
+Y = A_0B_0 + A_1B_1 + A_2B_2 + A_3B_3.
+$$
 
 4. **MAC Counter**
    Add a counter that stops accumulation after (N) operations.
