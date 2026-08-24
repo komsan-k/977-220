@@ -1385,7 +1385,7 @@ $$
 3. **Three-Input Majority Circuit**
    Implement
 
-   $$
+$$
 Y = AB + AC + BC.
 $$
 
