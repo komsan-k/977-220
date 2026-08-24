@@ -197,7 +197,7 @@ $$
 
 A neural realization can use the following weights.
 
-### Hidden Neuron (H_1)
+### Hidden Neuron ($$H_1$$)
 
 $$
 H_1=f(A+B-0.5).
@@ -211,7 +211,7 @@ W_{12}=1,\qquad
 b_1=-0.5.
 $$
 
-### Hidden Neuron (H_2)
+### Hidden Neuron ($$H_2$$)
 
 $$
 H_2=f(-A-B+1.5).
