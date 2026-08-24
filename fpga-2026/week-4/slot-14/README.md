@@ -632,7 +632,7 @@ The learned parameters are transferred to the FPGA.
 The FPGA evaluates
 
 $$
-\hat{C} = F_ANN(X; W^*, b^*)
+\hat{C} = F_{\mathrm{ANN}}(X; W^* , b^*)
 $$
 
 in real time.
