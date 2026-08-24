@@ -1379,15 +1379,15 @@ $$
    Implement
 
    $$
-   Y = A\oplus B.
-   $$
+Y = A \oplus B.
+$$
 
 3. **Three-Input Majority Circuit**
    Implement
 
    $$
-   Y = AB + AC + BC.
-   $$
+Y = AB + AC + BC.
+$$
 
 4. **4-to-1 Multiplexer**
    Create a testbench that verifies every input and select combination.
