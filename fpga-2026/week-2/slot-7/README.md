@@ -1282,13 +1282,14 @@ $$
    Implement
 
    $$
-   Y = AB + AC + BC.
+   Y =
+   AB + AC + BC.
    $$
 
-9. **One-Hot Decoder**
+10. **One-Hot Decoder**
    Implement an 8-output decoder.
 
-10. **ALU Introduction**
+11. **ALU Introduction**
     Create a simple ALU supporting AND, OR, XOR, and ADD.
 
 ---
