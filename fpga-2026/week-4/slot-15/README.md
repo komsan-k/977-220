@@ -158,7 +158,7 @@ $$
 The FPGA computes
 
 $$
-M=X XNOR W.
+M = X \operatorname{XNOR} W.
 $$
 
 For example,
