@@ -158,10 +158,6 @@ $$
 The FPGA computes
 
 $$
-M = X \operatorname{XNOR} W.
-$$
-
-$$
 M=\overline{X\oplus W}
 $$
 
@@ -197,7 +193,7 @@ $$
 For an (N)-input binary neuron,
 
 $$
-P = \operatorname{popcount}\left(X \operatorname{XNOR} W\right).
+P = \operatorname{popcount}\overline{X\oplus W}.
 $$
 
 The equivalent bipolar dot product is
