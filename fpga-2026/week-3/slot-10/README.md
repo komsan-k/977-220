@@ -1313,7 +1313,7 @@ Add a register after the multiplication stage and compare timing.
 Implement
 
 $$
-z = w_0x_0 + w_1x_1 + w_2x_2 + w_3x_3+b.
+z = w_0x_0 + w_1x_1 + w_2x_2 + w_3x_3 + b.
 $$
 
 The datapath is
