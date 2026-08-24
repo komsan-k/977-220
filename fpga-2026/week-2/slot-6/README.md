@@ -97,9 +97,7 @@ Therefore,
 
 $$
 \boxed{
-\text{Hello FPGA}
-=================
-
+\text{Hello FPGA} =
 \text{Blinking LED}
 }
 $$
@@ -128,21 +126,15 @@ $$
 The clock period is
 
 $$
-T_{clk}
-=======
-
-\frac{1}{f_{clk}}.
+T_{\text{clk}} = \frac{1}{f_{\text{clk}}}.
 $$
 
 Therefore,
 
 $$
-T_{clk}
-=======
-
-# \frac{1}{100\times10^6}
-
-10~\text{ns}.
+T_{\text{clk}}
+= \frac{1}{100\times10^{6}}
+= 10~\text{ns}.
 $$
 
 This means the FPGA receives
