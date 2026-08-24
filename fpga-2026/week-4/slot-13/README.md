@@ -676,6 +676,10 @@ $$
 W^*, b^* = \arg\min_{W,b} \mathcal{L}(Y,\hat{Y}).
 $$
 
+$$
+W^* , b^* = \arg\min_{W,b} \mathcal{L}(Y,\hat{Y}).
+$$
+
 The trained values are then transferred to the FPGA.
 
 In this laboratory, the weights are already provided, so the FPGA performs only
