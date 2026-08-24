@@ -1259,9 +1259,7 @@ $$
 \text{FPGA Hardware}
 +
 \text{Embedded Software}
-========================
-
-\text{Embedded System}
+= \text{Embedded System}
 }
 $$
 
