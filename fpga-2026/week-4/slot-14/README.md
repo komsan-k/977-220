@@ -636,6 +636,11 @@ $$
 = F_{\mathrm{ANN}}(X;W^*,b^*)
 $$
 
+$$
+\hat{C}
+= F_{\mathrm{ANN}}(X; W^*, b^*)
+$$
+
 in real time.
 
 Therefore, the FPGA does not need to perform computationally expensive ANN training.
