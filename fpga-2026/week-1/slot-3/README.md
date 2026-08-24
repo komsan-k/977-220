@@ -135,12 +135,8 @@ $$
 then
 
 $$
-f
-=
-
-# \frac{1}{10\times10^{-9}}
-
-100~\text{MHz}.
+f = \frac{1}{10\times10^{-9}}
+= 100~\text{MHz}.
 $$
 
 A testbench can generate a 100 MHz clock using
