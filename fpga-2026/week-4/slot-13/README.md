@@ -173,28 +173,26 @@ One convenient realization of XOR uses the hidden neurons as OR and NAND functio
 Define
 
 $$
-H_1=\operatorname{OR}(A,B)
+H_1 = OR(A,B)
 $$
 
 and
 
 $$
-H_2=\operatorname{NAND}(A,B).
+H_2 = NAND(A,B).
 $$
 
 The output becomes
 
 $$
-Y=\operatorname{AND}(H_1,H_2).
+Y = AND(H_1,H_2).
 $$
 
 This produces
 
 $$
 A\oplus B
-=========
-
-(A\lor B)\land\neg(A\land B).
+= (A\lor B)\land\neg(A\land B).
 $$
 
 A neural realization can use the following weights.
@@ -676,9 +674,7 @@ The software training stage finds weights and biases that minimize a loss functi
 
 $$
 W^*,b^*
-=======
-
-\arg\min_{W,b}
+= \arg\min_{W,b}
 \mathcal{L}(Y,\hat{Y}).
 $$
 
@@ -756,7 +752,7 @@ $$
 becomes
 
 $$
-W_q=\operatorname{round}(16\times0.75)=12.
+W_q = round(16\times0.75) = 12.
 $$
 
 The FPGA performs
