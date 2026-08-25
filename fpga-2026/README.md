@@ -191,9 +191,9 @@ This course provides a practical introduction to FPGA system design using Verilo
 
 | Assessment Item | Marks |
 |-----------------|------:|
-| Quiz (Vivado Design Flow & Simulation) | 5 |
+| Quiz (Vivado Design Flow & Simulation) | 4 |
 | Laboratory Completion (Simulation & FPGA Implementation) | 8 |
-| FPGA Implementation & Debugging | 3 |
+| FPGA Implementation & Debugging | 4 |
 | Live Demonstration | 4 |
 | **Total** | **20** |
 
@@ -203,9 +203,9 @@ This course provides a practical introduction to FPGA system design using Verilo
 
 | Assessment Item | Marks |
 |-----------------|------:|
-| Quiz (Hierarchy, MAC & IP Integrator) | 5 |
+| Quiz (Hierarchy, MAC & IP Integrator) | 4 |
 | Laboratory Completion (Adder, MAC & IP Labs) | 8 |
-| System Integration & Design Quality | 3 |
+| System Integration & Design Quality | 4 |
 | Demonstration & Technical Discussion | 4 |
 | **Total** | **20** |
 
@@ -215,9 +215,9 @@ This course provides a practical introduction to FPGA system design using Verilo
 
 | Assessment Item | Marks |
 |-----------------|------:|
-| Quiz (ANN, BNN & CNN Fundamentals) | 5 |
+| Quiz (ANN, BNN & CNN Fundamentals) | 4 |
 | Laboratory Completion (AI-FPGA Labs) | 8 |
-| AI Hardware Design & Optimization | 3 |
+| AI Hardware Design & Optimization | 4 |
 | Final Demonstration | 4 |
 | **Total** | **20** |
 
