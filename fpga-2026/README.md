@@ -225,7 +225,7 @@ This course provides a practical introduction to FPGA system design using Verilo
 
 # 🎯 Mini Project (20 Marks)
 
-Students complete **one FPGA-based project** individually or in teams (maximum **3 students**).
+Students complete **one FPGA-based project** individually or in teams (maximum **2 students**).
 
 ## Evaluation Rubric
 
