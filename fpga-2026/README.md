@@ -179,9 +179,9 @@ This course provides a practical introduction to FPGA system design using Verilo
 
 | Assessment Item | Marks |
 |-----------------|------:|
-| Quiz (Digital Logic & Verilog Fundamentals) | 5 |
+| Quiz (Digital Logic & Verilog Fundamentals) | 4 |
 | Laboratory Completion (Combinational, Sequential & FSM Labs) | 8 |
-| HDL Coding Style & Documentation | 3 |
+| HDL Coding Style & Documentation | 4 |
 | FPGA Demonstration & Oral Explanation | 4 |
 | **Total** | **20** |
 
