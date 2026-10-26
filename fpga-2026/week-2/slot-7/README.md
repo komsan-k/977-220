@@ -1,4 +1,4 @@
-# 🔬 Topic-6: Vivado-3 — FPGA Combinational Design
+# 🔬 Topic-7: Vivado-3 — FPGA Combinational Design
 
 ## Implementing Combinational Circuits Using Vivado
 
