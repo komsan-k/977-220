@@ -1,4 +1,4 @@
-# 🔬 Lab: Verilog/SystemVerilog-4 — FSM Design
+# 🔬 Topic-4: Verilog/SystemVerilog-4 — FSM Design
 
 ## Moore/Mealy FSM and Traffic Light FSM Using EDA Playground
 
