@@ -1,4 +1,4 @@
-# 🔬 Lab: AI-FPGA — ANN for Smart Traffic Control
+# 🔬 Topic-15: AI-FPGA — ANN for Smart Traffic Control
 
 ## 🧩 1. Objective
 
