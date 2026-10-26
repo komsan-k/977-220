@@ -1,4 +1,4 @@
-# 🔬 Lab: Vivado-2 — Hello FPGA
+# 🔬 Topic-6: Vivado-2 — Hello FPGA
 
 ## LED Blinking and FPGA Programming
 
