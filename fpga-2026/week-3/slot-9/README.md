@@ -1,4 +1,4 @@
-# 🔬 Lab: Vivado Hierarchy — Adder Study Case
+# 🔬 Topic-9: Vivado Hierarchy — Adder Study Case
 
 ## 🧩 1. Objective
 
