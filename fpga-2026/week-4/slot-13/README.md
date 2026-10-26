@@ -1,4 +1,4 @@
-# 🔬 Lab: AI-FPGA — Artificial Neural Network for XOR Function
+# 🔬 Topic-13: AI-FPGA — Artificial Neural Network for XOR Function
 
 ## 🧩 1. Objective
 
