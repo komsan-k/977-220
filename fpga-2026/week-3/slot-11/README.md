@@ -1,4 +1,4 @@
-# Topic 11: Vivado-7 —Fixed-Point Arithmetic and Pipelined Multipliers
+# Topic 11: Vivado-7 — Fixed-Point and Pipelined Multipliers
 
 ## 1. Overview
 
