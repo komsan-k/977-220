@@ -1,4 +1,4 @@
-# 🔬 Lab: AI-FPGA — Binary Neural Network (BNN)
+# 🔬 Topic-15: AI-FPGA — Binary Neural Network (BNN)
 
 ## 🧩 1. Objective
 
