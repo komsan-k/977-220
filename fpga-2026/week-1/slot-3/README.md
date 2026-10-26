@@ -1,4 +1,4 @@
-# 🔬 Lab: Verilog/SystemVerilog-3 — Sequential Design
+# 🔬 Topic-2: Verilog/SystemVerilog-3 — Sequential Design
 
 ## Flip-Flops, Registers, and Counters Using EDA Playground
 
