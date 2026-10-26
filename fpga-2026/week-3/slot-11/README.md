@@ -1,4 +1,4 @@
-# 🔬 Lab: Vivado IP Core-1 — AXI GPIO and AXI UARTLite
+# 🔬 Topic-11: Vivado-7 IP Core-1 — AXI GPIO and AXI UARTLite
 
 ## 🧩 1. Objective
 
