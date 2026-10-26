@@ -1,4 +1,4 @@
-# 🔬 Lab: Verilog/SystemVerilog-1 — Digital Logic Fundamentals
+# 🔬 Topic-1: Verilog/SystemVerilog-1 — Digital Logic Fundamentals
 
 ## Logic Gates, Boolean Algebra, and Combinational Logic Using EDA Playground
 
