@@ -1,4 +1,4 @@
-# 🔬 Lab: Vivado-4 — Sequential and FSM Design
+# 🔬 Topic-8: Vivado-4 — Sequential and FSM Design
 
 ## Implementing Sequential and Finite-State Machine Circuits Using Vivado
 
