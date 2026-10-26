@@ -1,4 +1,4 @@
-# 🔬 Lab: Vivado-1 — Simulation & Testbench
+# 🔬 Topic-5: Vivado-1 — Simulation & Testbench
 
 ## Behavioral Simulation Using Vivado
 
