@@ -1,318 +1,671 @@
-# 🔬 Topic-12: Vivado-8 IP Core-2 — MicroBlaze
+# 🔬 Topic-12: Vivado-8 — Multiply-Accumulate (MAC) Design
 
 ## 🧩 1. Objective
 
-* Understand the architecture and operation of the **MicroBlaze soft-core processor**.
-* Create a processor-based FPGA system using **Vivado IP Integrator**.
-* Configure MicroBlaze, local memory, clock, reset, debug, and AXI interfaces.
-* Understand the difference between a **soft-core processor** and dedicated FPGA logic.
-* Build, synthesize, and implement a basic MicroBlaze system.
-* Export the hardware platform for embedded software development.
-* Create and execute a simple C application on MicroBlaze.
-* Use UART for software output and debugging.
-* Introduce **hardware/software co-design** using FPGA programmable logic and an embedded processor.
+* Understand the architecture and operation of a **Multiply-Accumulate (MAC)** unit.
+* Implement multiplication and accumulation using **Verilog HDL**.
+* Design both **combinational and sequential MAC architectures**.
+* Simulate and verify MAC behavior in Vivado.
+* Understand the relationship between MAC operations and **DSP, FIR filters, matrix multiplication, ANN, and CNN accelerators**.
+* Synthesize the MAC design and analyze FPGA resource utilization.
+* Investigate how Vivado maps multiplication into FPGA **DSP slices**.
+* Deploy a simple MAC unit on a **Basys 3 or Nexys A7 FPGA**.
 
 ---
 
 ## ⚙️ 2. Equipment and Tools
 
-| Tool / Resource                                   | Description                            |
-| ------------------------------------------------- | -------------------------------------- |
-| **Vivado Design Suite**                           | FPGA hardware design and IP Integrator |
-| **Vitis / AMD Embedded Development Environment**  | Embedded C software development        |
-| **FPGA Board (Nexys A7 / Basys 3 or equivalent)** | Hardware implementation                |
-| **MicroBlaze IP Core**                            | FPGA soft-core processor               |
-| **Block Memory Generator / BRAM**                 | Program and data memory                |
-| **AXI Interconnect / SmartConnect**               | Processor-peripheral communication     |
-| **MicroBlaze Debug Module (MDM)**                 | Processor debugging                    |
-| **Clocking Wizard**                               | System clock generation                |
-| **Processor System Reset**                        | Reset synchronization                  |
-| **USB-JTAG / USB-UART**                           | Programming and terminal communication |
+| Tool / Resource                     | Description                                           |
+| ----------------------------------- | ----------------------------------------------------- |
+| **Vivado Design Suite**             | HDL design, simulation, synthesis, and implementation |
+| **FPGA Board (Basys 3 / Nexys A7)** | Hardware deployment                                   |
+| **Verilog HDL**                     | MAC design implementation                             |
+| **Vivado Simulator**                | Functional verification                               |
+| **RTL Schematic Viewer**            | Architecture visualization                            |
+| **DSP Utilization Report**          | Analysis of multiplier mapping                        |
+| **Switches / Buttons**              | Input control                                         |
+| **LEDs / 7-Segment Display**        | Output visualization                                  |
 
 ---
 
 # 🧠 3. Background Theory
 
-## 3.1 What Is MicroBlaze?
+## 3.1 Multiply-Accumulate Operation
 
-**MicroBlaze** is a configurable soft-core processor provided for AMD Xilinx FPGAs.
+A MAC unit performs two operations:
 
-Unlike a fixed processor physically fabricated inside a chip, MicroBlaze is implemented using programmable FPGA resources such as:
+1. Multiplication
+2. Accumulation
 
-* LUTs,
-* flip-flops,
-* block RAM,
-* DSP resources,
-* routing resources.
+The fundamental equation is
+
+$$
+Y \leftarrow Y + A\times B.
+$$
+
+For a sequence of input pairs,
+
+$$
+(A_0,B_0),(A_1,B_1),\ldots,(A_{N-1},B_{N-1}),
+$$
+
+the accumulated result becomes
+
+$$
+Y=
+\sum_{i=0}^{N-1}A_iB_i.
+$$
+
+This operation is widely used in:
+
+* digital signal processing,
+* FIR filters,
+* matrix multiplication,
+* image processing,
+* neural networks,
+* convolutional neural networks,
+* machine-learning accelerators.
+
+---
+
+## 3.2 Basic MAC Architecture
+
+A simple MAC datapath consists of
+
+```text
+        A ─────┐
+               ▼
+            Multiplier
+               │
+        B ─────┘
+               │
+               ▼
+             Adder
+               │
+               ▼
+           Accumulator
+               │
+               └──────► Y
+```
+
+Mathematically,
+
+$$
+P=A\times B
+$$
+
+followed by
+
+$$
+Y_{\text{new}}
+= Y_{\text{old}}+P.
+$$
+
+---
+
+# 🔢 4. Example MAC Calculation
+
+Consider the input sequence
+
+$$
+(2,3),;(4,5),;(1,6).
+$$
+
+The MAC result is
+
+$$
+Y=(2)(3)+(4)(5)+(1)(6).
+$$
 
 Therefore,
 
 $$
-\boxed{\text{MicroBlaze}=\text{Processor Implemented in FPGA Logic}}
+Y=6+20+6=32.
 $$
 
-A simplified architecture is
+The accumulation process is
+
+| Cycle |  A |  B | Product | Accumulator |
+| ----: | -: | -: | ------: | ----------: |
+|     1 |  2 |  3 |       6 |           6 |
+|     2 |  4 |  5 |      20 |          26 |
+|     3 |  1 |  6 |       6 |          32 |
+
+Thus,
+
+$$
+\boxed{Y=32}.
+$$
+
+---
+
+# 🧮 5. MAC Word Length
+
+Suppose (A) and (B) are unsigned 8-bit values.
+
+Then
+
+$$
+0\leq A,B\leq255.
+$$
+
+The multiplication result requires up to 16 bits:
+
+$$
+P=A\times B.
+$$
+
+Since
+
+$$
+255\times255=65025,
+$$
+
+a 16-bit product is sufficient.
+
+However, the accumulator may need more bits because several products are added together.
+
+For example, if (N) products are accumulated, the accumulator width should be large enough to avoid overflow.
+
+A useful approximation is
+
+$$
+W_{\text{acc}}
+\approx
+W_A+W_B+\lceil \log_2N \rceil.
+$$
+
+---
+
+# 💻 6. Simple Combinational Multiply Module
+
+The first stage of the MAC is the multiplier.
+
+```verilog
+module multiplier8(
+    input  wire [7:0] A,
+    input  wire [7:0] B,
+    output wire [15:0] P
+);
+
+    assign P = A * B;
+
+endmodule
+```
+
+This module performs
+
+$$
+P=A\times B.
+$$
+
+---
+
+# 🧪 7. Multiplier Testbench
+
+```verilog
+`timescale 1ns / 1ps
+
+module tb_multiplier8;
+
+    reg  [7:0] A;
+    reg  [7:0] B;
+
+    wire [15:0] P;
+
+    multiplier8 uut (
+        .A(A),
+        .B(B),
+        .P(P)
+    );
+
+    initial begin
+
+        A = 8'd2;
+        B = 8'd3;
+        #10;
+
+        A = 8'd7;
+        B = 8'd8;
+        #10;
+
+        A = 8'd15;
+        B = 8'd10;
+        #10;
+
+        $finish;
+
+    end
+
+endmodule
+```
+
+Expected results:
+
+|  A |  B | Product |
+| -: | -: | ------: |
+|  2 |  3 |       6 |
+|  7 |  8 |      56 |
+| 15 | 10 |     150 |
+
+---
+
+# 🏗️ 8. Sequential MAC Architecture
+
+A practical MAC normally uses a clocked accumulator.
+
+The operation is
+
+$$
+ACC[n+1]
+= ACC[n]+A[n]B[n].
+$$
+
+The architecture is
 
 ```text
-             ┌──────────────────┐
-             │    MicroBlaze    │
-             │    Processor     │
-             └────────┬─────────┘
-                      │
-               AXI / Memory Bus
-                      │
-       ┌──────────────┼──────────────┐
-       ▼              ▼              ▼
-     Memory          GPIO          UART
+             ┌─────────────┐
+A ──────────►│             │
+             │ Multiplier  ├────► Product
+B ──────────►│             │
+             └─────────────┘
+                    │
+                    ▼
+              ┌──────────┐
+ACC ─────────►│  Adder   │
+              └────┬─────┘
+                   │
+                   ▼
+              ┌──────────┐
+CLK ─────────►│ Register │
+              └────┬─────┘
+                   │
+                   └──────► ACC
+```
+
+The accumulator changes only on the active clock edge.
+
+---
+
+# 💻 9. Sequential MAC Verilog Module
+
+```verilog
+module mac8 (
+    input  wire        clk,
+    input  wire        reset,
+    input  wire        enable,
+    input  wire [7:0]  A,
+    input  wire [7:0]  B,
+    output reg  [23:0] ACC
+);
+
+    wire [15:0] product;
+
+    assign product = A * B;
+
+    always @(posedge clk) begin
+
+        if (reset)
+            ACC <= 24'd0;
+
+        else if (enable)
+            ACC <= ACC + product;
+
+    end
+
+endmodule
+```
+
+The accumulation is performed only when
+
+```text
+enable = 1
+```
+
+and the accumulator is cleared when
+
+```text
+reset = 1.
 ```
 
 ---
 
-## 3.2 Soft-Core versus Hard-Core Processor
+# 🧠 10. MAC Timing Behavior
 
-A **soft-core processor** is synthesized into programmable FPGA logic.
-
-A **hard-core processor** is physically integrated into the silicon.
-
-| Characteristic       | MicroBlaze Soft Core | Hard Processor     |
-| -------------------- | -------------------- | ------------------ |
-| Implementation       | FPGA fabric          | Fixed silicon      |
-| Configuration        | Highly configurable  | Limited            |
-| Resource usage       | LUTs, FFs, BRAM      | Dedicated hardware |
-| Performance          | Moderate–High        | Usually higher     |
-| Flexibility          | Very high            | Lower              |
-| Number of processors | Multiple possible    | Fixed              |
-| Example              | MicroBlaze           | ARM Cortex-A53     |
-
-The major advantage of MicroBlaze is flexibility.
-
----
-
-# 🏗️ 4. MicroBlaze System Architecture
-
-A minimal embedded system requires more than only the processor.
-
-The basic architecture is
+Assume
 
 ```text
-                    ┌───────────────┐
-                    │  MicroBlaze   │
-                    └───────┬───────┘
-                            │
-               ┌────────────┼─────────────┐
-               │            │             │
-               ▼            ▼             ▼
-          Local Memory    Debug         AXI Bus
-               │                          │
-               ▼                          ▼
-             BRAM                   Peripherals
+reset = 0
+enable = 1
 ```
 
-Important components include:
+and the input sequence is
 
-* MicroBlaze processor,
-* local memory,
-* memory controller,
-* clock,
-* reset,
-* debug module,
-* AXI interconnect,
-* optional peripherals.
+```text
+Cycle 1: A = 2, B = 3
+Cycle 2: A = 4, B = 5
+Cycle 3: A = 1, B = 6
+```
+
+Then
+
+$$
+ACC_1=0+2\times3=6
+$$
+
+$$
+ACC_2=6+4\times5=26
+$$
+
+$$
+ACC_3=26+1\times6=32.
+$$
+
+Therefore,
+
+$$
+\boxed{ACC=32}.
+$$
 
 ---
 
-# 🧠 5. Basic Processor Model
+# 🧪 11. MAC Testbench
 
-A processor repeatedly performs the instruction cycle
+```verilog
+`timescale 1ns / 1ps
+
+module tb_mac8;
+
+    reg clk;
+    reg reset;
+    reg enable;
+
+    reg [7:0] A;
+    reg [7:0] B;
+
+    wire [23:0] ACC;
+
+    mac8 uut (
+        .clk(clk),
+        .reset(reset),
+        .enable(enable),
+        .A(A),
+        .B(B),
+        .ACC(ACC)
+    );
+
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk;
+    end
+
+    initial begin
+
+        reset  = 1;
+        enable = 0;
+        A = 0;
+        B = 0;
+
+        #10;
+
+        reset = 0;
+        enable = 1;
+
+        A = 8'd2;
+        B = 8'd3;
+        #10;
+
+        A = 8'd4;
+        B = 8'd5;
+        #10;
+
+        A = 8'd1;
+        B = 8'd6;
+        #10;
+
+        enable = 0;
+
+        #20;
+
+        $finish;
+
+    end
+
+endmodule
+```
+
+---
+
+# 📊 12. Expected Simulation Results
+
+| Clock Cycle |  A |  B | Product | ACC |
+| ----------: | -: | -: | ------: | --: |
+|       Reset |  — |  — |       — |   0 |
+|           1 |  2 |  3 |       6 |   6 |
+|           2 |  4 |  5 |      20 |  26 |
+|           3 |  1 |  6 |       6 |  32 |
+
+The waveform should verify
 
 $$
-\boxed{
-\text{Fetch}
-\rightarrow
-\text{Decode}
-\rightarrow
-\text{Execute}
-}
+ACC[n+1]
+= ACC[n]+A[n]B[n].
 $$
 
-The instruction flow is
+---
+
+# 🔄 13. MAC with Clear Control
+
+In many applications, the accumulator must be cleared before processing a new data block.
+
+```verilog
+module mac8_clear (
+    input  wire        clk,
+    input  wire        reset,
+    input  wire        clear,
+    input  wire        enable,
+    input  wire [7:0]  A,
+    input  wire [7:0]  B,
+    output reg  [23:0] ACC
+);
+
+    wire [15:0] product;
+
+    assign product = A * B;
+
+    always @(posedge clk) begin
+
+        if (reset)
+            ACC <= 24'd0;
+
+        else if (clear)
+            ACC <= 24'd0;
+
+        else if (enable)
+            ACC <= ACC + product;
+
+    end
+
+endmodule
+```
+
+This allows the MAC to process repeated vectors.
+
+---
+
+# 📈 14. MAC as a Dot-Product Engine
+
+A MAC unit can compute a vector dot product.
+
+Consider
+
+$$
+\mathbf{x}
+= [x_0,x_1,x_2,x_3]
+$$
+
+and
+
+$$
+\mathbf{w}
+= [w_0,w_1,w_2,w_3].
+$$
+
+The dot product is
+
+$$
+y
+= x_0w_0+x_1w_1+x_2w_2+x_3w_3.
+$$
+
+A single MAC can calculate this sequentially:
 
 ```text
-Program Memory
+Cycle 1 → x0 × w0
+Cycle 2 → x1 × w1
+Cycle 3 → x2 × w2
+Cycle 4 → x3 × w3
+```
+
+After four cycles,
+
+$$
+ACC
+= \sum_{i=0}^{3}x_iw_i.
+$$
+
+---
+
+# 🧠 15. MAC in Artificial Neural Networks
+
+A neural-network neuron computes
+
+$$
+z
+= \sum_{i=0}^{N-1}w_ix_i+b.
+$$
+
+The main part
+
+$$
+\sum_{i=0}^{N-1}w_ix_i
+$$
+
+is exactly a MAC operation.
+
+Therefore,
+
+```text
+Input × Weight
       │
       ▼
-Instruction Fetch
+     MAC
       │
       ▼
-Instruction Decode
+Add Bias
       │
       ▼
-Execution Unit
+Activation
       │
       ▼
-Register / Memory Update
+Neuron Output
 ```
-
-MicroBlaze implements this process in FPGA hardware.
-
----
-
-# 📦 6. MicroBlaze Components
-
-## 6.1 Register File
-
-The processor contains registers used to store temporary data.
-
-Conceptually,
-
-$$
-R_0,R_1,\ldots,R_n.
-$$
-
-Registers are significantly faster than external memory.
-
----
-
-## 6.2 Arithmetic Logic Unit
-
-The ALU performs operations such as
-
-$$
-A+B
-$$
-
-$$
-A-B
-$$
-
-$$
-A\land B
-$$
-
-$$
-A\lor B
-$$
-
-$$
-A\oplus B.
-$$
-
----
-
-## 6.3 Program Counter
-
-The program counter identifies the address of the next instruction.
-
-Conceptually,
-
-$$
-PC\leftarrow PC+4
-$$
-
-for a sequential instruction stream.
-
-Branches and jumps can modify the PC.
-
----
-
-## 6.4 Instruction and Data Memory
-
-MicroBlaze requires memory to store:
-
-* program instructions,
-* variables,
-* stack,
-* runtime data.
-
-For small embedded systems, FPGA block RAM is commonly used.
-
----
-
-# 🧱 7. Local Memory Architecture
-
-A common MicroBlaze system uses Local Memory Bus connections.
-
-```text
-                    MicroBlaze
-                   /          \
-                  /            \
-                 ▼              ▼
-        Instruction LMB      Data LMB
-                 │              │
-                 ▼              ▼
-              BRAM            BRAM
-```
-
-In some configurations, instruction and data storage share the same block memory infrastructure.
-
-This architecture provides low-latency memory access.
-
----
-
-# 🔌 8. AXI Interface
-
-MicroBlaze can communicate with peripherals using the AXI bus.
-
-The system can be represented as
-
-```text
-MicroBlaze
-    │
-    ▼
-AXI Master
-    │
-    ▼
-AXI SmartConnect
-    │
-    ├── GPIO
-    ├── UART
-    ├── Timer
-    └── Custom IP
-```
-
-AXI peripherals are commonly accessed through **memory-mapped I/O**.
-
-For example,
-
-$$
-\text{Peripheral Register}
-\leftrightarrow
-\text{Address}.
-$$
-
----
-
-# 💾 9. Memory-Mapped I/O
-
-In a processor system, a peripheral can appear as a memory location.
-
-Conceptually,
-
-```text
-Address 0xXXXX0000 → GPIO
-Address 0xXXXX1000 → UART
-Address 0xXXXX2000 → Timer
-```
-
-The processor reads and writes these addresses using normal memory operations.
 
 Thus,
 
 $$
 \boxed{
-\text{Processor Read/Write}
-\rightarrow
-\text{Peripheral Control}
+\text{MAC is a fundamental building block of ANN hardware}
 }
 $$
 
-The actual addresses should be obtained from the Vivado Address Editor and generated platform files.
+---
+
+# 🖼️ 16. MAC in Convolutional Neural Networks
+
+A (3\times3) convolution computes
+
+$$
+Y=
+\sum_{i=0}^{8}x_iw_i.
+$$
+
+This requires nine multiply-accumulate operations.
+
+A sequential implementation can reuse one MAC:
+
+```text
+x0 × w0 ─┐
+x1 × w1 ─┤
+x2 × w2 ─┤
+...       ├──► MAC ───► Feature Value
+x8 × w8 ─┘
+```
+
+A parallel implementation can use multiple MAC units simultaneously.
 
 ---
 
-# 🛠️ 10. Create a Vivado Project
+# 🔬 17. MAC in FIR Filters
 
-## Step 1 — Start Vivado
+An FIR filter computes
+
+$$
+y[n]
+= \sum_{k=0}^{N-1}
+h[k]x[n-k].
+$$
+
+For a 4-tap FIR filter,
+
+$$
+y[n]
+= h_0x[n]+h_1x[n-1]+h_2x[n-2]+h_3x[n-3].
+$$
+
+Each term requires multiplication and accumulation.
+
+Therefore, FIR filtering is another important application of the MAC unit.
+
+---
+
+# ⚡ 18. FPGA DSP Slices
+
+Modern FPGAs contain dedicated arithmetic blocks such as **DSP slices**.
+
+A DSP slice can efficiently implement operations such as
+
+$$
+P=A\times B
+$$
+
+and
+
+$$
+P=A\times B+C.
+$$
+
+These blocks are optimized for high-speed arithmetic.
+
+Vivado may automatically infer a DSP resource from Verilog code such as
+
+```verilog
+assign product = A * B;
+```
+
+or
+
+```verilog
+ACC <= ACC + A * B;
+```
+
+depending on the target device, synthesis settings, operand sizes, and optimization decisions.
+
+---
+
+# 🛠️ 19. Vivado Project Procedure
+
+## Step 1 — Create Project
 
 Open Vivado and select
 
@@ -320,358 +673,97 @@ Open Vivado and select
 Create Project
 ```
 
-Choose
+Choose:
 
 ```text
 RTL Project
 ```
 
-and select the appropriate FPGA board.
-
-For example,
-
-```text
-Nexys A7
-```
+and select the target FPGA board.
 
 ---
 
-# 🧱 11. Create an IP Integrator Block Design
+## Step 2 — Add Design Source
+
+Create
+
+```text
+mac8.v
+```
+
+and enter the MAC Verilog module.
+
+---
+
+## Step 3 — Add Simulation Source
+
+Create
+
+```text
+tb_mac8.v
+```
+
+and enter the testbench.
+
+---
+
+## Step 4 — Run Behavioral Simulation
 
 Select
 
 ```text
-IP Integrator
+Run Simulation
     ↓
-Create Block Design
+Run Behavioral Simulation
 ```
 
-Name the design
+Observe:
 
-```text
-microblaze_system
-```
-
-Vivado opens the graphical block-design environment.
+* `clk`
+* `reset`
+* `enable`
+* `A`
+* `B`
+* `product`
+* `ACC`
 
 ---
 
-# 🧠 12. Add MicroBlaze IP
+# 🔍 20. RTL Schematic Analysis
 
 Select
 
 ```text
-Add IP
+RTL Analysis
+    ↓
+Open Elaborated Design
+    ↓
+Schematic
 ```
 
-and search for
+The expected structure should resemble
 
 ```text
-MicroBlaze
+A ──────┐
+        ▼
+    Multiplier
+        │
+B ──────┘
+        │
+        ▼
+      Adder
+        │
+        ▼
+     Register
+        │
+        └────► ACC
 ```
 
-Add the processor to the block design.
-
-At this stage the processor is not yet a complete system because it still requires memory, clock, reset, and other infrastructure.
+Students should identify the main datapath components.
 
 ---
 
-# 🤖 13. Run Block Automation
-
-Vivado can automatically build the basic MicroBlaze subsystem.
-
-Select
-
-```text
-Run Block Automation
-```
-
-Typical options may include:
-
-* local memory size,
-* clock configuration,
-* cache options,
-* debug support,
-* interrupt support.
-
-For an introductory laboratory, use a simple configuration with:
-
-```text
-Local Memory : 64 KB or suitable available size
-Debug        : Enabled
-Cache        : Disabled
-Interrupt    : Optional
-```
-
-Exact options depend on Vivado version and FPGA target.
-
----
-
-# 🏗️ 14. Generated Processor Subsystem
-
-After block automation, the design typically contains
-
-```text
-                  MicroBlaze
-                       │
-          ┌────────────┼────────────┐
-          │            │            │
-          ▼            ▼            ▼
-        BRAM           MDM       AXI Interface
-          │
-       LMB BRAM
-      Controller
-```
-
-Additional blocks may include:
-
-* Clocking Wizard,
-* Processor System Reset,
-* Local Memory Bus,
-* AXI Interconnect.
-
----
-
-# 💾 15. Block RAM
-
-FPGA Block RAM stores the software program and data.
-
-If the memory size is
-
-$$
-64~\text{KB},
-$$
-
-then
-
-$$
-64~\text{KB}=65,536~\text{bytes}.
-$$
-
-This space may contain:
-
-* executable program code,
-* global variables,
-* heap,
-* stack.
-
-Embedded programs must fit inside the available memory unless external memory is added.
-
----
-
-# 🐞 16. MicroBlaze Debug Module
-
-The **MicroBlaze Debug Module (MDM)** connects the processor to the JTAG debugging infrastructure.
-
-The architecture is
-
-```text
-PC
- │
- ▼
-USB-JTAG
- │
- ▼
-MDM
- │
- ▼
-MicroBlaze
-```
-
-This allows:
-
-* program download,
-* breakpoints,
-* single stepping,
-* register inspection,
-* memory inspection.
-
----
-
-# ⏱️ 17. Clock System
-
-MicroBlaze requires a processor clock.
-
-For example, the FPGA board may provide
-
-$$
-100~\text{MHz}.
-$$
-
-A Clocking Wizard can generate the desired processor clock.
-
-```text
-Board Clock
-     │
-     ▼
-Clocking Wizard
-     │
-     ▼
-MicroBlaze Clock
-```
-
-If the processor runs at
-
-$$
-100~\text{MHz},
-$$
-
-the clock period is
-
-$$
-T=\frac{1}{100\times10^6}=10~\text{ns}.
-$$
-
----
-
-# 🔄 18. Reset System
-
-The reset subsystem ensures that the processor and AXI peripherals start in a known state.
-
-The basic structure is
-
-```text
-External Reset
-      │
-      ▼
-Processor System Reset
-      │
-      ├── MicroBlaze
-      ├── AXI Interconnect
-      └── Peripherals
-```
-
-Reset synchronization is important because different system blocks may operate on clocked logic.
-
----
-
-# 📡 19. Add UART for Program Output
-
-A useful processor system requires a communication interface.
-
-Add
-
-```text
-AXI UARTLite
-```
-
-to the design.
-
-The architecture becomes
-
-```text
-MicroBlaze
-    │
-    ▼
-AXI SmartConnect
-    │
-    ▼
-AXI UARTLite
-    │
-    ▼
-USB-UART
-    │
-    ▼
-PC Terminal
-```
-
-UART can be used to print
-
-```text
-Hello MicroBlaze!
-```
-
-from software.
-
----
-
-# 🔗 20. Connect UARTLite
-
-Use
-
-```text
-Run Connection Automation
-```
-
-to connect UARTLite to the MicroBlaze AXI interface.
-
-Make the UART interface external.
-
-Typical external signals are
-
-```text
-uart_rxd
-uart_txd
-```
-
-Map these signals to the board's USB-UART pins using the correct XDC constraints.
-
----
-
-# 🗺️ 21. Address Editor
-
-Open
-
-```text
-Address Editor
-```
-
-and verify that UARTLite receives an address range.
-
-For example, Vivado may assign an address region such as
-
-```text
-AXI_UARTLite → 0x4xxx_xxxx
-```
-
-The exact address depends on the generated system.
-
-Software should use the addresses and device identifiers generated by the platform rather than manually assuming fixed values.
-
----
-
-# ✅ 22. Validate the Block Design
-
-Select
-
-```text
-Validate Design
-```
-
-Vivado checks:
-
-* AXI connections,
-* memory interfaces,
-* clock inputs,
-* reset signals,
-* external ports.
-
-The design should validate successfully before continuing.
-
----
-
-# 📦 23. Generate HDL Wrapper
-
-In the Sources window:
-
-1. Right-click the block design.
-2. Select
-
-```text
-Create HDL Wrapper
-```
-
-3. Select
-
-```text
-Let Vivado manage wrapper and auto-update
-```
-
-The wrapper becomes the top-level FPGA module.
-
----
-
-# 🔨 24. Synthesis and Implementation
+# 📦 21. Synthesis Analysis
 
 Run
 
@@ -679,693 +771,657 @@ Run
 Run Synthesis
 ```
 
-then
+and inspect:
 
-```text
-Run Implementation
-```
+* LUT utilization,
+* flip-flops,
+* DSP slices,
+* I/O,
+* estimated timing.
 
-and finally
-
-```text
-Generate Bitstream
-```
-
-Vivado maps the MicroBlaze processor into FPGA resources.
-
----
-
-# 📊 25. FPGA Resource Utilization
-
-After synthesis, inspect the utilization report.
-
-Record:
+Record the results.
 
 | FPGA Resource | Utilization |
 | ------------- | ----------: |
 | LUTs          |             |
 | Flip-Flops    |             |
-| BRAM          |             |
 | DSP Slices    |             |
+| BRAM          |             |
 | I/O           |             |
 
-MicroBlaze typically consumes LUTs, registers, and memory resources, while optional processor features can increase utilization.
-
 ---
 
-# 🔍 26. Hierarchy Analysis
+# 🔎 22. DSP Mapping Study
 
-Open the elaborated or synthesized design.
-
-The hierarchy should include blocks similar to
+Open the synthesized schematic and determine whether the multiplication is implemented using:
 
 ```text
-microblaze_system_wrapper
-          │
-          ▼
-microblaze_system
-          │
-          ├── MicroBlaze
-          ├── Local Memory
-          ├── LMB Controllers
-          ├── AXI Interconnect
-          ├── UARTLite
-          ├── MDM
-          ├── Clock Wizard
-          └── Reset Module
+DSP Slice
 ```
 
-Students should inspect the hierarchy to understand the relationship between processor, memory, bus, and peripherals.
-
----
-
-# 📤 27. Export Hardware Platform
-
-After generating the bitstream, export the hardware.
-
-The hardware platform normally contains:
-
-* processor configuration,
-* memory configuration,
-* peripherals,
-* addresses,
-* hardware bitstream information.
-
-A typical export produces an
+or
 
 ```text
-.xsa
+LUT Logic
 ```
 
-file.
+Record the result.
 
-This hardware definition is used by the embedded software development environment.
+| Arithmetic Operation | FPGA Resource |
+| -------------------- | ------------- |
+| Multiplication       |               |
+| Addition             |               |
+| Accumulator register |               |
+
+Students should investigate how Vivado maps arithmetic operations onto the FPGA fabric.
 
 ---
 
-# 💻 28. Create a Software Platform
+# 🧩 23. Hierarchical MAC Design
 
-Open Vitis or the relevant AMD embedded-development environment.
-
-Create a platform project using the exported `.xsa` file.
-
-The software environment generates a **Board Support Package (BSP)** containing:
-
-* peripheral drivers,
-* processor definitions,
-* memory map information,
-* startup code.
-
----
-
-# 🧠 29. First MicroBlaze Program
-
-The first program can be
-
-```c
-#include <stdio.h>
-
-int main()
-{
-    printf("Hello MicroBlaze!\r\n");
-
-    while (1)
-    {
-    }
-
-    return 0;
-}
-```
-
-The program is:
-
-1. compiled,
-2. linked,
-3. loaded into MicroBlaze memory,
-4. executed by the FPGA processor.
-
-The UART terminal should display
+The MAC can also be created using separate modules.
 
 ```text
-Hello MicroBlaze!
+mac_top
+   │
+   ├── multiplier
+   │
+   ├── adder
+   │
+   └── accumulator
 ```
+
+This provides a hierarchical implementation.
 
 ---
 
-# 🔁 30. Hardware and Software Execution Flow
-
-The complete workflow is
-
-```text
-C Program
-    │
-    ▼
-Compiler
-    │
-    ▼
-Executable File
-    │
-    ▼
-MicroBlaze Program Memory
-    │
-    ▼
-Instruction Execution
-    │
-    ▼
-UARTLite
-    │
-    ▼
-PC Terminal
-```
-
-This demonstrates that the FPGA is no longer only executing fixed logic.
-
-It is now running software on a processor implemented inside the FPGA.
-
----
-
-# 🧪 31. Simple Arithmetic Program
-
-Students can test arithmetic operations.
-
-```c
-#include <stdio.h>
-
-int main()
-{
-    int a = 12;
-    int b = 5;
-
-    int sum = a + b;
-    int product = a * b;
-
-    printf("A = %d\r\n", a);
-    printf("B = %d\r\n", b);
-    printf("Sum = %d\r\n", sum);
-    printf("Product = %d\r\n", product);
-
-    while (1)
-    {
-    }
-
-    return 0;
-}
-```
-
-Expected output:
-
-```text
-A = 12
-B = 5
-Sum = 17
-Product = 60
-```
-
-This demonstrates general-purpose computation on the FPGA processor.
-
----
-
-# 🔁 32. Loop Processing
-
-MicroBlaze can execute normal C control structures.
-
-```c
-#include <stdio.h>
-
-int main()
-{
-    int i;
-
-    for (i = 0; i < 10; i++)
-    {
-        printf("Count = %d\r\n", i);
-    }
-
-    while (1)
-    {
-    }
-
-    return 0;
-}
-```
-
-This highlights the difference between processor-based execution and fixed combinational FPGA circuits.
-
----
-
-# 🧮 33. Software versus HDL Implementation
-
-Consider the calculation
-
-$$
-Y=A+B.
-$$
-
-In Verilog:
+# 💻 24. Multiplier Module
 
 ```verilog
-assign Y = A + B;
+module mult8(
+    input  wire [7:0] A,
+    input  wire [7:0] B,
+    output wire [15:0] P
+);
+
+    assign P = A * B;
+
+endmodule
 ```
-
-The hardware adder is continuously present.
-
-In C:
-
-```c
-Y = A + B;
-```
-
-MicroBlaze performs the addition when the corresponding program instruction is executed.
-
-Therefore,
-
-| HDL                  | Processor Software            |
-| -------------------- | ----------------------------- |
-| Creates hardware     | Creates instructions          |
-| Parallel by nature   | Mostly sequential execution   |
-| Fixed datapath       | Programmable behavior         |
-| Very low latency     | Instruction-dependent latency |
-| More hardware effort | Easier control algorithms     |
 
 ---
 
-# 🧠 34. Hardware/Software Co-Design
+# ➕ 25. Adder Module
 
-One major advantage of FPGA systems is the ability to combine both approaches.
+```verilog
+module add24(
+    input  wire [23:0] A,
+    input  wire [23:0] B,
+    output wire [23:0] SUM
+);
+
+    assign SUM = A + B;
+
+endmodule
+```
+
+---
+
+# 📦 26. Accumulator Register
+
+```verilog
+module accumulator24(
+    input  wire        clk,
+    input  wire        reset,
+    input  wire        enable,
+    input  wire [23:0] D,
+    output reg  [23:0] Q
+);
+
+    always @(posedge clk) begin
+
+        if (reset)
+            Q <= 24'd0;
+
+        else if (enable)
+            Q <= D;
+
+    end
+
+endmodule
+```
+
+---
+
+# 🔗 27. Hierarchical MAC Top Module
+
+```verilog
+module mac_hierarchical(
+    input  wire        clk,
+    input  wire        reset,
+    input  wire        enable,
+    input  wire [7:0]  A,
+    input  wire [7:0]  B,
+    output wire [23:0] ACC
+);
+
+    wire [15:0] product;
+    wire [23:0] product_ext;
+    wire [23:0] sum_next;
+
+    assign product_ext = {8'd0, product};
+
+    mult8 MULT (
+        .A(A),
+        .B(B),
+        .P(product)
+    );
+
+    add24 ADD (
+        .A(ACC),
+        .B(product_ext),
+        .SUM(sum_next)
+    );
+
+    accumulator24 ACCUM (
+        .clk(clk),
+        .reset(reset),
+        .enable(enable),
+        .D(sum_next),
+        .Q(ACC)
+    );
+
+endmodule
+```
+
+The hierarchy becomes
+
+```text
+mac_hierarchical
+      │
+      ├── MULT : mult8
+      ├── ADD  : add24
+      └── ACCUM: accumulator24
+```
+
+---
+
+# 🆚 28. Flat versus Hierarchical MAC
+
+| Characteristic      | Flat MAC                | Hierarchical MAC         |
+| ------------------- | ----------------------- | ------------------------ |
+| Number of modules   | 1                       | Several                  |
+| Readability         | Simple for small design | Better for larger design |
+| Reusability         | Lower                   | Higher                   |
+| Debugging           | Moderate                | Easier                   |
+| Datapath visibility | Lower                   | Higher                   |
+| Scalability         | Limited                 | Good                     |
+
+Both styles may synthesize to similar FPGA hardware.
+
+---
+
+# ⏱️ 29. Pipelined MAC
+
+For higher operating frequency, registers can be inserted between arithmetic stages.
+
+```text
+A,B
+ │
+ ▼
+Multiplier
+ │
+ ▼
+Register
+ │
+ ▼
+Adder
+ │
+ ▼
+Accumulator Register
+```
+
+The pipeline increases latency but can improve maximum clock frequency.
+
+A simple pipelined architecture can use
+
+$$
+P[n]
+= A[n]B[n]
+$$
+
+followed by
+
+$$
+ACC[n+1]
+= ACC[n]+P[n-1].
+$$
+
+---
+
+# 💻 30. Simple Pipelined MAC
+
+```verilog
+module mac8_pipeline (
+    input  wire        clk,
+    input  wire        reset,
+    input  wire        enable,
+    input  wire [7:0]  A,
+    input  wire [7:0]  B,
+    output reg  [23:0] ACC
+);
+
+    reg [15:0] product_reg;
+
+    always @(posedge clk) begin
+
+        if (reset) begin
+
+            product_reg <= 16'd0;
+            ACC <= 24'd0;
+
+        end
+        else if (enable) begin
+
+            product_reg <= A * B;
+            ACC <= ACC + product_reg;
+
+        end
+
+    end
+
+endmodule
+```
+
+This design introduces one pipeline stage between multiplication and accumulation.
+
+---
+
+# 📈 31. Sequential versus Parallel MAC
+
+### Single MAC
+
+```text
+Data 0 ─┐
+Data 1 ─┤
+Data 2 ─┼──► One MAC ───► Result
+Data N ─┘
+```
+
+Advantages:
+
+* low resource utilization,
+* fewer DSP slices.
+
+Disadvantages:
+
+* multiple cycles required.
+
+### Multiple MAC Units
+
+```text
+A0 × B0 ─► MAC0 ─┐
+A1 × B1 ─► MAC1 ─┤
+A2 × B2 ─► MAC2 ─┼──► Adder Tree
+A3 × B3 ─► MAC3 ─┘
+```
+
+Advantages:
+
+* high throughput,
+* parallel processing.
+
+Disadvantages:
+
+* more DSP and FPGA resources.
+
+---
+
+# 🔢 32. Signed MAC
+
+Many DSP and AI applications require signed arithmetic.
+
+```verilog
+module mac_signed (
+    input  wire               clk,
+    input  wire               reset,
+    input  wire               enable,
+    input  wire signed [7:0]  A,
+    input  wire signed [7:0]  B,
+    output reg  signed [23:0] ACC
+);
+
+    wire signed [15:0] product;
+
+    assign product = A * B;
+
+    always @(posedge clk) begin
+
+        if (reset)
+            ACC <= 24'sd0;
+
+        else if (enable)
+            ACC <= ACC + product;
+
+    end
+
+endmodule
+```
+
+This design supports positive and negative operands.
+
+---
+
+# ⚠️ 33. Overflow Considerations
+
+The accumulator width must be selected carefully.
+
+Suppose
+
+$$
+A,B
+$$
+
+are signed 8-bit values.
+
+Their range is
+
+$$
+-128\leq A,B\leq127.
+$$
+
+The product requires approximately 16 bits.
+
+If many products are accumulated, the accumulator requires additional bits.
+
+Overflow can lead to incorrect computation.
+
+Therefore, FPGA designers must consider:
+
+* operand width,
+* product width,
+* number of accumulated terms,
+* signed versus unsigned arithmetic.
+
+---
+
+# 📊 34. Performance Metrics
+
+Students should record the following:
+
+| Metric            | Result |
+| ----------------- | -----: |
+| LUTs              |        |
+| Flip-Flops        |        |
+| DSP Slices        |        |
+| BRAM              |        |
+| Critical Path     |        |
+| Maximum Frequency |        |
+| Estimated Power   |        |
+
+For pipelined and non-pipelined versions, compare:
+
+| Architecture  | DSP | LUT | FF | Maximum Frequency |
+| ------------- | --: | --: | -: | ----------------: |
+| Basic MAC     |     |     |    |                   |
+| Pipelined MAC |     |     |    |                   |
+
+---
+
+# ⚡ 35. FPGA Demonstration
+
+A simple FPGA implementation can use:
+
+| Signal     | FPGA Resource | Description          |
+| ---------- | ------------- | -------------------- |
+| `A[3:0]`   | SW3–SW0       | Operand A            |
+| `B[3:0]`   | SW7–SW4       | Operand B            |
+| `enable`   | BTN0          | Accumulate           |
+| `reset`    | BTN1          | Clear accumulator    |
+| `ACC[7:0]` | LED7–LED0     | Low accumulator bits |
 
 For example,
 
 ```text
-                 MicroBlaze
-                     │
-                     ▼
-                  AXI Bus
-                     │
-          ┌──────────┼──────────┐
-          ▼          ▼          ▼
-        GPIO       UART      Custom MAC
-                                │
-                                ▼
-                          Hardware Engine
+A = 0010 = 2
+B = 0011 = 3
 ```
 
-MicroBlaze handles:
-
-* control,
-* communication,
-* configuration,
-* decision logic.
-
-Custom FPGA hardware handles:
-
-* high-speed arithmetic,
-* signal processing,
-* AI acceleration.
-
-Thus,
+After one enabled clock cycle,
 
 $$
-\boxed{
-\text{Software Flexibility}
-+
-\text{Hardware Acceleration}
-}
+ACC=6.
 $$
 
-is a key FPGA design concept.
-
----
-
-# ⚡ 35. MicroBlaze and Custom Accelerators
-
-Suppose an AI accelerator performs
+After another identical operation,
 
 $$
-Y=\sum_iw_ix_i.
+ACC=12.
 $$
-
-Instead of implementing the complete system in software, the architecture can be
-
-```text
-MicroBlaze
-    │
-    ▼
-AXI Bus
-    │
-    ▼
-Custom MAC Accelerator
-    │
-    ▼
-Result
-```
-
-MicroBlaze sends the data and control commands.
-
-The custom accelerator performs the computationally intensive operation.
-
-This is a common architecture in FPGA-based embedded AI systems.
 
 ---
 
 # 🧪 36. Lab Tasks
 
-### Task 1 — Create the Processor System
+### Task 1 — Multiplier
 
-Add MicroBlaze to a new Vivado block design.
+Implement and simulate an 8-bit multiplier.
 
-### Task 2 — Run Block Automation
+### Task 2 — Sequential MAC
 
-Configure:
-
-* local memory,
-* clock,
-* reset,
-* debug.
-
-### Task 3 — Examine the Architecture
-
-Identify:
-
-* MicroBlaze,
-* LMB,
-* BRAM,
-* MDM,
-* clock,
-* reset.
-
-### Task 4 — Add UARTLite
-
-Connect AXI UARTLite to the processor.
-
-### Task 5 — Address Assignment
-
-Use the Address Editor to inspect the UART address.
-
-### Task 6 — Validate Design
-
-Run Vivado design validation.
-
-### Task 7 — Generate Bitstream
-
-Synthesize, implement, and generate the bitstream.
-
-### Task 8 — Export Hardware
-
-Export the FPGA hardware platform.
-
-### Task 9 — Create Software Application
-
-Create a C program that displays
-
-```text
-Hello MicroBlaze!
-```
-
-### Task 10 — Run on FPGA
-
-Download and execute the program on the FPGA board.
-
----
-
-# 📋 37. Experimental Results
-
-Students should complete the following table.
-
-| Test                  | Expected Result              | Measured Result | Pass/Fail |
-| --------------------- | ---------------------------- | --------------- | --------- |
-| Bitstream programming | FPGA programmed successfully |                 |           |
-| MicroBlaze startup    | Processor starts             |                 |           |
-| UART connection       | Terminal connected           |                 |           |
-| Hello program         | Message displayed            |                 |           |
-| Integer addition      | Correct sum                  |                 |           |
-| Multiplication        | Correct product              |                 |           |
-| Loop test             | Counter displayed            |                 |           |
-
----
-
-# 📊 38. Processor Configuration Study
-
-Record the selected MicroBlaze parameters.
-
-| Parameter           | Configuration |
-| ------------------- | ------------- |
-| Processor Clock     |               |
-| Local Memory        |               |
-| Instruction Cache   |               |
-| Data Cache          |               |
-| Debug               |               |
-| Interrupt Support   |               |
-| Floating-Point Unit |               |
-| AXI Interface       |               |
-
-Students should note that changing processor options changes FPGA resource utilization.
-
----
-
-# 📈 39. Resource Study
-
-Compare a minimal processor with a more feature-rich implementation.
-
-| Configuration               | LUT | FF | BRAM | DSP |
-| --------------------------- | --: | -: | ---: | --: |
-| Basic MicroBlaze            |     |    |      |     |
-| MicroBlaze + UART           |     |    |      |     |
-| MicroBlaze + Extra Features |     |    |      |     |
-
-Discuss why additional functionality requires more FPGA resources.
-
----
-
-# 💬 40. Discussion Points
-
-1. What is a soft-core processor?
-2. How does MicroBlaze differ from fixed FPGA logic?
-3. What FPGA resources are used to implement MicroBlaze?
-4. Why does MicroBlaze require memory?
-5. What is the Local Memory Bus?
-6. What is the purpose of the MicroBlaze Debug Module?
-7. Why is AXI useful in a processor system?
-8. What is memory-mapped I/O?
-9. Why is a UART useful for processor debugging?
-10. What is the purpose of the hardware platform file?
-11. What is the difference between Verilog and C in an FPGA system?
-12. Why is hardware/software co-design useful?
-
----
-
-# 🧠 41. Post-Lab Exercises
-
-1. **Increase Local Memory**
-   Increase the MicroBlaze memory size and compare BRAM utilization.
-
-2. **Add AXI GPIO**
-   Add LEDs and switches to the processor system.
-
-3. **LED Software Control**
-   Write a C program to turn LEDs ON and OFF.
-
-4. **Switch Reader**
-   Read switch values and display them through UART.
-
-5. **Add AXI Timer**
-   Generate periodic events using a timer peripheral.
-
-6. **Interrupt Support**
-   Enable MicroBlaze interrupts.
-
-7. **UART Echo**
-   Create an application that echoes received UART characters.
-
-8. **Performance Measurement**
-   Measure the execution time of a software loop.
-
-9. **Hardware Multiplier**
-   Compare software multiplication with a custom FPGA multiplier.
-
-10. **Custom MAC Accelerator**
-    Connect the MAC design from a previous laboratory to MicroBlaze through AXI.
-
----
-
-# 🔬 42. Advanced Exercise — MicroBlaze + GPIO + UART
-
-Extend the architecture to
-
-```text
-                    MicroBlaze
-                         │
-                         ▼
-                    AXI Bus
-                    /      \
-                   /        \
-                  ▼          ▼
-             AXI GPIO    AXI UARTLite
-                │             │
-                ▼             ▼
-          Switch / LED    PC Terminal
-```
-
-Implement the following behavior:
-
-1. read four FPGA switches,
-2. copy the value to four LEDs,
-3. print the switch value to UART.
-
-For example,
-
-```text
-SW = 1010
-```
-
-should result in
-
-```text
-LED = 1010
-```
-
-and the terminal should display
-
-```text
-Switch = 10
-```
-
----
-
-# 🚀 43. Advanced Exercise — MicroBlaze-Controlled MAC
-
-Connect a custom MAC accelerator.
-
-The architecture is
-
-```text
-              MicroBlaze
-                   │
-                   ▼
-                AXI Bus
-                   │
-                   ▼
-            MAC Accelerator
-             │    │    │
-             A    B   Control
-                   │
-                   ▼
-                 Result
-```
-
-MicroBlaze performs:
-
-1. write input (A),
-2. write input (B),
-3. start the accelerator,
-4. wait for completion,
-5. read the MAC result.
-
-This introduces the concept of **processor-accelerator co-design**.
-
----
-
-# 🤖 44. Extension to AI-FPGA
-
-A more advanced AI-FPGA architecture can be
-
-```text
-                       MicroBlaze
-                           │
-                           ▼
-                        AXI Bus
-           ┌───────────────┼───────────────┐
-           ▼               ▼               ▼
-       AXI GPIO        AXI UART       AI Accelerator
-                                            │
-                                 ┌──────────┼──────────┐
-                                 ▼          ▼          ▼
-                                MAC        ANN        CNN
-```
-
-MicroBlaze manages control and data movement, while custom logic performs neural-network computation.
-
-This architecture supports
+Implement
 
 $$
-\boxed{
-\text{Embedded Processor}
-+
-\text{Programmable Hardware Accelerator}
-}
+ACC\leftarrow ACC+A\times B.
 $$
+
+### Task 3 — Reset and Enable
+
+Add `reset` and `enable` control signals.
+
+### Task 4 — Testbench
+
+Verify the input sequence
+
+$$
+(2,3),(4,5),(1,6)
+$$
+
+and confirm
+
+$$
+ACC=32.
+$$
+
+### Task 5 — RTL Analysis
+
+Open the Vivado RTL schematic and identify:
+
+* multiplier,
+* adder,
+* accumulator register.
+
+### Task 6 — DSP Analysis
+
+Run synthesis and determine whether Vivado uses a DSP slice.
+
+### Task 7 — Hierarchical MAC
+
+Reimplement the MAC using separate multiplier, adder, and accumulator modules.
+
+### Task 8 — Pipelined MAC
+
+Add a register after the multiplication stage and compare timing.
 
 ---
 
-# 🧾 45. Expected Learning Outcomes
+# 💬 37. Discussion Points
+
+1. What is a multiply-accumulate operation?
+2. Why is MAC important in DSP systems?
+3. Why is MAC fundamental to ANN and CNN accelerators?
+4. What is the difference between multiplication and accumulation?
+5. Why does the accumulator often require more bits than the multiplier output?
+6. What is the role of FPGA DSP slices?
+7. What happens if the accumulator overflows?
+8. What is the difference between sequential and parallel MAC architectures?
+9. Why can pipelining increase maximum clock frequency?
+10. What trade-off exists between FPGA resources and computational throughput?
+
+---
+
+# 🧠 38. Post-Lab Exercises
+
+1. **16-Bit MAC**
+   Extend the design to 16-bit operands.
+
+2. **Signed MAC**
+   Implement signed two's-complement arithmetic.
+
+3. **Four-Term Dot Product**
+   Compute
+
+ $$
+Y = A_0B_0 + A_1B_1 + A_2B_2 + A_3B_3.
+$$
+
+4. **MAC Counter**
+   Add a counter that stops accumulation after (N) operations.
+
+5. **Saturating Accumulator**
+   Prevent arithmetic overflow using saturation logic.
+
+6. **Pipelined MAC**
+   Add additional pipeline stages.
+
+7. **Four Parallel MACs**
+   Implement four MAC units operating simultaneously.
+
+8. **DSP versus LUT Study**
+   Compare DSP-based and LUT-based multiplication.
+
+9. **FIR Filter**
+   Build a 4-tap FIR filter using MAC operations.
+
+10. **ANN Neuron**
+    Add bias and ReLU activation to create an FPGA ANN neuron.
+
+---
+
+# 🔬 39. Advanced Exercise — Four-Input ANN Neuron
+
+Implement
+
+$$
+z = w_0x_0 + w_1x_1 + w_2x_2 + w_3x_3 + b.
+$$
+
+The datapath is
+
+```text
+x0,w0 ─┐
+x1,w1 ─┤
+x2,w2 ─┼──► MAC ───► + Bias ───► ReLU ───► Y
+x3,w3 ─┘
+```
+
+Use the MAC unit developed in this laboratory as the computation engine.
+
+This creates a direct connection between digital arithmetic design and AI-FPGA acceleration.
+
+---
+
+# 🚀 40. Advanced Exercise — MAC Array
+
+Multiple MAC units can be organized as an array:
+
+```text
+          W0       W1       W2
+           │        │        │
+X0 ─────► MAC00 ─► MAC01 ─► MAC02
+X1 ─────► MAC10 ─► MAC11 ─► MAC12
+X2 ─────► MAC20 ─► MAC21 ─► MAC22
+```
+
+Such structures form the basis of:
+
+* matrix multipliers,
+* systolic arrays,
+* CNN accelerators,
+* tensor-processing architectures.
+
+The basic MAC unit developed in this laboratory is therefore a fundamental computational building block for advanced FPGA systems.
+
+---
+
+# 🧾 41. Expected Learning Outcomes
 
 After completing this laboratory, students will be able to:
 
-* Explain the concept of a soft-core processor.
-* Describe the basic MicroBlaze architecture.
-* Create a MicroBlaze system in Vivado IP Integrator.
-* Configure local memory, clock, reset, and debugging.
-* Understand the role of AXI in embedded FPGA systems.
-* Add a UART peripheral to a processor system.
-* Generate a bitstream for a processor-based FPGA design.
-* Export a hardware platform.
-* Compile and execute embedded C applications.
-* Use UART to observe processor software output.
-* Compare software processing with dedicated FPGA hardware.
-* Understand hardware/software co-design.
-* Prepare for custom accelerator integration.
+* Explain the multiply-accumulate operation.
+* Implement multiplication using Verilog HDL.
+* Implement a sequential accumulator.
+* Design a complete MAC unit.
+* Use clock, reset, and enable control signals.
+* Verify MAC operation using simulation.
+* Understand arithmetic word-length requirements.
+* Analyze MAC RTL structure in Vivado.
+* Identify FPGA DSP utilization.
+* Compare flat and hierarchical designs.
+* Explain pipelining in arithmetic datapaths.
+* Compare sequential and parallel MAC architectures.
+* Apply MAC units to DSP and AI hardware.
 
 ---
 
-# 📘 46. References
+# 📘 42. References
 
-1. AMD Xilinx, *MicroBlaze Processor Reference Guide*.
-2. AMD Xilinx, *Vivado Design Suite User Guide: Designing IP Subsystems Using IP Integrator*.
-3. AMD Xilinx, *Vitis Unified Software Platform Documentation*.
-4. AMD Xilinx, *AXI UARTLite Product Guide*.
-5. ARM, *AMBA AXI and ACE Protocol Specification*.
-6. M. D. Ciletti, *Advanced Digital Design with the Verilog HDL*, Pearson.
-7. S. Brown and Z. Vranesic, *Fundamentals of Digital Logic with Verilog Design*, McGraw-Hill.
+1. M. D. Ciletti, *Advanced Digital Design with the Verilog HDL*, Pearson.
+2. S. Brown and Z. Vranesic, *Fundamentals of Digital Logic with Verilog Design*, McGraw-Hill.
+3. U. Meyer-Baese, *Digital Signal Processing with Field Programmable Gate Arrays*, Springer.
+4. AMD Xilinx, *7 Series DSP48E1 Slice User Guide*.
+5. AMD Xilinx, *Vivado Design Suite User Guide: Synthesis*.
+6. AMD Xilinx, *Vivado Design Suite User Guide: Design Analysis and Closure Techniques*.
+7. IEEE Std 1364-2005, *IEEE Standard for Verilog Hardware Description Language*.
 
 ---
 
 ## 🔑 Key Concept
 
-The central architecture studied in this laboratory is
+The fundamental operation studied in this laboratory is
 
 $$
 \boxed{
-\text{MicroBlaze}
-+
-\text{Memory}
-+
-\text{AXI}
-+
-\text{Peripherals}
+ACC
+\leftarrow
+ACC+A\times B
 }
 $$
 
-The processor execution model is
+The corresponding FPGA datapath is
 
 $$
 \boxed{
-\text{Fetch}
+\text{Multiplier}
 \rightarrow
-\text{Decode}
+\text{Adder}
 \rightarrow
-\text{Execute}
+\text{Accumulator Register}
 }
 $$
 
-and the FPGA embedded-system model is
+and for AI-FPGA applications,
 
 $$
 \boxed{
-\text{Programmable Logic}
-+
-\text{Soft-Core Processor}
-+
-\text{Embedded Software}
+\text{MAC}
+\rightarrow
+\text{Dot Product}
+\rightarrow
+\text{ANN/CNN Computation}
+\rightarrow
+\text{Hardware Acceleration}
 }
 $$
 
-This laboratory provides the foundation for subsequent work involving **AXI GPIO, UART, timers, interrupts, custom AXI IP, DSP accelerators, ANN/CNN accelerators, embedded AI, and FPGA-based cyber-physical systems**.
+This laboratory provides the foundation for subsequent work on **FIR filters, matrix multiplication, ANN accelerators, CNN convolution engines, systolic arrays, and FPGA-based edge AI**.
