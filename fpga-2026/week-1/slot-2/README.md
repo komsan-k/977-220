@@ -1,4 +1,4 @@
-# 🔬 Topic-2: Verilog/SystemVerilog-1 — Digital Logic Fundamentals: Verilog/SystemVerilog-2 — Combinational Design
+# 🔬 Topic-2: Verilog/SystemVerilog-2 — Combinational Design
 
 ## Multiplexer, Decoder, Encoder, and Adder/Subtractor
 
