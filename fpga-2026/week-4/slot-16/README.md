@@ -1,4 +1,4 @@
-# 🔬 Lab: AI-FPGA — Convolutional Neural Network (CNN)
+# 🔬 Topic-16: AI-FPGA — Convolutional Neural Network (CNN)
 
 ## 🧩 1. Objective
 
