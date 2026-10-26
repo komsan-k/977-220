@@ -6,6 +6,12 @@ Design an FPGA display controller that generates color patterns on a VGA monitor
 
 This introductory graphics project uses SystemVerilog and Vivado. It requires no processor, Vitis application, external RAM, or framebuffer: colors are computed directly from the current pixel position.
 
+### Conceptual Figure
+
+![Conceptual Nexys A7 VGA color-display project](VGA_Color_Display_Concept.png)
+
+**Figure 1. Conceptual view of the project.** The Nexys A7 generates pixel timing, RGB color values, and synchronization signals, then drives a VGA monitor through its onboard VGA port. Switches select the display pattern. The monitor illustrates the color-bar mode; the board layout is schematic, not a physical wiring guide.
+
 ## 2. Learning Objectives
 
 - Explain pixel clocks, horizontal/vertical synchronization, and blanking.
@@ -445,12 +451,12 @@ If measurement equipment is available, record HS period, HS low width, VS period
 
 | Criterion | Marks |
 | --- | ---: |
-| VGA timing and clock/reset design | 25 |
-| Working solid colors and patterns | 25 |
-| Simulation evidence and debugging | 20 |
-| Correct constraints and implementation reports | 15 |
-| Demonstration and explanation | 15 |
-| Total | 100 |
+| VGA timing and clock/reset design | 5 |
+| Working solid colors and patterns | 5 |
+| Simulation evidence and debugging | 4 |
+| Correct constraints and implementation reports | 3 |
+| Demonstration and explanation | 3 |
+| Total | 20 |
 
 ## 18. Extensions
 
