@@ -1,4 +1,4 @@
-# 🔬 Topic-9: Vivado — Multiply-Accumulate (MAC) Design
+# 🔬 Topic-10: Vivado-6 — Multiply-Accumulate (MAC) Design
 
 ## 🧩 1. Objective
 
