@@ -1,4 +1,4 @@
-# 🔬 Topic-12: Vivado-8 IP Core-2 — MicroBlaze
+# 🔬 Vivado-8 IP Core — MicroBlaze
 
 ## 🧩 1. Objective
 
