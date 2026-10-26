@@ -1,6 +1,6 @@
-# Project Topic: Simple Color Display via VGA on Nexys A7
+# Simple Color Display via VGA on Nexys A7
 
-## 1. Project Description
+## 1. Description
 
 Design an FPGA display controller that generates color patterns on a VGA monitor using the Nexys A7's onboard VGA connector. Students will implement raster timing, RGB generation, switch-based pattern selection, and hardware verification.
 
@@ -445,12 +445,12 @@ If measurement equipment is available, record HS period, HS low width, VS period
 
 | Criterion | Marks |
 | --- | ---: |
-| VGA timing and clock/reset design | 25 |
-| Working solid colors and patterns | 25 |
-| Simulation evidence and debugging | 20 |
-| Correct constraints and implementation reports | 15 |
-| Demonstration and explanation | 15 |
-| Total | 100 |
+| VGA timing and clock/reset design | 5 |
+| Working solid colors and patterns | 5 |
+| Simulation evidence and debugging | 4 |
+| Correct constraints and implementation reports | 3 |
+| Demonstration and explanation | 3 |
+| Total | 20 |
 
 ## 18. Extensions
 
