@@ -1,4 +1,4 @@
-# 🔬 Lab: Vivado IP Core — PicoBlaze
+# 🔬 Vivado IP Core — PicoBlaze
 
 ## 🧩 1. Objective
 
