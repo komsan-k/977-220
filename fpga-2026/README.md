@@ -1,4 +1,4 @@
-# FPGA 4-Week Course Plan
+# FPGA 5-Week Course Plan
 
 ## FPGA, Verilog, Vivado, IP Integrator, and AI Haradware 
 
@@ -179,10 +179,10 @@ This course provides a practical introduction to FPGA system design using Verilo
 
 | Assessment Item | Marks |
 |-----------------|------:|
-| Quiz (Digital Logic & Verilog Fundamentals) | 4 |
-| Laboratory Completion (Combinational, Sequential & FSM Labs) | 8 |
+| Quiz (Digital Logic & Verilog Fundamentals) | 8 |
+| Laboratory Completion (Combinational, Sequential & FSM Labs) | 4 |
 | HDL Coding Style & Documentation | 4 |
-| FPGA Demonstration & Oral Explanation | 4 |
+| Demonstration & Explanation | 4 |
 | **Total** | **20** |
 
 ---
@@ -191,10 +191,10 @@ This course provides a practical introduction to FPGA system design using Verilo
 
 | Assessment Item | Marks |
 |-----------------|------:|
-| Quiz (Vivado Design Flow & Simulation) | 4 |
-| Laboratory Completion (Simulation & FPGA Implementation) | 8 |
+| Quiz (Vivado Design Flow & Simulation) | 8 |
+| Laboratory Completion (Simulation & FPGA Implementation) | 4 |
 | FPGA Implementation & Debugging | 4 |
-| Live Demonstration | 4 |
+| Demonstration | 4 |
 | **Total** | **20** |
 
 ---
@@ -203,9 +203,9 @@ This course provides a practical introduction to FPGA system design using Verilo
 
 | Assessment Item | Marks |
 |-----------------|------:|
-| Quiz (Hierarchy, MAC & IP Integrator) | 4 |
-| Laboratory Completion (Adder, MAC & IP Labs) | 8 |
-| System Integration & Design Quality | 4 |
+| Quiz (Hierarchy, Adder, Multiplier, and MAC) | 8 |
+| Laboratory Completion (Adder, MAC & IP Labs) | 4 |
+| System & Design Quality | 4 |
 | Demonstration & Technical Discussion | 4 |
 | **Total** | **20** |
 
@@ -215,8 +215,8 @@ This course provides a practical introduction to FPGA system design using Verilo
 
 | Assessment Item | Marks |
 |-----------------|------:|
-| Quiz (ANN, BNN & CNN Fundamentals) | 4 |
-| Laboratory Completion (AI-FPGA Labs) | 8 |
+| Quiz (ANN, BNN & CNN Fundamentals) | 8 |
+| Laboratory Completion (AI-FPGA Labs) | 4 |
 | AI Hardware Design & Optimization | 4 |
 | Final Demonstration | 4 |
 | **Total** | **20** |
