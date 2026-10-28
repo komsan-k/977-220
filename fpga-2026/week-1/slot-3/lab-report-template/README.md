@@ -25,10 +25,8 @@
 
 ## 2. Verilog/SystemVerilog Project URL (Shared)
 
-**GitHub repository / project URL:** [Insert URL]  
 **EDA Playground shared URL:** [Insert URL]  
 
-**Repository contents:** HDL design modules, testbench files, waveforms or screenshots, and a short README explaining how to reproduce the results.
 
 ## 3. Results
 
