@@ -6,9 +6,10 @@
 
 > **Report instructions:** Replace bracketed prompts with your own work. Include original HDL and testbench code, XSim waveform captures, and verification evidence. Report actual measurements rather than assuming a PASS result.
 
-| Student name | Student ID | Section / Group | Date |
-|---|---|---|---|
-| [Name] | [ID] | [Section] | [Date] |
+**Student name:** ____________________  
+**Student ID:** ____________________  
+**Date:** ____________________  
+**Vivado version / target FPGA:** ____________________
 
 ---
 
