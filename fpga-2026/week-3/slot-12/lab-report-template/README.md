@@ -25,19 +25,12 @@ After completing this laboratory, I can:
 
 **Achievement summary:**
 
-[Write 100–150 words describing your completed designs, successful tests, challenges, and skills gained.]
+[Write 60–100 words describing your completed designs, successful tests, challenges, and skills gained.]
 
 ---
 
-## 2. Verilog/SystemVerilog Project URL (Shared)
+## 2. Verilog/SystemVerilog 
 
-**GitHub repository URL:** [Paste URL]
-
-**Vivado project / shared archive URL (if applicable):** [Paste URL]
-
-**Top module name:** [Name]  
-**FPGA board / device (if used):** [Board and part]  
-**Vivado version:** [Version]
 
 **Submitted project contents:**
 
@@ -232,17 +225,6 @@ $$
 
 **Task 7 verification summary:** [Explain whether both implementations behaved identically and identify any differences in hierarchy or coding style.]
 
-### 3.18 Overall Task Verification
-
-| Task | Deliverable | Evidence provided | Result (Pass/Fail) |
-|---|---|---|---|
-| 2 | Sequential MAC | RTL, accumulator results, waveform | |
-| 3 | Reset and enable | Control tests, waveform | |
-| 4 | Testbench reaching ACC = 32 | Testbench, log, waveform | |
-| 7 | Hierarchical MAC | Module sources, hierarchy, comparison | |
-
-**Overall result:** [Summarize completed tests, errors, corrections, and final outcome.]
-
 ---
 
 ## 4. Discussion
@@ -259,24 +241,6 @@ Answer each question using observations from **your own** RTL and simulations.
 8. Why is it useful to apply input changes between the active clock edges in a testbench?
 9. What are the benefits of separating the multiplier, adder, and accumulator into individual modules?
 10. How did you confirm that the behavioral MAC and hierarchical MAC produced identical results?
-11. What happens if the accumulator width is too small to represent the mathematical sum?
-12. How could this MAC architecture be extended into a multi-cycle dot-product engine or a neural-network datapath?
 
-**Final reflection:**
 
-[Write 100–150 words about the MAC design workflow, verification lessons, and potential FPGA applications.]
 
----
-
-## Submission Checklist
-
-- [ ] Student identification and shared project URL completed.
-- [ ] Task 2 RTL, design details, and simulation evidence included.
-- [ ] Task 3 reset and enable controls verified.
-- [ ] Task 4 testbench verifies all three pairs and final `ACC=32`.
-- [ ] Task 7 provides separate multiplier, adder, accumulator, and top-level modules.
-- [ ] Vivado hierarchy and elaborated schematic screenshots provided.
-- [ ] Simulation waveforms and actual console outputs included.
-- [ ] All result tables and Pass/Fail fields completed.
-- [ ] Discussion questions answered.
-- [ ] All figures captioned and readable.
