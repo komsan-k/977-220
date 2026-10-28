@@ -5,7 +5,6 @@
 **Course:** 977-220 Electronics and IoT  
 **Student Name:** ____________________  
 **Student ID:** ____________________  
-**Section / Group:** ____________________  
 **Date:** ____________________  
 **Reference:** https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-1/slot-3
 
@@ -145,17 +144,6 @@
 **Waveform interpretation:**  
 [Explain why stored outputs update on the selected clock edge, and how this differs from combinational circuits.]
 
-### Overall Verification Summary
-
-| Task | Circuit / analysis | Completed? | Pass / Fail | Evidence reference |
-|---|---|:---:|:---:|---|
-| 5 | 4-bit up counter | | | |
-| 6 | Counter enable | | | |
-| 7 | Up/down counter | | | |
-| 8 | Modulo-10 counter | | | |
-| 10 | EPWave waveform analysis | | | |
-
-**Overall results:** [Report number of tests passed/failed and any implementation limitations.]
 
 ## 4. Discussion
 
@@ -172,17 +160,5 @@
 11. Why should testbench inputs normally change away from the active clock edge?
 12. What problems did you encounter and how did you resolve them?
 
-**Final reflection:**  
-[Write a short paragraph explaining how counters and state storage support timers, control systems, FSMs, and FPGA datapaths.]
 
----
 
-## Submission Checklist
-
-- [ ] Student information and shared project links completed.
-- [ ] All four HDL counter implementations included.
-- [ ] Testbenches and relevant stimulus descriptions provided.
-- [ ] Truth/verification tables completed with actual simulation results.
-- [ ] EPWave screenshots for each task included and labeled.
-- [ ] Hold, direction change, and wrap-around behaviors demonstrated.
-- [ ] Discussion and final reflection completed.
