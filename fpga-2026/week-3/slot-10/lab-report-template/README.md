@@ -30,9 +30,6 @@ After completing this lab, I can:
 
 ## 2. Verilog/SystemVerilog 
 
-**GitHub repository URL:** [Insert link]  
-**Vivado project / source files:** [Insert path or link]  
-**Shared simulation results:** [Insert path or link]
 
 **Project file checklist:**
 
@@ -237,22 +234,3 @@ Answer with evidence from your implementation and simulation.
 9. Which test cases are particularly useful for identifying width, shifting, or carry errors?
 10. What would you change to extend this design to an 8 × 8-bit multiplier?
 
-**Final reflection (4–6 sentences):**
-
-[Summarize how structural arithmetic, hierarchy, and exhaustive simulation contribute to reliable FPGA design.]
-
----
-
-## Submission Checklist
-
-- [ ] Personal information and project links completed
-- [ ] Task 3 manual partial-product calculation included
-- [ ] Task 4 RTL and three ripple-adder instances documented
-- [ ] Task 4 Vivado hierarchy screenshot included
-- [ ] Task 5 `*`-operator RTL and comparison included
-- [ ] Task 6 source testbench and 256-case summary included
-- [ ] All required waveform / console screenshots included
-- [ ] All tables filled with actual observations
-- [ ] Discussion and final reflection completed
-
-**Note:** Expected values above are reference calculations; write the *actual* values from your simulations in the blank columns. The GitHub page was not independently accessible while preparing this template; the task scope follows the four tasks supplied in the request.
