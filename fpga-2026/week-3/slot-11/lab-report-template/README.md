@@ -56,12 +56,7 @@ After this laboratory, I can:
 
 ---
 
-## 2. Verilog/SystemVerilog Project URL (Shared)
-
-**GitHub repository URL:** [Insert URL]  
-**Vivado project name:** `topic11_fixed_point_multiplier` / [Your name]  
-**Vivado project location or submission archive:** [Insert link or filename]  
-**Optional demonstration video / hardware link:** [Insert link or N/A]
+## 2. Verilog/SystemVerilog 
 
 ### 2.1 Project file checklist
 
@@ -284,21 +279,6 @@ Complete only if the hardware wrapper was used.
 **Photograph or video evidence:** [Insert evidence]  
 **Observation / limitation:** [Keep multi-bit switches steady before interpreting the results; note synchronization and any relevant asynchronous I/O constraints.]
 
-### 3.7 Overall Results Summary
-
-| Lab component | Required evidence | Status (Pass/Fail/Not done) |
-|---|---|---|
-| A — Signed number encoding | Binary and integer calculations | |
-| B — Quantization and saturation | Simulation tables, errors, rounding/truncation comparison | |
-| C — Pipeline verification | Timing, bubbles, reset, waveform evidence | |
-| Exhaustive checking | 65,536-pair test and console PASS | |
-| D — Resources and timing | Utilization, slack, device and constraints | |
-| Optional Nexys A7 demo | XDC, bitstream, physical results | |
-
-**Overall verification outcome:** [ ]  
-**Most important observation:** [ ]  
-**Unresolved issues:** [ ]
-
 ---
 
 ## 4. Discussion
@@ -315,10 +295,7 @@ Answer briefly, using your actual experiment results where relevant.
 8. Why does a bubble move through the pipeline instead of stopping it?
 9. What is the difference between **latency** and **throughput**? Did your results show one valid output each clock after filling?
 10. Which combinational operations lie between each pair of pipeline registers?
-11. What happens to samples that are in flight when synchronous reset is asserted?
-12. Why is an unregistered combinational reference not directly comparable with a registered core using a register-to-register Fmax metric?
-13. What do LUT, flip-flop, DSP, setup-slack, and hold-slack numbers indicate about the implemented design?
-14. What changes would be needed to extend this multiplier into a **MAC** datapath? Propose an accumulator width and binary-point format.
+
 
 **Proposed MAC accumulator design:**
 
@@ -332,23 +309,4 @@ Answer briefly, using your actual experiment results where relevant.
 | Overflow and rounding policy | |
 | Valid/timing protocol | |
 
-**Final reflection (one paragraph):**
 
-[Summarize the key numerical, timing, and FPGA-implementation insights.]
-
----
-
-## Submission Checklist
-
-- [ ] All student/project information supplied.
-- [ ] Source-code repository and Vivado version documented.
-- [ ] Experiment A encoding table and calculations completed.
-- [ ] Experiment B numerical results, errors, and saturation flags recorded.
-- [ ] Truncation versus nearest rounding compared.
-- [ ] Experiment C pipeline waveforms show edge alignment, bubble, reset, and throughput.
-- [ ] Exhaustive 65,536-pair test completed with actual console evidence.
-- [ ] Experiment D resource and timing measurements recorded.
-- [ ] All discussion questions answered and MAC format proposed.
-- [ ] Optional board results labeled N/A if not performed.
-
-**Source:** https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-3/slot-11
