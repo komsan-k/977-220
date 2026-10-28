@@ -117,44 +117,6 @@ Upon completing this laboratory, I can:
 
 **3.10 Verification summary:** [Explain whether exactly one output was asserted for each input.]
 
-### Task 5 — Comparator (2-bit magnitude comparator)
-
-**Objective:** Compare two unsigned 2-bit inputs `A[1:0]` and `B[1:0]`.
-
-**Expected outputs:** `GT = (A > B)`, `EQ = (A == B)`, `LT = (A < B)`.
-
-**3.11 RTL source code**
-
-```systemverilog
-// Paste your 2-bit comparator implementation here.
-```
-
-**3.12 Testbench / stimulus**
-
-```systemverilog
-// Paste the comparator testbench here.
-```
-
-**3.13 Representative verification cases**
-
-| A (decimal) | B (decimal) | Expected GT | Expected EQ | Expected LT | Simulated GT/EQ/LT | Pass/Fail |
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| 0 | 0 | 0 | 1 | 0 | | |
-| 0 | 1 | 0 | 0 | 1 | | |
-| 1 | 0 | 1 | 0 | 0 | | |
-| 1 | 1 | 0 | 1 | 0 | | |
-| 1 | 2 | 0 | 0 | 1 | | |
-| 2 | 1 | 1 | 0 | 0 | | |
-| 2 | 3 | 0 | 0 | 1 | | |
-| 3 | 2 | 1 | 0 | 0 | | |
-| 3 | 3 | 0 | 1 | 0 | | |
-
-**Exhaustive verification:** There are 4 × 4 = **16** input pairs.  
-Number tested: [___ / 16] · Number passed: [___] · Number failed: [___].
-
-**3.14 XSim waveform screenshot:** [Insert screenshot showing `A`, `B`, `GT`, `EQ`, `LT`.]
-
-**3.15 Verification summary:** [Explain whether exactly one of `GT`, `EQ`, and `LT` was asserted for every valid pair.]
 
 ### Task 6 — Half Adder
 
