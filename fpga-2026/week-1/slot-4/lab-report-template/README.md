@@ -27,7 +27,7 @@ After completing this laboratory, I can:
 
 ### 1.2 Achievement summary
 
-[In 80–120 words, describe what you implemented, verified, and learned. Mention any unfinished or failed tests.]
+[In 60–100 words, describe what you implemented, verified, and learned. Mention any unfinished or failed tests.]
 
 ---
 
