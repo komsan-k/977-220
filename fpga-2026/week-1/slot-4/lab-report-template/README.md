@@ -189,19 +189,6 @@ After completing this laboratory, I can:
 **3.18 Explanation**  
 [In 100–150 words, explain why the Moore FSM output is based on the stored state while Mealy output also depends on the current input. Relate your answer to the traffic-light FSM and the `101` detector described in the lesson.]
 
-### 3.19 Overall verification summary
-
-| Selected task | Expected evidence | Result / status | Remarks |
-|---|---|---|---|
-| Task 1 — Moore FSM concept | State diagram | | |
-| Task 3 — State table | State/output table | | |
-| Task 4 — Behavioral simulation | Code, table, EPWave | | |
-| Task 5 — Timer input | Modified code, hold/advance evidence | | |
-| Task 7 — Moore vs Mealy | Comparison and timing diagram | | |
-
-**Overall observations and limitations:**  
-[Summarize successful tests, failed tests, debugging steps, and remaining limitations.]
-
 ---
 
 ## 4. Discussion
