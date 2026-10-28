@@ -4,8 +4,7 @@
 
 **Reference:** https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-2/slot-5  
 **Student name:** ______________________________  
-**Student ID:** ______________________________  
-**Section / Group:** ______________________________  
+**Student ID:** ______________________________   
 **Date:** ______________________________  
 **Vivado version:** ______________________________
 
@@ -22,50 +21,15 @@
 - Use `$monitor` to report signal values in the simulation console.
 - Replace manually written input stimuli with a `for` loop.
 
-**Achievement summary (write 80–150 words):**
+**Achievement summary (write 60–100 words):**
 
 > [Describe what you designed, simulated, verified, and learned.]
 
 ---
 
-## 2. Verilog/SystemVerilog Project URL (Shared)
 
-**Shared GitHub repository URL:** [Paste URL]  
-**Project or source folder:** [Paste path]  
-**Vivado project name:** [Enter name]  
-**Top design module:** [Enter module]  
-**Testbench module:** [Enter module]
+## 2. Results
 
-**Files included (edit as appropriate):**
-- `[design_file].v` or `[design_file].sv` — circuit design
-- `[testbench_file].v` or `[testbench_file].sv` — simulation stimulus
-- `README.md` — project explanation and reproduction steps
-- `results/` — waveform screenshots and console output evidence
-
-> **Submission note:** Share the source/testbench and instructions needed to recreate the Vivado project. Do not rely solely on machine-specific project paths.
-
----
-
-## 3. Results
-
-### Task 1 — Create Vivado Project
-
-**Objective:** Create a new Vivado RTL project.
-
-| Project setting | Configuration used |
-|---|---|
-| Project name | |
-| Project location | |
-| Project type | RTL Project |
-| HDL language | |
-| Target board / FPGA part (if selected) | |
-| Design sources added | |
-| Simulation sources added | |
-| Simulation tool | Vivado XSim |
-
-**Evidence:** [Insert screenshot of the Vivado project, Sources panel, and selected top modules.]
-
-**Result/observations:** [Briefly describe project creation and whether the files compiled successfully.]
 
 ### Task 2 — Design Basic Logic Circuit
 
@@ -189,20 +153,6 @@
 
 **Verification summary:** [Explain whether the loop-based version gives the same results as the manual testbench.]
 
-### Overall Verification Summary
-
-| Task | Deliverable | Completed? | Evidence reference |
-|---|---|:---:|---|
-| 1 | Vivado RTL project | | |
-| 2 | Logic module | | |
-| 3 | Eight-combination testbench | | |
-| 4 | XSim waveform | | |
-| 5 | Completed truth table | | |
-| 6 | `$monitor` console log | | |
-| 7 | Loop-based testbench | | |
-
-**Overall result:** [Write 2–4 sentences summarizing successful verification, problems, and corrections.]
-
 ---
 
 ## 4. Discussion
@@ -220,23 +170,4 @@ Answer each question briefly, referring to your own results where possible.
 9. **Debugging:** If an output disagreed with the truth table, how did you locate and correct the error?
 10. **Reflection:** How could the same project workflow be extended to a multiplexer, decoder, or adder?
 
-**Final reflection (80–150 words):**
 
-> [Summarize what Vivado/XSim contributed to your understanding of HDL design and verification.]
-
----
-
-## Submission Checklist
-
-- [ ] Student information is complete.
-- [ ] GitHub project link is accessible.
-- [ ] Task 1 project settings and screenshot are included.
-- [ ] Task 2 HDL source and logic diagram are included.
-- [ ] Task 3 testbench covers all eight input combinations.
-- [ ] Task 4 XSim waveform includes A, B, C, and Y.
-- [ ] Task 5 truth table is complete with Pass/Fail results.
-- [ ] Task 6 `$monitor` code and console evidence are included.
-- [ ] Task 7 loop-based testbench and comparison are included.
-- [ ] All discussion questions and final reflection are answered.
-
-**Reference lab:** https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-2/slot-5
