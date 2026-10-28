@@ -4,7 +4,6 @@
 **Reference:** https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-3/slot-10  
 **Student name:** ____________________  
 **Student ID:** ____________________  
-**Group / Section:** ____________________  
 **Date:** ____________________  
 **Vivado version / target FPGA:** ____________________
 
@@ -29,7 +28,7 @@ After completing this lab, I can:
 
 ---
 
-## 2. Verilog/SystemVerilog Project URL (Shared)
+## 2. Verilog/SystemVerilog 
 
 **GitHub repository URL:** [Insert link]  
 **Vivado project / source files:** [Insert path or link]  
