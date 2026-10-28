@@ -232,22 +232,6 @@ Explain your exact RTL terminal-count convention (for example, counting `0` thro
 
 **Analysis:** [Compare observed blinking with the design calculation. Note that a static photograph alone cannot establish a blinking rate.]
 
-### Overall Verification Summary
-
-| Task | Evidence supplied | Result (Pass/Fail/Not tested) | Notes |
-|---|---|---|---|
-| 2 — LED Blinker RTL | | | |
-| 3 — Behavioral Simulation | | | |
-| 4 — XDC Constraints | | | |
-| 5 — RTL Analysis | | | |
-| 6 — Synthesis | | | |
-| 7 — Implementation / Timing | | | |
-| 8 — Bitstream | | | |
-| 9 — FPGA Programming | | | |
-| 10 — Physical LED Verification | | | |
-
-**Overall conclusion:** [Summarize whether the complete RTL-to-hardware workflow was verified, and identify any incomplete stages.]
-
 ---
 
 ## 4. Discussion
