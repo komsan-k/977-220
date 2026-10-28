@@ -4,13 +4,10 @@
 **Focus:** Moore FSM, state tables, behavioral simulation, timer-controlled transitions, and Moore–Mealy comparison  
 **Reference:** https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-1/slot-4
 
-| Student information | Details |
-|---|---|
-| Name | |
-| Student ID | |
-| Section / Group | |
-| Laboratory date | |
-| Submission date | |
+**Student Name:** ____________________________________  
+**Student ID:** ______________________________________  
+**Lab Date:** ________________________________________
+
 
 > **Instructions:** Complete **Tasks 1, 3, 4, 5, and 7** only. Insert your *own* diagrams, HDL code, simulation screenshots, and observations. State whether each test passes or fails. The example states and expected transitions follow the Slot 4 traffic-light FSM exercise: **RED → GREEN → YELLOW → RED**. Actual observations must be obtained from your simulations.
 
@@ -35,12 +32,10 @@ After completing this laboratory, I can:
 ---
 
 ## 2. Verilog/SystemVerilog Project URL (Shared)
-
-**GitHub repository or project URL:** [Paste link]  
+ 
 **EDA Playground shared URL:** [Paste link]  
 **Simulator and language/version:** [e.g., SystemVerilog; simulator used]  
-**Design module(s):** [List files/modules]  
-**Testbench module(s):** [List files/modules]
+
 
 **Shared-project checklist:**
 - [ ] FSM source code included
