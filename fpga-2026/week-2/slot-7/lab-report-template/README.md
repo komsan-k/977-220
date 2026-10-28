@@ -5,9 +5,12 @@
 **Reference laboratory:** https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-2/slot-7  
 **Selected tasks:** 3, 4, 5, 6, and 7
 
-| Student name | Student ID | Section / Group | Date |
-|---|---|---|---|
-| | | | |
+**Student name:** ____________________  
+**Student ID:** ____________________  
+**Lab date:** ____________________  
+**FPGA board / device:** ____________________  
+**Vivado version:** ____________________
+
 
 > **Instructions:** Complete each section using your own Vivado design and behavioral simulation results. Insert actual HDL, testbench excerpts, screenshots, and shared links. Do not mark a test *Pass* until the simulated output has been compared with the expected result. The provided tables are reference expectations, not measured results.
 
@@ -27,18 +30,13 @@ Upon completing this laboratory, I can:
 - Develop testbenches and analyze Vivado behavioral-simulation waveforms.
 - Compare expected truth tables with actual results and document discrepancies.
 
-**Achievement summary (write 80–120 words):**
+**Achievement summary (write 60–100 words):**
 
 [Describe the circuits completed, what was verified, and important skills learned.]
 
 ---
 
-## 2. Verilog/SystemVerilog Project URL (Shared)
-
-**GitHub project URL:** [Insert shared link]  
-**Vivado project name:** [Insert project name]  
-**Vivado version / simulator:** [Insert version, e.g., Vivado XSim]  
-**Top-level design module(s):** [Insert module names]
+## 2. Verilog/SystemVerilog 
 
 **Files submitted:**
 
@@ -46,7 +44,6 @@ Upon completing this laboratory, I can:
 - [ ] Simulation testbenches (`.v` / `.sv`)
 - [ ] Simulation waveform screenshots
 - [ ] Results tables and discussion
-- [ ] Project `README.md` with instructions to reproduce tests
 
 > Share source files and instructions. Large generated Vivado directories do not need to be committed unless requested by the instructor.
 
@@ -276,26 +273,4 @@ Respond using evidence from your own implementations and simulation results.
 11. What is the difference between an RTL design and its testbench?
 12. How did XSim waveforms help detect or rule out logic errors?
 13. Why is exhaustive testing feasible for these small circuits?
-14. What changes, if any, were needed before the designs passed verification?
 
-**Final reflection (80–120 words):**
-
-[Explain what you learned about combinational design, RTL coding, simulation, and verification.]
-
----
-
-## Submission Checklist
-
-- [ ] Student details completed
-- [ ] Shared project link supplied
-- [ ] Task 3 MUX RTL, testbench, truth table, and waveform included
-- [ ] Task 4 decoder `case` design, one-hot verification, and waveform included
-- [ ] Task 5 comparator RTL, comparisons, and waveform included
-- [ ] Task 6 half-adder RTL, truth table, and waveform included
-- [ ] Task 7 four-bit adder RTL, result-width explanation, and waveform included
-- [ ] Overall results table completed with actual Pass/Fail counts
-- [ ] Discussion questions and reflection completed
-
----
-
-*This is a student-fillable report template for the five selected tasks. Expected outputs are supplied for comparison; simulation findings must be entered by the student.*
