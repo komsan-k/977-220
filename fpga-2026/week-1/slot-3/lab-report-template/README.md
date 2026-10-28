@@ -155,8 +155,7 @@
 8. Why is reset required for predictable startup behavior?
 9. Why is a nonblocking assignment (`<=`) recommended inside `always_ff`?
 10. How does EPWave help confirm timing behavior and identify logic errors?
-11. Why should testbench inputs normally change away from the active clock edge?
-12. What problems did you encounter and how did you resolve them?
+
 
 
 
