@@ -40,7 +40,6 @@ After completing this laboratory, I can:
 **Shared-project checklist:**
 - [ ] FSM source code included
 - [ ] Testbench source code included
-- [ ] Simulation instructions provided
 - [ ] EPWave screenshots or VCD evidence included
 - [ ] Project link publicly viewable or shared with the instructor
 
@@ -219,24 +218,5 @@ Answer the following using **your own results**.
 8. How do lamp outputs reflect the current state in the timer-controlled FSM?
 9. What is the difference between a Moore output and a Mealy output when an input changes between clock edges?
 10. How might a Mealy output become sensitive to glitches on its input?
-11. Which EPWave signals provide the strongest evidence that your transition logic is correct?
-12. Describe one error or unexpected behavior observed during simulation and how you investigated it.
 
-**Final reflection (80–120 words):**  
-[Explain what you learned about control-state design, verification, and the role of FSMs in FPGA-based digital systems.]
 
----
-
-## Submission checklist
-
-- [ ] Student information and achievement summary completed
-- [ ] Shared project URL supplied
-- [ ] Task 1 three-state Moore diagram attached
-- [ ] Task 3 complete state/output table included
-- [ ] Task 4 source, testbench, EPWave capture, and verification table included
-- [ ] Task 5 timer-controlled source, stimulus, hold/advance evidence included
-- [ ] Task 7 Moore/Mealy comparison and timing explanation completed
-- [ ] Overall pass/fail summary filled out
-- [ ] Discussion questions answered
-
-**Suggested file name:** `977-220_Week1_Slot4_Lab_Report_<StudentID>.md`
