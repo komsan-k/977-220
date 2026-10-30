@@ -41,7 +41,6 @@ After completing this laboratory, I can:
 - [ ] FSM source code included
 - [ ] Testbench source code included
 - [ ] EPWave screenshots or VCD evidence included
-- [ ] Project link publicly viewable or shared with the instructor
 
 ---
 
