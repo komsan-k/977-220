@@ -1,6 +1,6 @@
 # Beginning with Xilinx Vivado
 
-## Lab Objectives
+## Objectives
 
 - Learn how to install and configure the Xilinx Vivado Design Suite.
 
