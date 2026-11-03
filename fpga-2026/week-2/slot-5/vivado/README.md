@@ -54,7 +54,7 @@ Xilinx Vivado Design Suite is a powerful development environment for implementin
 
 4.  Select the target FPGA device `xc7a100tcsg324-1`, as shown in Figure 3.
 
-    ![Figure 3. Specifying the target FPGA chip](3-specify-chip.png)
+    ![Figure 3. Specifying the target FPGA chip](figures/3-specify-chip.png)
 
     *Figure 3. Specifying the target FPGA chip.*
 
@@ -68,11 +68,11 @@ Xilinx Vivado Design Suite is a powerful development environment for implementin
 
 - Select `Add or Create Simulation Sources`, as shown in Figure 5.
 
-  ![Figure 4. Adding a new design source](4-start-design.png)
+  ![Figure 4. Adding a new design source](figures/4-start-design.png)
 
   *Figure 4. Adding a new design source.*
 
-  ![Figure 5. Adding a new testbench source](5-start-sim.png)
+  ![Figure 5. Adding a new testbench source](figures/5-start-sim.png)
 
   *Figure 5. Adding a new testbench source.*
 
@@ -113,11 +113,11 @@ endmodule
 
 - Use the waveform viewer to inspect outputs, as indicated in Figure 7.
 
-![Figure 6. Start a simulation](6-sim-prj.png)
+![Figure 6. Start a simulation](figures/6-sim-prj.png)
 
 *Figure 6. Start a simulation.*
 
-![Figure 7. Waveform viewer](7-waveform.png)
+![Figure 7. Waveform viewer](figures/7-waveform.png)
 
 *Figure 7. Waveform viewer.*
 
