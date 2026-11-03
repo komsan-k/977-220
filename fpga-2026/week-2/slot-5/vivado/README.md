@@ -40,13 +40,13 @@ Xilinx Vivado Design Suite is a powerful development environment for implementin
 
 1.  Launch Vivado and select **Create Project**, as shown in Figure 1.
 
-    ![Figure 1. Creating a new project](1-new-prj.png)
+    ![Figure 1. Creating a new project](figures/1-new-prj.png)
 
     *Figure 1. Creating a new project.*
 
 2.  Enter project name and location, as demonstrated in Figure 2.
 
-    ![Figure 2. Completing file name and directory location](2-name-prj.png)
+    ![Figure 2. Completing file name and directory location](figures/2-name-prj.png)
 
     *Figure 2. Completing file name and directory location.*
 
