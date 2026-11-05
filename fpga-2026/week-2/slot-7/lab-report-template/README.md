@@ -23,8 +23,7 @@
 Upon completing this laboratory, I can:
 
 - Implement a 2-to-1 multiplexer in Verilog/SystemVerilog.
-- Implement a 2-to-4 one-hot decoder using a `case` statement.
-<!--- - Design a 2-bit magnitude comparator with `A > B`, `A == B`, and `A < B` outputs.--->
+- Implement a 2-to-4 one-hot decoder using a `case` statement.  <!--- - Design a 2-bit magnitude comparator with `A > B`, `A == B`, and `A < B` outputs.--->
 - Implement and verify a half adder's `SUM` and `CARRY`.
 - Implement a four-bit adder and verify the intended result width.
 - Develop testbenches and analyze Vivado behavioral-simulation waveforms.
@@ -192,8 +191,7 @@ Number tested: [___ / 256] · Number passed: [___] · Number failed: [___].
 | Task | Circuit | Cases Tested | Passed | Failed | Evidence / Screenshot |
 |:--:|---|---:|---:|---:|---|
 | 3 | 2-to-1 MUX | | | | |
-| 4 | 2-to-4 Decoder | | | | |
-| 5 | 2-bit Comparator | | | | |
+| 4 | 2-to-4 Decoder | | | | | <!--- | 5 | 2-bit Comparator | | | | | --->
 | 6 | Half Adder | | | | |
 | 7 | 4-bit Adder | | | | |
 
@@ -214,12 +212,12 @@ Respond using evidence from your own implementations and simulation results.
 
 3. Why does the 2-to-4 decoder use a one-hot output?
 4. What is the role of the `case` statement? What should happen for all valid inputs?
-
+<!---
 **Task 5 — Comparator**
 
 5. How do the `GT`, `EQ`, and `LT` signals describe the comparison result?
 6. Why should exactly one comparator output be high for valid unsigned inputs?
-
+--->
 **Task 6 — Half Adder**
 
 7. Why is XOR used to generate `SUM`, while AND generates `CARRY`?
