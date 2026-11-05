@@ -182,10 +182,6 @@ Save the file as `led_blinker.xdc` and add it to your Vivado project using:
 
 *Figure 2-1. Adding a new Constraints file.*
 
-![Figure 2-2. A Constraints file](figures/9-xdc-2.png)
-
-*Figure 2-2. A Constraints file.*
-
 If you plan to use more LEDs or additional inputs, extend the constraint file accordingly by adding the appropriate pins listed in Table 1.
 
 
@@ -197,6 +193,9 @@ If you plan to use more LEDs or additional inputs, extend the constraint file ac
 
 *Table 1. Nexys A7 I/O pin mapping summary.*
 
+![Figure 2-2. A Constraints file](figures/9-xdc-2.png)
+
+*Figure 2-2. A Constraints file.*
 
 ## 7. Programming the FPGA
 
