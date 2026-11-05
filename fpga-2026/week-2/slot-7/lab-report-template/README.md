@@ -24,7 +24,7 @@ Upon completing this laboratory, I can:
 
 - Implement a 2-to-1 multiplexer in Verilog/SystemVerilog.
 - Implement a 2-to-4 one-hot decoder using a `case` statement.
-- Design a 2-bit magnitude comparator with `A > B`, `A == B`, and `A < B` outputs.
+<!--- - Design a 2-bit magnitude comparator with `A > B`, `A == B`, and `A < B` outputs.--->
 - Implement and verify a half adder's `SUM` and `CARRY`.
 - Implement a four-bit adder and verify the intended result width.
 - Develop testbenches and analyze Vivado behavioral-simulation waveforms.
