@@ -182,7 +182,7 @@ Save the file as `led_blinker.xdc` and add it to your Vivado project using:
 
 *Figure 2-1. Adding a new Constraints file.*
 
-![Figure 2-2. A Constraints file](figures/9-xdc-1.png)
+![Figure 2-2. A Constraints file](figures/9-xdc-2.png)
 
 *Figure 2-2. A Constraints file.*
 
