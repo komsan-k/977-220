@@ -70,7 +70,7 @@ Upon completing this laboratory, I can:
 
 **3.3 Truth-table verification**
 
-| S | D0 | D1 | Expected Y | Simulated Y | Pass/Fail |
+| S | D0 | D1 | Expected Y | FPGA response Y | Pass/Fail |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | 0 | 0 | 0 | 0 | | |
 | 0 | 0 | 1 | 0 | | |
@@ -105,7 +105,7 @@ Upon completing this laboratory, I can:
 
 **3.8 Truth-table verification**
 
-| A[1:0] | Expected Y[3:0] | Simulated Y[3:0] | One-hot? | Pass/Fail |
+| A[1:0] | Expected Y[3:0] | FPGA response Y[3:0] | One-hot? | Pass/Fail |
 |:--:|:--:|:--:|:--:|:--:|
 | 00 | 0001 | | | |
 | 01 | 0010 | | | |
@@ -137,7 +137,7 @@ Upon completing this laboratory, I can:
 
 **3.18 Truth-table verification**
 
-| A | B | Expected SUM | Expected CARRY | Simulated SUM | Simulated CARRY | Pass/Fail |
+| A | B | Expected SUM | Expected CARRY | FPGA response SUM | FPGA response CARRY | Pass/Fail |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | 0 | 0 | 0 | 0 | | | |
 | 0 | 1 | 1 | 0 | | | |
@@ -168,7 +168,7 @@ Upon completing this laboratory, I can:
 
 **3.23 Verification cases**
 
-| A (dec) | B (dec) | Expected SUM (5-bit) | Expected SUM (dec) | Simulated SUM | Pass/Fail |
+| A (dec) | B (dec) | Expected SUM (5-bit) | Expected SUM (dec) | FPGA response SUM | Pass/Fail |
 |:-:|:-:|:--:|:-:|:--:|:-:|
 | 0 | 0 | 00000 | 0 | | |
 | 1 | 2 | 00011 | 3 | | |
