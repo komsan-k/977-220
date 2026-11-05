@@ -81,9 +81,8 @@ Upon completing this laboratory, I can:
 | 1 | 1 | 0 | 0 | | |
 | 1 | 1 | 1 | 1 | | |
 
-**3.4 XSim waveform screenshot:** [Insert screenshot showing `S`, `D0`, `D1`, `Y`.]
 
-**3.5 Verification summary:** [Describe behavior and failures, if any.]
+**3.4 Verification summary:** [Describe behavior and failures, if any.]
 
 ### Task 4 — Decoder (2-to-4)
 
@@ -112,9 +111,7 @@ Upon completing this laboratory, I can:
 | 10 | 0100 | | | |
 | 11 | 1000 | | | |
 
-**3.9 XSim waveform screenshot:** [Insert screenshot showing `A[1:0]` and `Y[3:0]`.]
-
-**3.10 Verification summary:** [Explain whether exactly one output was asserted for each input.]
+**3.9 Verification summary:** [Explain whether exactly one output was asserted for each input.]
 
 
 ### Task 6 — Half Adder
@@ -129,12 +126,6 @@ Upon completing this laboratory, I can:
 // Paste the half-adder implementation here.
 ```
 
-**3.17 Testbench / stimulus**
-
-```systemverilog
-// Paste the half-adder testbench here.
-```
-
 **3.18 Truth-table verification**
 
 | A | B | Expected SUM | Expected CARRY | FPGA response SUM | FPGA response CARRY | Pass/Fail |
@@ -144,9 +135,7 @@ Upon completing this laboratory, I can:
 | 1 | 0 | 1 | 0 | | | |
 | 1 | 1 | 0 | 1 | | | |
 
-**3.19 XSim waveform screenshot:** [Insert screenshot showing `A`, `B`, `SUM`, `CARRY`.]
-
-**3.20 Verification summary:** [Describe when the sum and carry are asserted.]
+**3.19 Verification summary:** [Describe when the sum and carry are asserted.]
 
 ### Task 7 — Four-Bit Adder
 
