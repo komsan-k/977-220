@@ -14,7 +14,7 @@ The Xilinx Nexys A7 is an FPGA development board based on the Xilinx Artix-7 fam
 
 Figure 1 illustrates the Nexys A7 FPGA development board, highlighting essential lab components such as 16 slide switches, 16 individual LEDs, and an 8-digit seven-segment display. Comprehensive documentation is available in the official Digilent reference manual, accessible at the [Digilent website](https://digilent.com/reference/programmable-logic/nexys-a7/).
 
-![Figure 1. Nexys A7 Features](a7.png)
+![Figure 1. Nexys A7 Features](figures/a7.png)
 
 *Figure 1. Nexys A7 Features.*
 
