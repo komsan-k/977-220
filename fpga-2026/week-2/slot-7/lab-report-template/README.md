@@ -62,12 +62,6 @@ Upon completing this laboratory, I can:
 // Paste your implemented 2-to-1 multiplexer here.
 ```
 
-**3.2 Testbench / stimulus generation**
-
-```systemverilog
-// Paste the relevant testbench here.
-```
-
 **3.3 Truth-table verification**
 
 | S | D0 | D1 | Expected Y | FPGA response Y | Pass/Fail |
@@ -96,13 +90,7 @@ Upon completing this laboratory, I can:
 // Paste the decoder implementation using case here.
 ```
 
-**3.7 Testbench / stimulus**
-
-```systemverilog
-// Paste the decoder testbench here.
-```
-
-**3.8 Truth-table verification**
+**3.7 Truth-table verification**
 
 | A[1:0] | Expected Y[3:0] | FPGA response Y[3:0] | One-hot? | Pass/Fail |
 |:--:|:--:|:--:|:--:|:--:|
@@ -126,7 +114,7 @@ Upon completing this laboratory, I can:
 // Paste the half-adder implementation here.
 ```
 
-**3.18 Truth-table verification**
+**3.17 Truth-table verification**
 
 | A | B | Expected SUM | Expected CARRY | FPGA response SUM | FPGA response CARRY | Pass/Fail |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -135,7 +123,7 @@ Upon completing this laboratory, I can:
 | 1 | 0 | 1 | 0 | | | |
 | 1 | 1 | 0 | 1 | | | |
 
-**3.19 Verification summary:** [Describe when the sum and carry are asserted.]
+**3.18 Verification summary:** [Describe when the sum and carry are asserted.]
 
 ### Task 7 — Four-Bit Adder
 
@@ -149,13 +137,7 @@ Upon completing this laboratory, I can:
 // Paste your four-bit adder implementation here.
 ```
 
-**3.22 Testbench / stimulus**
-
-```systemverilog
-// Paste your adder testbench here.
-```
-
-**3.23 Verification cases**
+**3.22 Verification cases**
 
 | A (dec) | B (dec) | Expected SUM (5-bit) | Expected SUM (dec) | FPGA response SUM | Pass/Fail |
 |:-:|:-:|:--:|:-:|:--:|:-:|
@@ -171,11 +153,10 @@ Upon completing this laboratory, I can:
 **Exhaustive verification (optional):** 16 × 16 = **256** operand pairs.  
 Number tested: [___ / 256] · Number passed: [___] · Number failed: [___].
 
-**3.24 XSim waveform screenshot:** [Insert screenshot showing `A[3:0]`, `B[3:0]`, and `SUM[4:0]` or `SUM[3:0]` plus `COUT`.]
 
-**3.25 Verification summary:** [Explain result width, carry behavior, and any mismatches.]
+**3.24 Verification summary:** [Explain result width, carry behavior, and any mismatches.]
 
-### 3.26 Overall Verification Summary
+### 3.25 Overall Verification Summary
 
 | Task | Circuit | Cases Tested | Passed | Failed | Evidence / Screenshot |
 |:--:|---|---:|---:|---:|---|
