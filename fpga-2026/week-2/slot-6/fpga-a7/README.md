@@ -178,7 +178,7 @@ Save the file as `led_blinker.xdc` and add it to your Vivado project using:
 
 - **Flow Navigator** → `Add Sources` → `Add or Create Constraints`, as shown in Figure 2.
 
-![Figure 2. Adding a new Constraints file](8-xdc-1.png)
+![Figure 2. Adding a new Constraints file](figures/8-xdc-1.png)
 
 *Figure 2. Adding a new Constraints file.*
 
@@ -204,23 +204,23 @@ If you plan to use more LEDs or additional inputs, extend the constraint file ac
 
 4.  Open Target to connect to the FPGA chip, as shown in Figure 6.
 
-    ![Figure 3. Performing design synthesis](x-1%20implement.png)
+    ![Figure 3. Performing design synthesis](figures/x-1%20implement.png)
 
     *Figure 3. Performing design synthesis.*
 
-    ![Figure 4. Completing the Constraints file](x-2-gen%20bit.png)
+    ![Figure 4. Completing the Constraints file](figures/x-2-gen%20bit.png)
 
     *Figure 4. Completing the Constraints file.*
 
-    ![Figure 5. Opening the hardware manager](x-3-hw.png)
+    ![Figure 5. Opening the hardware manager](figures/x-3-hw.png)
 
     *Figure 5. Opening the hardware manager.*
 
-    ![Figure 6. Selecting the target device](x-4-target.png)
+    ![Figure 6. Selecting the target device](figures/x-4-target.png)
 
     *Figure 6. Selecting the target device.*
 
-    ![Figure 7. Programming the device with the Bitstream file](x-5-bit.png)
+    ![Figure 7. Programming the device with the Bitstream file](figures/x-5-bit.png)
 
     *Figure 7. Programming the device with the Bitstream file.*
 
