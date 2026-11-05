@@ -1,6 +1,6 @@
 # Laboratory Report Template
 ## 977-220 Electronics and IoT — Week 2, Slot 7
-### Vivado Combinational Circuits: MUX, Decoder, Comparator, and Adders
+### Vivado Combinational Circuits: MUX, Decoder, and Adders
 
 **Reference laboratory:** https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-2/slot-7  
 **Selected tasks:** 3, 4, 5, 6, and 7
