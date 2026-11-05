@@ -231,6 +231,51 @@ If you plan to use more LEDs or additional inputs, extend the constraint file ac
 
 Once programmed, the LED should blink at approximately 0.75 Hz (assuming a 100 MHz input clock).
 
-## 8. Summary
+## 8. Generating a Utilization Report
+
+Use Vivado's utilization report to measure how many FPGA resources the `led_blinker` design uses. Generate one report after synthesis and another after implementation to see whether optimization changes the resource counts.
+
+### Using the Vivado GUI
+
+1. In **Flow Navigator**, select **Synthesis → Run Synthesis**. When the run completes, select **Open Synthesized Design**.
+2. From the main menu, select **Reports → Report Utilization** and click **OK**. Review the resource counts for the synthesized design.
+3. Select **Implementation → Run Implementation**. When the run completes, select **Open Implemented Design**, then run **Reports → Report Utilization** again. If implementation has already finished in Section 7, open that completed run.
+4. Use the Tcl commands below to save both reports as `.rpt` files.
+
+### Exporting the Reports Using Tcl
+
+With the Vivado project open and both runs complete, enter these commands in the **Tcl Console**. The example uses the default run names. If your project uses custom names, substitute those shown in **Design Runs**.
+
+```tcl
+open_run synth_1
+report_utilization -file led_blinker_post_synth_utilization.rpt
+
+open_run impl_1
+report_utilization -file led_blinker_post_impl_utilization.rpt
+
+pwd
+```
+
+The `pwd` command shows the folder where Vivado wrote the report files. For a synthesis-only check, run the first two commands.
+
+### Recording the Results
+
+Use the **Used**, **Available**, and **Utilization (%)** columns in the reports. Match the same resource row across both reports. For the LUT count, use the total **Slice LUTs** row rather than adding its subrows.
+
+| FPGA resource | Used after synthesis | Used after implementation | Available | Implementation utilization (%) |
+|:--------------|:---------------------|:--------------------------|:----------|:-------------------------------|
+| Slice LUTs | | | | |
+| Slice Registers | | | | |
+| Block RAM Tile | | | | |
+| DSPs | | | | |
+| Bonded IOB | | | | |
+
+Calculate the implementation percentage as **100 × Used / Available** and compare it with Vivado's displayed value, allowing for rounding. The counter and LED output register explain the use of flip-flops, while the counter increment can use LUTs and dedicated carry logic. Block RAM and DSP usage should typically be zero for this design. Use the counts from your own reports.
+
+For the lab submission, attach both `.rpt` files and the completed table. State whether the LUT and register counts changed between the two stages.
+
+Vivado reference: [Running Report Utilization (UG906)](https://docs.amd.com/r/en-US/ug906-vivado-design-analysis/Running-Report-Utilization) and [report_utilization Tcl command (UG835)](https://docs.amd.com/r/en-US/ug835-vivado-tcl-commands/report_utilization).
+
+## 9. Summary
 
 You have now completed the initial steps to configure your environment and run a basic design on the Nexys A7 FPGA. From here, you can proceed to explore modules such as counters, multiplexers, FSMs, and UART transmitters.
