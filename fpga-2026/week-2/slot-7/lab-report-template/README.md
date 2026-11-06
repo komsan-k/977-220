@@ -3,7 +3,7 @@
 ### Vivado Combinational Circuits: MUX, Decoder, and Adders
 
 **Reference laboratory:** https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-2/slot-7  
-**Selected tasks:** 3, 4, 5, 6, and 7
+**Selected tasks:** 3, 4, 6, and 7
 
 **Student name:** ____________________  
 **Student ID:** ____________________  
