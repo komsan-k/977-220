@@ -45,8 +45,6 @@ After completing this laboratory, students should be able to:
 | [traffic_light_fsm.sv / .v] | Task 5 — three-state FSM | ☐ |
 
 
-**Note:** Use your actual filenames. Include source and testbench files sufficient for a reader to reproduce the simulations.
-
 ---
 
 ## 3. Results
