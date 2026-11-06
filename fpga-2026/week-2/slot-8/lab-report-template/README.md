@@ -102,6 +102,17 @@ module counter4 (
 endmodule
 ```
 
+| Verilog port | Board signal | FPGA pin |
+| --- | --- | --- |
+| `clk` | 100 MHz oscillator | `E3` |
+| `reset` | Center button `BTNC`, active high | `N17` |
+| `enable` | Slide switch `SW0` | `J15` |
+| `count[0]` | `LD0` (least significant bit) | `H17` |
+| `count[1]` | `LD1` | `K15` |
+| `count[2]` | `LD2` | `J13` |
+| `count[3]` | `LD3` (most significant bit) | `N14` |
+
+
 #### 3.3 Count sequence verification
 
 Record values **after the active clock edge**, allowing the simulation time needed for nonblocking assignments to update.
