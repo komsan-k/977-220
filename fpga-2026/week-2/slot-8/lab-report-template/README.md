@@ -4,12 +4,12 @@
 **Reference:** [Week 2, Slot 8 GitHub laboratory](https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-2/slot-8)  
 **Selected activities:** Task 3 — 4-Bit Counter; Task 4 — Up/Down Counter; Task 5 — Traffic-Light FSM
 
-
 **Student name:** ____________________  
 **Student ID:** ____________________  
 **Lab date:** ____________________  
 **FPGA board / device:** ____________________  
 **Vivado version:** ____________________
+
 ---
 
 ## 1. Achievement
