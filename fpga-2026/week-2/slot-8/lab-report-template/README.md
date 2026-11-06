@@ -70,6 +70,10 @@ After completing this laboratory, students should be able to:
 // Paste your completed Task 3 module here.
 ```
 
+```verilog
+
+```
+
 #### 3.3 Count sequence verification
 
 Record values **after the active clock edge**, allowing the simulation time needed for nonblocking assignments to update.
