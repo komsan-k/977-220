@@ -129,6 +129,8 @@ The following expected results assume **dir=1 means up, dir=0 means down**, coun
 
 **Requirement:** Implement a three-state traffic-light controller.
 
+![Figure 1. Tri-LED pins](tri-led.png)
+
 #### 3.9 FSM description and state diagram
 
 Use the states **RED, GREEN, and YELLOW**. Draw the transitions for the actual controller implemented. If using the simple cyclic controller, the sequence is:
