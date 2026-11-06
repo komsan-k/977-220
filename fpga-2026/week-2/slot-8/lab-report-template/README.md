@@ -4,15 +4,11 @@
 **Reference:** [Week 2, Slot 8 GitHub laboratory](https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-2/slot-8)  
 **Selected activities:** Task 3 — 4-Bit Counter; Task 4 — Up/Down Counter; Task 5 — Traffic-Light FSM
 
-| Student information | Details |
-|---|---|
-| Name | |
-| Student ID | |
-| Group / Section | |
-| Date | |
-| FPGA board / device (if used) | |
-| Vivado version | |
-
+**Student name:** ____________________  
+**Student ID:** ____________________  
+**Lab date:** ____________________  
+**FPGA board / device:** ____________________  
+**Vivado version:** ____________________
 ---
 
 ## 1. Achievement
@@ -47,10 +43,7 @@ After completing this laboratory, students should be able to:
 | [counter4.sv / .v] | Task 3 — synchronous 4-bit counter | ☐ |
 | [updown_counter4.sv / .v] | Task 4 — direction-controlled counter | ☐ |
 | [traffic_light_fsm.sv / .v] | Task 5 — three-state FSM | ☐ |
-| [tb_counter4.sv / .v] | Counter testbench | ☐ |
-| [tb_updown_counter4.sv / .v] | Up/down testbench | ☐ |
-| [tb_traffic_light.sv / .v] | FSM testbench | ☐ |
-| [screenshots / waveforms] | Simulation evidence | ☐ |
+
 
 **Note:** Use your actual filenames. Include source and testbench files sufficient for a reader to reproduce the simulations.
 
@@ -79,20 +72,11 @@ After completing this laboratory, students should be able to:
 // Paste your completed Task 3 module here.
 ```
 
-#### 3.3 Testbench and simulation setup
-
-```systemverilog
-// Paste the Task 3 testbench or key stimulus here.
-```
-
-**Clock period:** ______ ns  
-**Simulation duration:** ______ ns
-
-#### 3.4 Count sequence verification
+#### 3.3 Count sequence verification
 
 Record values **after the active clock edge**, allowing the simulation time needed for nonblocking assignments to update.
 
-| Event / Edge | Expected Q[3:0] | Simulated Q[3:0] | Pass/Fail |
+| Event / Edge | Expected Q[3:0] | Experiment Q[3:0] | Pass/Fail |
 |---|---|---|---|
 | Reset applied | 0000 | | |
 | 1st count edge | 0001 | | |
@@ -102,7 +86,6 @@ Record values **after the active clock edge**, allowing the simulation time need
 | 15th count edge | 1111 | | |
 | 16th count edge | 0000 | | |
 
-**Figure 1 — Counter waveform:** [Insert XSim screenshot of `clk`, `reset`, and `count[3:0]`.]
 
 **Verification summary:** [Describe counting, clock-edge behavior, and wrap-around.]
 
@@ -127,17 +110,11 @@ Specify the direction convention **used in your HDL**:
 // Paste your completed Task 4 module here.
 ```
 
-#### 3.7 Testbench
-
-```systemverilog
-// Paste the testbench, including both direction modes.
-```
-
-#### 3.8 Direction verification
+#### 3.6 Direction verification
 
 The following expected results assume **dir=1 means up, dir=0 means down**, counting modulo 16. Adjust the `dir` labels if your design uses the opposite convention.
 
-| Initial Q | dir | Expected next Q | Simulated next Q | Pass/Fail |
+| Initial Q | dir | Expected next Q | Experiment next Q | Pass/Fail |
 |---|---|---|---|---|
 | 0010 | 1 (up) | 0011 | | |
 | 0111 | 1 (up) | 1000 | | |
@@ -146,9 +123,9 @@ The following expected results assume **dir=1 means up, dir=0 means down**, coun
 | 0001 | 0 (down) | 0000 | | |
 | 0000 | 0 (down) | 1111 | | |
 
-**Figure 2 — Up/down counter waveform:** [Insert XSim screenshot of `clk`, `reset`, `dir`, and `count[3:0]`.]
 
 **Verification summary:** [Explain the behavior when `dir` changes and how boundary wrap-around was checked.]
+
 
 ### Task 5 — Traffic-Light FSM
 
@@ -159,8 +136,6 @@ The following expected results assume **dir=1 means up, dir=0 means down**, coun
 Use the states **RED, GREEN, and YELLOW**. Draw the transitions for the actual controller implemented. If using the simple cyclic controller, the sequence is:
 
 `RED → GREEN → YELLOW → RED`
-
-**Figure 3 — State diagram:** [Insert your three-state diagram; label the reset state and any transition conditions.]
 
 #### 3.10 State table
 
@@ -181,15 +156,9 @@ For the simple cyclic **Moore FSM**, the expected state and outputs are:
 // Include state register, next-state logic, and output logic.
 ```
 
-#### 3.12 Testbench
+#### 3.12 State-transition verification
 
-```systemverilog
-// Paste your Task 5 testbench here.
-```
-
-#### 3.13 State-transition verification
-
-| Test condition | Expected state | Expected {red,yellow,green} | Simulated state/output | Pass/Fail |
+| Test condition | Expected state | Expected {red,yellow,green} | Experiment state/output | Pass/Fail |
 |---|---|---|---|---|
 | Reset applied and sampled | RED | 100 | | |
 | Next enabled transition | GREEN | 001 | | |
@@ -197,10 +166,8 @@ For the simple cyclic **Moore FSM**, the expected state and outputs are:
 | Following transition | RED | 100 | | |
 | Additional full cycle | RED → GREEN → YELLOW → RED | 100 → 001 → 010 → 100 | | |
 
-**Figure 4 — Traffic-light FSM waveform:** [Insert XSim screenshot of `clk`, `reset`, `state`, `next_state` (if visible), `red`, `yellow`, `green`.]
 
 **Verification summary:** [Discuss reset behavior, transitions, and whether exactly one lamp is active in each valid state.]
-
 
 ---
 
