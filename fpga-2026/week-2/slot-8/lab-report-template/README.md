@@ -22,8 +22,7 @@ After completing this laboratory, students should be able to:
 - Extend a counter with direction-controlled up/down operation.
 - Represent a three-state traffic-light controller using a state diagram and state table.
 - Implement synchronous state transitions using clocked HDL logic.
-- Develop testbenches and verify behavior with Vivado XSim waveforms.
-- Compare expected and simulated results, documenting any discrepancies.
+- Compare expected and experiment results, documenting any discrepancies.
 
 ### 1.2 Achievement summary
 
