@@ -1,4 +1,4 @@
-# 🔬 Topic-9: Vivado-5 Hierarchy — Adder Study Case
+# 🔬 Topic-9: Vivado-5 Hierarchy — Adder Design
 
 ## 🧩 1. Objective
 
