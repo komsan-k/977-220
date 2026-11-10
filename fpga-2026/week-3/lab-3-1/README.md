@@ -1,4 +1,4 @@
-# Hierarchical Simple Digital Design
+# Hierarchical Simple Digital Design (previous version)
 
 ---
 
