@@ -344,18 +344,6 @@ For each row, set the switches, wait for the outputs to settle, read LED0–LED8
 **Task 8 observations:**  
 [Discuss LUT versus DSP use, why no pipeline registers are needed, and whether the observed resources agree with the design structure.]
 
-### Overall Task Verification
-
-| Task | Expected deliverable | Evidence supplied | Pass/Fail |
-|---|---|---|---|
-| 1 | Q3.4 signed encoding calculations | | |
-| 2 | Signed multiplier and raw-product test | | |
-| 3 | Arithmetic-shift scaling results | | |
-| 4 | Positive/negative saturation results | | |
-| 5 | Behavioral simulation and waveform | | |
-| 6 | Annotated RTL schematic | | |
-| 7 | Programmed Nexys A7 and switch/LED tests | | |
-| 8 | Synthesis utilization report | | |
 
 ---
 
@@ -374,24 +362,4 @@ Answer using your **actual calculations, Verilog code, Vivado reports, and FPGA 
 9. What were the actual LUT, FF, DSP, I/O, and BRAM counts? Why might Vivado use a DSP block or LUT logic for multiplication?
 10. Why does this circuit need neither a clock nor a pipeline? How would a future MAC design add an accumulator register?
 
-### Conclusion (4–6 sentences)
 
-[Summarize the main learning outcomes, whether simulation and FPGA results agreed, whether saturation worked, and what the resource report revealed.]
-
----
-
-## 5. Final Submission Checklist
-
-- [ ] Student details and FPGA board information completed.
-- [ ] All eight tasks completed.
-- [ ] Source code for multiplier, fixed-point datapath, testbench, and FPGA top included.
-- [ ] Simulation screenshot and expected-versus-observed table completed.
-- [ ] RTL schematic screenshot included.
-- [ ] Official XDC source identified and switch/LED pin table completed.
-- [ ] Synthesis, implementation, bitstream, and Hardware Manager evidence included.
-- [ ] At least **five physical FPGA test cases** recorded (recommended: seven provided cases).
-- [ ] FPGA photos show switch positions and LED output states.
-- [ ] Vivado resource utilization values recorded from the actual report.
-- [ ] Discussion and conclusion completed.
-
-**Submission format:** Completed Markdown/PDF report and associated Verilog/XDC source files, according to instructor instructions.
