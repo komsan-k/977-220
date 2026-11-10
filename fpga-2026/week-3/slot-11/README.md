@@ -411,7 +411,7 @@ Simulate **at least five different input pairs**, including positive, negative, 
 
 Open the elaborated design and identify the multiplier, shift, comparison, and output-selection logic. Include a schematic screenshot.
 
-### Task 7 — FPGA Implementation (Optional)
+### Task 7 — FPGA Implementation 
 
 Use switches for both operands and LEDs for the output and saturation flag. Record at least five hardware test cases with photographs or an observation table.
 
@@ -466,7 +466,7 @@ Attach or paste:
 | I/O ports | |
 | BRAM | |
 
-### 12.5 FPGA Verification (Optional)
+### 12.5 FPGA Verification 
 
 **Figure 6 — FPGA hardware test:** [Insert photograph with switch and LED states.]  
 **XDC source:** [State board reference and constraints used.]
@@ -504,17 +504,7 @@ $$
 
 In this laboratory, the multiplier is combinational. In the next topic, a register can be introduced **for the accumulator**, so that it retains the running sum between clock edges. To avoid unnecessary precision loss, a MAC design should consider accumulating the **full 16-bit raw products** in a wider register before final scaling.
 
-## 14. Submission Checklist
 
-- [ ] Fixed-point encoding calculations.
-- [ ] Basic signed multiplier source code.
-- [ ] Fixed-point multiplier with saturation source code.
-- [ ] Testbench and simulation waveform.
-- [ ] Expected-versus-observed result table.
-- [ ] RTL schematic screenshot.
-- [ ] Synthesis utilization report.
-- [ ] FPGA wrapper, XDC, and hardware evidence (if performed).
-- [ ] Discussion answers.
 
 ## 15. References
 
