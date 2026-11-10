@@ -30,12 +30,6 @@
 
 ## 2. Verilog/SystemVerilog
 
-**Project information**  
-Vivado version: ____________________  
-FPGA board and device: ____________________  
-Synthesis top module: ____________________  
-Simulation top module: ____________________  
-
 **Project checklist:**
 
 - [ ] Task 3: `half_adder`, `full_adder`, `ripple_adder_4bit`, and any FPGA top-level HDL used
