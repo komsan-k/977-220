@@ -1,4 +1,4 @@
-# Topic 10: Vivado-6 — Multiplier Design
+# Topic 10: Vivado-6 System Hierarchy — Multiplier Design
 
 ## 1. Overview
 
