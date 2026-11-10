@@ -4,15 +4,9 @@
 **Reference laboratory:** https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-3/slot-11  
 **Course:** 977-220 Electronics and Internet of Things
 
-| Student information | Fill in |
-|---|---|
-| Name | |
-| Student ID | |
-| Section / Group | |
-| Laboratory date | |
-| Vivado version | |
-| Target FPGA board / part | |
-| Partner (if applicable) | |
+**Student name:** ____________________  
+**Student ID:** ____________________  
+**Date:** ____________________  
 
 > **Instructions:** Complete all four sections. Insert your own RTL snippets, calculations, Vivado screenshots, console output, waveform evidence, and measured reports. Do not replace measurements with expected values. The Nexys A7 hardware activity is optional in the reference laboratory.
 
