@@ -214,9 +214,6 @@ A[3:0], B[3:0]
 | 5 | Multiplication-operator multiplier | HDL + comparative simulation | |
 | 6 | Exhaustive 256-pair verification | Testbench + log + waveform | |
 
-**Overall lab result:** [ ] PASS  [ ] NEEDS CORRECTION  
-**Summary of issues and corrections:** [Write here.]
-
 ---
 
 ## 4. Discussion
