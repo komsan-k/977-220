@@ -1,306 +1,397 @@
 # Laboratory Report Template
-## 977-220 — Week 3, Slot 11: Vivado-7 — Fixed-Point and Pipelined Multipliers
+## 977-220 Electronics and IoT — Topic 11: Vivado-7
+### Fixed-Point Multipliers — Combinational Verilog and FPGA Implementation (Nexys A7)
 
-**Reference laboratory:** https://github.com/komsan-k/977-220/tree/main/fpga-2026/week-3/slot-11  
-**Course:** 977-220 Electronics and Internet of Things
+**Student name:** ______________________________  
+**Student ID:** ______________________________  
+**Section / Group:** ______________________________  
+**Date:** ______________________________  
 
-**Student name:** ____________________  
-**Student ID:** ____________________  
-**Date:** ____________________  
 
-> **Instructions:** Complete all four sections. Insert your own RTL snippets, calculations, Vivado screenshots, console output, waveform evidence, and measured reports. Do not replace measurements with expected values. The Nexys A7 hardware activity is optional in the reference laboratory.
+**Laboratory reference:** *Topic 11: Vivado-7 — Fixed-Point Multipliers* (revised, non-pipelined laboratory).
+
+> **Required work:** Complete **Tasks 1–8, including Task 7 — FPGA Implementation**. Use your own calculations, Verilog files, Vivado screenshots, board photos, and measured results. Do not mark PASS without evidence. This is a **combinational** multiplier: no pipeline, clock, reset, or valid signals are used in the datapath. Obtain exact package pins from the **official master XDC for your actual board**; do not guess pin numbers.
 
 ---
 
 ## 1. Achievement
 
-### 1.1 Learning outcomes
+**Learning objectives**
 
-After this laboratory, I can:
+- Encode signed 8-bit **Q3.4** numbers (1 sign bit, 3 non-sign integer bits, 4 fractional bits).
+- Design a signed 8 × 8 multiplier with a **16-bit signed raw product**.
+- Rescale the raw product using **arithmetic right shift `>>> 4`**.
+- Clamp the result to the signed 8-bit range using **saturation**.
+- Verify the combinational circuit using Vivado simulation and an RTL schematic.
+- Implement the design on **Nexys A7**, using switches for both operands and LEDs for the product and saturation flag.
+- Record and interpret Vivado synthesis resource utilization.
 
-- [ ] Interpret signed 8-bit **Q3.4** numbers (8 total bits, 4 fractional bits).
-- [ ] Calculate full-width 8 × 8 products and rescale to Q3.4.
-- [ ] Compare arithmetic-shift truncation and round-to-nearest (ties away from zero).
-- [ ] Identify and handle output saturation.
-- [ ] Implement and test a combinational fixed-point multiplier.
-- [ ] Implement and test a pipelined multiplier with aligned `valid_in` / `valid_out`.
-- [ ] Verify latency, throughput, bubbles, and synchronous reset.
-- [ ] Analyze Vivado resource utilization and timing constraints.
-
-**Achievement summary (4–6 sentences):**
-
-[Describe what you implemented and verified, highlighting numerical behavior and pipeline timing.]
-
-### 1.2 Design parameters
-
-| Parameter | Lab value | Your configuration |
-|---|---|---|
-| Operand width, W | 8 bits, signed | |
-| Fractional bits, F | 4 | |
-| Number format | Q3.4 (1 sign + 3 integer + 4 fractional bits) | |
-| Numeric range | -8 to 7.9375 | |
-| Quantization step | 0.0625 | |
-| Raw product width | 16 bits, signed | |
-| Output width | 8 bits, signed | |
-| Default quantizer | Nearest, ties away from zero | |
-| Output limits | -128 to +127 (encoded) | |
-| Clock period in simulation | 10 ns | |
-| Acceptance-to-output latency | 2 clock periods (sample at edge k, output after edge k+2) | |
-| Peak initiation interval | 1 cycle | |
+**Achievement summary (5–8 sentences):**  
+[Summarize the Verilog design, Q3.4 calculations, simulation, FPGA programming, observed LED outputs, and synthesis results.]
 
 ---
 
-## 2. Verilog/SystemVerilog 
+## 2. Verilog and FPGA Project
 
-### 2.1 Project file checklist
+### 2.1 Project information
 
-- [ ] `fxp_quantize.sv` — quantization and saturation
-- [ ] `fxp_multiplier_comb.sv` — combinational multiplication
-- [ ] `fxp_multiplier_pipeline.sv` — pipelined multiplication
-- [ ] `tb_fxp_multiplier.sv` — self-checking testbench
-- [ ] Simulation console log and waveform screenshots
-- [ ] Vivado utilization and timing reports
-- [ ] `fixed_point_top.sv` and XDC (only if optional FPGA demonstration was performed)
+| Item | Student entry |
+|---|---|
+| Vivado project name | |
+| Vivado version | |
+| Board and FPGA part | |
+| Simulation top module | `tb_fixed_point_multiplier` |
+| FPGA synthesis top module | `fixed_point_top` |
+| Design files | `signed_multiplier.v`, `fixed_point_multiplier.v`, `fixed_point_top.v` |
+| Simulation file | `tb_fixed_point_multiplier.v` |
+| Constraint file | [Actual board XDC filename] |
 
-**Project structure / notes:**
+**Source / evidence checklist**
 
-```text
-topic11_fixed_point_multiplier/
-├── rtl/
-│   ├── fxp_quantize.sv
-│   ├── fxp_multiplier_comb.sv
-│   └── fxp_multiplier_pipeline.sv
-├── sim/
-│   └── tb_fxp_multiplier.sv
-└── evidence/
-    ├── simulation/
-    └── vivado_reports/
+- [ ] `signed_multiplier.v` — basic signed multiplication
+- [ ] `fixed_point_multiplier.v` — arithmetic shift and saturation
+- [ ] `tb_fixed_point_multiplier.v` — behavioral simulation
+- [ ] `fixed_point_top.v` — switches and LEDs wrapper
+- [ ] Official board XDC adapted to the actual top-level port names
+- [ ] Simulation waveform and test results
+- [ ] Elaborated RTL schematic
+- [ ] Synthesis and implementation reports
+- [ ] Generated bitstream and programmed FPGA
+- [ ] Hardware test photographs / observations
+
+### 2.2 Design interface
+
+| Module | Input | Output | Purpose |
+|---|---|---|---|
+| `signed_multiplier` | `A[7:0]`, `B[7:0]` signed | `PRODUCT[15:0]` signed | Full raw product |
+| `fixed_point_multiplier` | `A[7:0]`, `B[7:0]` signed | `P[7:0]` signed, `SATURATED` | Q3.4 output with saturation |
+| `fixed_point_top` | `SW[15:0]` | `LED[8:0]` | FPGA switches and LEDs |
+
+### 2.3 Source code — signed multiplier
+
+```verilog
+// Paste your signed_multiplier.v here.
 ```
 
-[Adjust the tree to match your actual repository.]
+### 2.4 Source code — fixed-point multiplier
+
+```verilog
+// Paste your fixed_point_multiplier.v here.
+// Include the 16-bit signed raw product, >>> 4, and saturation.
+```
+
+### 2.5 Source code — FPGA top-level wrapper
+
+```verilog
+// Paste your fixed_point_top.v here.
+// SW[7:0] = A; SW[15:8] = B;
+// LED[7:0] = P; LED[8] = SATURATED.
+```
+
+### 2.6 Source code — testbench
+
+```verilog
+// Paste your tb_fixed_point_multiplier.v here.
+```
 
 ---
 
 ## 3. Results
 
-### 3.1 Experiment A — Signed Number Interpretation
+### Task 1 — Signed Fixed-Point Encoding (Q3.4)
 
-**Objective:** Encode the specified real values as signed Q3.4 integers and 8-bit two's-complement patterns.
+**Objective:** Encode real numbers as signed 8-bit integers with four fractional bits.
 
-For Q3.4, use the conversion `X = x × 16` when the real value is exactly representable.
+\[
+X=16x,\qquad x=X/16,\qquad -8\le x\le7.9375.
+\]
 
-| Real value x | Encoded signed integer X | 8-bit binary (two's complement) | Your calculated value / verification | Pass/Fail |
-|---:|---:|---|---|---|
-| 1.5 | 24 | `00011000` | | |
-| -2.25 | -36 | `11011100` | | |
-| 0.5 | 8 | `00001000` | | |
-| -8.0 | -128 | `10000000` | | |
+| Real value | Expected encoded integer | Expected binary | Student calculation / verification |
+|---:|---:|---|---|
+| 1.5 | 24 | `00011000` | |
+| -2.25 | -36 | `11011100` | |
+| 0.5 | 8 | `00001000` | |
+| -8.0 | -128 | `10000000` | |
+| [custom] | | | |
 
-**Show calculations for two examples:**
+**Task 1 observations:**  
+[Explain the sign bit, two's-complement representation, and the 0.0625 resolution.]
 
-1. [Calculation]
-2. [Calculation]
+### Task 2 — Basic Signed Multiplication
 
-**Evidence:** [Insert screenshot, calculator log, or testbench output.]
+**Objective:** Verify that an 8 × 8 signed multiplication produces a full 16-bit signed product.
 
-**Short explanation:** Why does an 8-bit pattern have a different meaning when read as signed versus unsigned?  
-[Your response]
+| A (encoded) | B (encoded) | Expected raw product (decimal) | Simulated raw product | Pass/Fail |
+|---:|---:|---:|---:|---|
+| 24 | 32 | 768 | | |
+| -36 | 24 | -864 | | |
+| 0 | 32 | 0 | | |
+| -128 | -128 | 16384 | | |
+| [custom] | [custom] | | | |
 
-### 3.2 Experiment B — Quantization and Saturation
+**Figure 1 — Signed multiplier simulation:**  
+[Insert a waveform or simulation-console screenshot showing signed inputs and the 16-bit raw product.]
 
-**Objective:** Verify the fixed-point product, quantization error, rounding mode, and saturation behavior.
+**Task 2 observations:**  
+[Explain why the raw product needs 16 bits and why the operands must be declared signed.]
 
-The signed 8 × 8 multiplication produces a **16-bit product with 8 fractional bits**. Divide the raw encoded product by 16 (using the selected rounding policy), then clamp to the signed 8-bit output range.
+### Task 3 — Fixed-Point Product Scaling
 
-**Default policy:** round to nearest, with ties away from zero, followed by saturation.
+**Objective:** Convert the signed 16-bit raw product from eight fractional bits to a Q3.4-scaled integer using `>>> 4`.
 
-| A (real) | B (real) | Exact real product | Simulated output (encoded signed) | Output real | Absolute error | Saturated (Y/N) | Pass/Fail |
-|---:|---:|---:|---:|---:|---:|---|---|
-| 1.5 | 2.0 | 3.0 | | | | | |
-| -2.25 | 1.5 | -3.375 | | | | | |
-| 0.0625 | 0.5 | 0.03125 | | | | | |
-| -0.0625 | 0.0625 | -0.00390625 | | | | | |
-| 4.0 | 4.0 | 16.0 | | | | | |
+\[
+P_{\mathrm{raw}}=A\times B,\qquad P_{\mathrm{scaled}}=P_{\mathrm{raw}}\mathbin{\texttt{>>>}}4.
+\]
 
-**Additional directed reference cases from the lab:**
+| A | B | Raw product | Expected scaled integer | Simulated scaled integer | Pass/Fail |
+|---:|---:|---:|---:|---:|---|
+| 24 | 32 | 768 | 48 | | |
+| -36 | 24 | -864 | -54 | | |
+| 1 | 8 | 8 | 0 | | |
+| -1 | 8 | -8 | -1 | | |
+| -1 | 1 | -1 | -1 | | |
 
-| A encoded | B encoded | Raw product | Expected encoded output (nearest) | Expected saturation | Simulated output | Pass/Fail |
-|---:|---:|---:|---:|---|---:|---|
-| 24 | 32 | 768 | 48 | No | | |
-| -36 | 24 | -864 | -54 | No | | |
-| 1 | 8 | 8 | 1 | No | | |
-| -1 | 8 | -8 | -1 | No | | |
-| 64 | 64 | 4096 | 127 | Yes | | |
-| -128 | 32 | -4096 | -128 | Yes | | |
-| -128 | -128 | 16384 | 127 | Yes | | |
+**Task 3 observations:**  
+[Explain arithmetic right shift and why a small negative raw product may scale to -1 instead of 0.]
 
-**Error calculation:** `absolute error = |simulated output real − exact real product|`.
+### Task 4 — Saturation
 
-**Repeat the experiment using arithmetic-shift truncation** (`ROUND_NEAREST = 0`) and a matching reference model.
+**Objective:** Verify clamping to the signed 8-bit range of -128 through 127.
 
-| Case | Nearest output | Truncation output | Difference / observation |
-|---|---|---|---|
-| Small positive product | | | |
-| Small negative product | | | |
-| Positive half-step tie | | | |
-| Negative half-step tie | | | |
-| Saturated product | | | |
+| A | B | Scaled integer | Expected `P` (decimal) | Expected `SATURATED` | Simulated `P` | Simulated flag | Pass/Fail |
+|---:|---:|---:|---:|:---:|---:|:---:|---|
+| 24 | 32 | 48 | 48 | 0 | | | |
+| 64 | 64 | 256 | 127 | 1 | | | |
+| -128 | 32 | -256 | -128 | 1 | | | |
+| -128 | -128 | 1024 | 127 | 1 | | | |
+| [custom] | [custom] | | | | | | |
 
-**Source code or parameter setting evidence:** [Insert relevant code / screenshot.]
+**Task 4 observations:**  
+[Explain why saturation is needed and how it differs from keeping only the low eight bits.]
 
-**Waveform or console evidence:** [Insert figure with caption.]
+### Task 5 — Behavioral Simulation
 
-**Interpretation:** [Discuss rounding bias, tie handling, and saturation versus wraparound. Distinguish quantization error from saturation error.]
+**Objective:** Test at least five cases, including positive, negative, small-magnitude, and saturated results. The revised laboratory provides nine reference cases.
 
-### 3.3 Experiment C — Pipeline Verification
+| # | A (encoded) | B (encoded) | Expected `P` | Expected SAT | Simulated `P` | Simulated SAT | Pass/Fail |
+|---:|---:|---:|---:|:---:|---:|:---:|---|
+| 1 | 24 | 32 | 48 | 0 | | | |
+| 2 | -36 | 24 | -54 | 0 | | | |
+| 3 | 1 | 8 | 0 | 0 | | | |
+| 4 | -1 | 8 | -1 | 0 | | | |
+| 5 | 1 | 1 | 0 | 0 | | | |
+| 6 | -1 | 1 | -1 | 0 | | | |
+| 7 | 64 | 64 | 127 | 1 | | | |
+| 8 | -128 | 32 | -128 | 1 | | | |
+| 9 | -128 | -128 | 127 | 1 | | | |
 
-**Objective:** Verify that operands, products, output values, and validity signals move through the pipeline together.
+**Figure 2 — Behavioral simulation waveform:**  
+[Insert a readable Vivado waveform screenshot showing `A`, `B`, `P`, and `SATURATED`.]
 
-**Reference edge convention:** a sample is captured at edge `k`; the full product is registered at `k+1`; the quantized result and `valid_out=1` appear just after `k+2`.
+**Simulation run duration:** __________ ns  
+**Simulation top:** __________________________  
+**Number of passing cases:** ______ / ______
 
-```text
-valid_in, A, B → [operand registers] → [multiply/product register]
-                                           ↓
-                          [quantize/output register] → P, saturated, valid_out
-```
+**Task 5 observations:**  
+[Describe mismatches, if any. Explain that the combinational output is observed after input changes settle; there is no clock-cycle pipeline latency.]
 
-**3.3.1 Consecutive valid samples**
+### Task 6 — RTL Schematic Verification
 
-| Input sample | A (encoded) | B (encoded) | Accepted at edge | Expected result edge | Observed result edge | Output P | Valid aligned? | Pass/Fail |
-|---|---:|---:|---|---|---|---:|---|---|
-| 1 | | | | | | | | |
-| 2 | | | | | | | | |
-| 3 | | | | | | | | |
-| 4 | | | | | | | | |
+**Objective:** Open **RTL Analysis → Open Elaborated Design → Schematic** and inspect the combinational datapath.
 
-**3.3.2 Pipeline events**
-
-| Test | Expected observation | Your observation | Pass/Fail |
-|---|---|---|---|
-| Four consecutive valid samples | Outputs in order, after 2 clock periods | | |
-| Bubble (`valid_in=0`) | Corresponding `valid_out=0` two periods later; pipeline does not stall | | |
-| Reset while samples are in flight | In-flight valid flags cleared; pending results discarded | | |
-| Continuous valid input | One valid result per cycle after filling | | |
-| Output data vs. validity | Ignore output data and saturation flag when `valid_out=0` | | |
-
-**3.3.3 EPWave / XSim evidence**
-
-Insert clearly labeled waveform screenshots including:
-
-- `clk`, `rst`, `valid_in`, `A`, `B`
-- `a_reg`, `b_reg`, `product_reg`, `valid_product`
-- `P`, `valid_out`, `saturated`
-
-**Figure 1 — Consecutive valid samples:** [Insert waveform]
-
-**Figure 2 — Bubble and invalid output slot:** [Insert waveform]
-
-**Figure 3 — Reset with samples in flight:** [Insert waveform]
-
-**Measured acceptance-to-output latency:** [ ] periods  
-**Measured sustained initiation interval:** [ ] cycle(s)  
-**Explanation of alignment:** [Your response]
-
-### 3.4 Exhaustive Self-Checking Simulation
-
-**Objective:** Run the supplied `tb_fxp_multiplier.sv` to check every signed 8-bit operand combination, including product values, saturation flags, and pipeline timing.
-
-There are `256 × 256 = 65,536` input pairs from `-128` through `127` for each operand.
-
-| Verification metric | Expected / requirement | Observed | Pass/Fail |
-|---|---|---|---|
-| Operand pairs tested | 65,536 | | |
-| Self-checking assertion / mismatch | No mismatches | | |
-| `valid_out` timing | Aligned with the input accepted two periods earlier | | |
-| Saturation flag | Matches integer reference | | |
-| Reset test | All in-flight validity cleared | | |
-| Final simulation outcome | `PASS: exhaustive arithmetic and pipeline checks completed` | | |
-
-**Simulation completion / elapsed simulated time:** [ ]  
-**Console screenshot or copied final log:**
-
-```text
-[Paste actual XSim output here]
-```
-
-**Notes:** Do not report a test as passing unless simulation completed and the checker confirmed it. Directed samples completing before the reset may contribute to the testbench's total received counter; the exhaustive loop itself contains 65,536 pairs.
-
-### 3.5 Experiment D — Vivado Resources and Timing
-
-**Objective:** Record *measured* implementation results and interpret whether constraints are met.
-
-**Device / board:** [ ]  
-**Vivado version:** [ ]  
-**Clock target period:** [ ] ns  
-**Synthesis / implementation settings:** [ ]
-
-| Metric | Pipelined core / wrapper | Registered comparison (optional) |
-|---|---:|---:|
-| LUTs | | |
-| Flip-flops | | |
-| DSP blocks | | |
-| Target clock period (ns) | | |
-| Worst setup slack (ns) | | |
-| Worst hold slack (ns) | | |
-| Acceptance-to-output latency (clock periods) | 2 (expected) | |
-| Initiation interval (cycles) | 1 (expected) | |
-| Timing constraints fully checked? | | |
-
-**Figure 4 — Vivado utilization report:** [Insert screenshot]  
-**Figure 5 — Vivado timing summary:** [Insert screenshot]  
-**Figure 6 — Elaborated or synthesized datapath schematic (optional):** [Insert screenshot]
-
-**Timing conclusion:** [Explain whether setup and hold constraints pass. A 10 ns target does not by itself establish actual 100 MHz timing closure.]
-
-**Comparison conclusion:** [Explain measured resource/timing differences only if an equivalent registered comparison was implemented.]
-
-### 3.6 Optional FPGA Demonstration — Nexys A7
-
-Complete only if the hardware wrapper was used.
-
-| Resource | Lab mapping | Observed result |
+| RTL component / operation | Identified in schematic? | Screenshot annotation / observation |
 |---|---|---|
-| `SW[7:0]` | Operand A, signed encoded | |
-| `SW[15:8]` | Operand B, signed encoded | |
-| `LED[7:0]` | Encoded product | |
-| `LED[8]` | Saturation flag | |
-| `LED[9]` | Output valid | |
-| `BTNC` | Reset input | |
-| `CLK100MHZ` | Board clock | |
+| Signed 8 × 8 multiplication | [ ] Yes / [ ] No | |
+| Arithmetic right shift by 4 | [ ] Yes / [ ] No | |
+| Upper saturation comparison (> 127) | [ ] Yes / [ ] No | |
+| Lower saturation comparison (< -128) | [ ] Yes / [ ] No | |
+| Final output selection / mux logic | [ ] Yes / [ ] No | |
+| No clocked pipeline registers | [ ] Yes / [ ] No | |
 
-**XDC pin / clock-constraint evidence:** [Insert screenshot or link]  
-**Bitstream generation / programming:** [Pass / Fail / N/A]  
-**Photograph or video evidence:** [Insert evidence]  
-**Observation / limitation:** [Keep multi-bit switches steady before interpreting the results; note synchronization and any relevant asynchronous I/O constraints.]
+**Figure 3 — Elaborated RTL schematic:**  
+[Insert screenshot and label the multiplication, scaling, saturation, and output stages.]
+
+**Task 6 observations:**  
+[Explain how the RTL corresponds to the source code. Note that Vivado may simplify or optimize combinational logic.]
+
+### Task 7 — FPGA Implementation (Required)
+
+**Objective:** Implement the combinational fixed-point multiplier on a Nexys A7 board using 16 switches as the two signed operands and nine LEDs as outputs.
+
+#### 7.1 Board and tool information
+
+**Board / variant:** __________________________  
+**FPGA part:** __________________________  
+**Vivado version:** __________________________  
+**Master XDC source / version:** __________________________  
+**FPGA synthesis top:** `fixed_point_top`  
+**Clock used by multiplier?** **No** — the design is combinational.
+
+#### 7.2 Switch and LED interpretation
+
+| FPGA resource | HDL signal | Meaning |
+|---|---|---|
+| SW0–SW7 | `SW[7:0]` | Signed encoded operand A |
+| SW8–SW15 | `SW[15:8]` | Signed encoded operand B |
+| LED0–LED7 | `LED[7:0]` | Signed encoded result P |
+| LED8 | `LED[8]` | Saturation flag |
+
+**Important:** Negative values must be entered in 8-bit two's-complement form. LED0 is the least significant bit. Interpret the eight result LEDs as a signed Q3.4 encoding, not an unsigned decimal display.
+
+#### 7.3 XDC pin mapping — complete from the actual board constraints
+
+| HDL port | Physical device | FPGA package pin | I/O standard |
+|---|---|---|---|
+| `SW[0]` | SW0 | | |
+| `SW[1]` | SW1 | | |
+| `SW[2]` | SW2 | | |
+| `SW[3]` | SW3 | | |
+| `SW[4]` | SW4 | | |
+| `SW[5]` | SW5 | | |
+| `SW[6]` | SW6 | | |
+| `SW[7]` | SW7 | | |
+| `SW[8]` | SW8 | | |
+| `SW[9]` | SW9 | | |
+| `SW[10]` | SW10 | | |
+| `SW[11]` | SW11 | | |
+| `SW[12]` | SW12 | | |
+| `SW[13]` | SW13 | | |
+| `SW[14]` | SW14 | | |
+| `SW[15]` | SW15 | | |
+| `LED[0]` | LED0 | | |
+| `LED[1]` | LED1 | | |
+| `LED[2]` | LED2 | | |
+| `LED[3]` | LED3 | | |
+| `LED[4]` | LED4 | | |
+| `LED[5]` | LED5 | | |
+| `LED[6]` | LED6 | | |
+| `LED[7]` | LED7 | | |
+| `LED[8]` | LED8 | | |
+
+**XDC excerpt:**
+
+```tcl
+# Paste the actual get_ports, PACKAGE_PIN, and IOSTANDARD constraints here.
+# Use the official XDC for the specific board variant.
+# Do not invent package pins.
+```
+
+#### 7.4 Implementation and programming evidence
+
+| Step | Evidence / report / screenshot | Status |
+|---|---|---|
+| Set `fixed_point_top` as synthesis top | Sources hierarchy screenshot | |
+| Validate all XDC assignments | Constraints / I/O Ports screenshot | |
+| Run synthesis | Synthesis completion screenshot | |
+| Run implementation | Implementation completion screenshot | |
+| Generate bitstream | Successful bitstream generation screenshot | |
+| Program FPGA via Hardware Manager | Program Device screenshot | |
+| Verify hardware outputs | LED photographs and test table below | |
+
+**Figure 4 — Vivado synthesis / implementation completion:**  
+[Insert screenshot.]
+
+**Figure 5 — Hardware Manager / programmed FPGA:**  
+[Insert screenshot.]
+
+#### 7.5 FPGA switch and LED test cases
+
+For each row, set the switches, wait for the outputs to settle, read LED0–LED8, and compare with the expected result. The binary strings below are written **MSB to LSB**.
+
+| # | A decimal / SW7–SW0 | B decimal / SW15–SW8 | Expected P decimal / LED7–LED0 | Expected LED8 | Observed LED7–LED0 | Observed LED8 | Pass/Fail |
+|---:|---|---|---|:---:|---|:---:|---|
+| 1 | 24 / `00011000` | 32 / `00100000` | 48 / `00110000` | 0 | | | |
+| 2 | -36 / `11011100` | 24 / `00011000` | -54 / `11001010` | 0 | | | |
+| 3 | 1 / `00000001` | 8 / `00001000` | 0 / `00000000` | 0 | | | |
+| 4 | -1 / `11111111` | 8 / `00001000` | -1 / `11111111` | 0 | | | |
+| 5 | 64 / `01000000` | 64 / `01000000` | 127 / `01111111` | 1 | | | |
+| 6 | -128 / `10000000` | 32 / `00100000` | -128 / `10000000` | 1 | | | |
+| 7 | -128 / `10000000` | -128 / `10000000` | 127 / `01111111` | 1 | | | |
+| 8 | [custom] | [custom] | | | | | |
+
+**Figure 6 — FPGA hardware test (non-saturated):**  
+[Insert a labeled photograph showing switch positions and LED states for case 1.]
+
+**Figure 7 — FPGA hardware test (saturated):**  
+[Insert a labeled photograph showing switch positions and LED states for case 5, 6, or 7.]
+
+**Task 7 verification summary:**  
+[State how many test cases matched. Discuss any incorrect switch mapping, LED interpretation, missing constraints, or unstable intermediate patterns while switches were being changed.]
+
+### Task 8 — FPGA Resource Analysis
+
+**Objective:** Report **actual** synthesis utilization for `fixed_point_top` on the selected device. Do not estimate or invent resource counts.
+
+**Vivado report:** Run Synthesis → Open Synthesized Design → Report Utilization.
+
+| Resource | Observed used | Device available (if reported) | Utilization (%) | Comments |
+|---|---:|---:|---:|---|
+| LUTs | | | | |
+| Flip-flops / registers | | | | Combinational multiplier does not require registers |
+| DSP blocks | | | | Mapping depends on synthesis settings |
+| I/O ports / I/O buffers | | | | Wrapper has 16 inputs and 9 outputs |
+| BRAM | | | | No memory required by design |
+
+**Figure 8 — Vivado utilization report:**  
+[Insert screenshot showing LUT, FF, DSP, I/O, and BRAM counts.]
+
+**Figure 9 — Synthesized schematic (optional):**  
+[Insert screenshot if useful for identifying multiplier implementation.]
+
+**Timing interpretation:**  
+[Explain that a purely combinational top has **no register-to-register clock path**, so an unconstrained Fmax cannot be claimed. If reporting delay, specify input-to-output constraints or clearly identify the report as an unconstrained path estimate.]
+
+**Task 8 observations:**  
+[Discuss LUT versus DSP use, why no pipeline registers are needed, and whether the observed resources agree with the design structure.]
+
+### Overall Task Verification
+
+| Task | Expected deliverable | Evidence supplied | Pass/Fail |
+|---|---|---|---|
+| 1 | Q3.4 signed encoding calculations | | |
+| 2 | Signed multiplier and raw-product test | | |
+| 3 | Arithmetic-shift scaling results | | |
+| 4 | Positive/negative saturation results | | |
+| 5 | Behavioral simulation and waveform | | |
+| 6 | Annotated RTL schematic | | |
+| 7 | Programmed Nexys A7 and switch/LED tests | | |
+| 8 | Synthesis utilization report | | |
 
 ---
 
 ## 4. Discussion
 
-Answer briefly, using your actual experiment results where relevant.
+Answer using your **actual calculations, Verilog code, Vivado reports, and FPGA evidence**.
 
-1. Why does multiplying two signed Q3.4 operands produce a raw product with eight fractional bits?
-2. Why does the quantizer use a wider 17-bit signed intermediate?
-3. Why is an arithmetic right shift not the same as rounding toward zero for negative values?
-4. How do round-to-nearest (ties away from zero) and arithmetic-shift truncation differ in the measured outputs?
-5. Why must saturation be applied **before** narrowing the result to eight bits?
-6. What happens to quantization error when the correct real product lies outside the representable range?
-7. Why is `valid_out` delayed along with the numerical result?
-8. Why does a bubble move through the pipeline instead of stopping it?
-9. What is the difference between **latency** and **throughput**? Did your results show one valid output each clock after filling?
-10. Which combinational operations lie between each pair of pipeline registers?
+1. How does signed Q3.4 encoding represent a fractional real number? What is its resolution and range?
+2. Why is a full signed 8 × 8 multiplication represented using a 16-bit raw product?
+3. Why must the raw product be shifted by four bits before producing an 8-bit Q3.4 result?
+4. What is the difference between `>>>` and `>>` when the left operand is signed and negative?
+5. Why can `-1 × 1` (encoded values) produce `-1` after arithmetic-shift truncation?
+6. What is the difference between saturation and wraparound? Which test cases demonstrate it?
+7. How did you map SW0–SW15 to the two signed operands and LED0–LED8 to the outputs?
+8. Did the FPGA hardware match the behavioral simulation for all tested cases? Cite the relevant test rows and photographs.
+9. What were the actual LUT, FF, DSP, I/O, and BRAM counts? Why might Vivado use a DSP block or LUT logic for multiplication?
+10. Why does this circuit need neither a clock nor a pipeline? How would a future MAC design add an accumulator register?
 
+### Conclusion (4–6 sentences)
 
-**Proposed MAC accumulator design:**
+[Summarize the main learning outcomes, whether simulation and FPGA results agreed, whether saturation worked, and what the resource report revealed.]
 
-| Design decision | Your proposal / justification |
-|---|---|
-| Number of products to accumulate, K | |
-| Product format retained before accumulation | |
-| Accumulator width (bits) | |
-| Accumulator fractional bits | |
-| Reset/enable behavior | |
-| Overflow and rounding policy | |
-| Valid/timing protocol | |
+---
 
+## 5. Final Submission Checklist
 
+- [ ] Student details and FPGA board information completed.
+- [ ] All eight tasks completed.
+- [ ] Source code for multiplier, fixed-point datapath, testbench, and FPGA top included.
+- [ ] Simulation screenshot and expected-versus-observed table completed.
+- [ ] RTL schematic screenshot included.
+- [ ] Official XDC source identified and switch/LED pin table completed.
+- [ ] Synthesis, implementation, bitstream, and Hardware Manager evidence included.
+- [ ] At least **five physical FPGA test cases** recorded (recommended: seven provided cases).
+- [ ] FPGA photos show switch positions and LED output states.
+- [ ] Vivado resource utilization values recorded from the actual report.
+- [ ] Discussion and conclusion completed.
+
+**Submission format:** Completed Markdown/PDF report and associated Verilog/XDC source files, according to instructor instructions.
