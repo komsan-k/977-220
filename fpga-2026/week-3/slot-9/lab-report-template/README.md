@@ -281,17 +281,6 @@ Report and constraint assumptions: ____________________
 **Task 8 observations:**  
 [Explain the observed LUT, register, and I/O usage, the effect of hierarchy/synthesis optimization, and any unexpected resource counts. Cite Figure 6.]
 
-### Overall Task Verification
-
-| Task | Expected deliverable | Evidence supplied | Pass/Fail |
-|---|---|---|---|
-| 3 | Four-instance 4-bit ripple-carry adder | | |
-| 4 | Hierarchy with four full-adder instances | | |
-| 5 | RTL schematic with carry chain traced | | |
-| 6 | Testbench, ≥5 simulation cases, and waveform evidence | | |
-| 7 | FPGA implemented and switch/LED tested | | |
-| 8 | Synthesis resource report (LUTs, registers, I/O) | | |
-
 ---
 
 ## 4. Discussion
