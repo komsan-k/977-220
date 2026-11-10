@@ -1,4 +1,4 @@
-# Topic 10: Vivado-6 — Multiplier Study Case
+# Topic 10: Vivado-6 — Multiplier Design
 
 ## 1. Overview
 
