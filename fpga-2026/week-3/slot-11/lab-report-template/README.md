@@ -238,8 +238,6 @@ P_{\mathrm{raw}}=A\times B,\qquad P_{\mathrm{scaled}}=P_{\mathrm{raw}}\mathbin{\
 **Important:** Negative values must be entered in 8-bit two's-complement form. LED0 is the least significant bit. Interpret the eight result LEDs as a signed Q3.4 encoding, not an unsigned decimal display.
 
 
-```
-
 #### 7.3 Implementation and programming evidence
 
 | Step | Evidence / report / screenshot | Status |
