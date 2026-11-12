@@ -294,7 +294,7 @@ endmodule
 
 > The testbench is intentionally simple: it applies input vectors and displays results. Students must verify the outputs against the table. It does not automatically assert PASS or FAIL.
 
-## 9. Optional FPGA Implementation (Nexys A7)
+## 9. FPGA Implementation (Nexys A7)
 
 The Nexys A7 has sufficient switches to provide both 8-bit operands. Use LEDs to show the signed 8-bit result and the saturation flag.
 
