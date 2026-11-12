@@ -237,45 +237,10 @@ P_{\mathrm{raw}}=A\times B,\qquad P_{\mathrm{scaled}}=P_{\mathrm{raw}}\mathbin{\
 
 **Important:** Negative values must be entered in 8-bit two's-complement form. LED0 is the least significant bit. Interpret the eight result LEDs as a signed Q3.4 encoding, not an unsigned decimal display.
 
-#### 7.3 XDC pin mapping — complete from the actual board constraints
 
-| HDL port | Physical device | FPGA package pin | I/O standard |
-|---|---|---|---|
-| `SW[0]` | SW0 | | |
-| `SW[1]` | SW1 | | |
-| `SW[2]` | SW2 | | |
-| `SW[3]` | SW3 | | |
-| `SW[4]` | SW4 | | |
-| `SW[5]` | SW5 | | |
-| `SW[6]` | SW6 | | |
-| `SW[7]` | SW7 | | |
-| `SW[8]` | SW8 | | |
-| `SW[9]` | SW9 | | |
-| `SW[10]` | SW10 | | |
-| `SW[11]` | SW11 | | |
-| `SW[12]` | SW12 | | |
-| `SW[13]` | SW13 | | |
-| `SW[14]` | SW14 | | |
-| `SW[15]` | SW15 | | |
-| `LED[0]` | LED0 | | |
-| `LED[1]` | LED1 | | |
-| `LED[2]` | LED2 | | |
-| `LED[3]` | LED3 | | |
-| `LED[4]` | LED4 | | |
-| `LED[5]` | LED5 | | |
-| `LED[6]` | LED6 | | |
-| `LED[7]` | LED7 | | |
-| `LED[8]` | LED8 | | |
-
-**XDC excerpt:**
-
-```tcl
-# Paste the actual get_ports, PACKAGE_PIN, and IOSTANDARD constraints here.
-# Use the official XDC for the specific board variant.
-# Do not invent package pins.
 ```
 
-#### 7.4 Implementation and programming evidence
+#### 7.3 Implementation and programming evidence
 
 | Step | Evidence / report / screenshot | Status |
 |---|---|---|
