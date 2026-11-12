@@ -3,8 +3,7 @@
 ### Fixed-Point Multipliers — Combinational Verilog and FPGA Implementation (Nexys A7)
 
 **Student name:** ______________________________  
-**Student ID:** ______________________________  
-**Section / Group:** ______________________________  
+**Student ID:** ______________________________   
 **Date:** ______________________________  
 
 
