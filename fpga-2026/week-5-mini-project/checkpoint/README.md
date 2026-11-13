@@ -39,4 +39,4 @@
 | Output | Waveforms + monitor logs + FPGA implementation | **2.0%** |
 | **Total** | | **5.0%** |
 
-*Rubric weights were scaled proportionally from the original 4% rubric. The 30-minute no-penalty period and 0.5%-per-15-minute deduction were retained, with the session shifted to 10:00–11:00.*
+
