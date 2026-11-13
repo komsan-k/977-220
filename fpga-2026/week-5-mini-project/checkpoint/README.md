@@ -35,9 +35,8 @@
 | Criterion | Description | Marks |
 |---|---|---:|
 | BCD Counter Functionality | Correct counting & rollover | **1.0%** |
-| Stopwatch Integration | cs → sec → min chaining | **1.5%** |
-| Output | Waveforms + monitor logs + FPGA implemetation | **1.5%** |
-| Code Quality | Readable, commented, correct | **1.0%** |
+| Stopwatch Integration | cs → sec → min chaining | **2.0%** |
+| Output | Waveforms + monitor logs + FPGA implementation | **2.0%** |
 | **Total** | | **5.0%** |
 
 *Rubric weights were scaled proportionally from the original 4% rubric. The 30-minute no-penalty period and 0.5%-per-15-minute deduction were retained, with the session shifted to 10:00–11:00.*
