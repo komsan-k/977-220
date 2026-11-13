@@ -35,8 +35,8 @@
 | Criterion | Description | Marks |
 |---|---|---:|
 | BCD Counter Functionality | Correct counting & rollover | **1.0%** |
-| Stopwatch Integration | cs → sec → min chaining | **2.0%** |
-| Simulation Output | Waveforms + monitor logs | **1.0%** |
+| Stopwatch Integration | cs → sec → min chaining | **1.5%** |
+| Output | Waveforms + monitor logs | **1.5%** |
 | Code Quality | Readable, commented, correct | **1.0%** |
 | **Total** | | **5.000%** |
 
