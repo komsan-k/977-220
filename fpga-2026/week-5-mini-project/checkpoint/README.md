@@ -1,4 +1,4 @@
-# Checkpoint & Evaluation Criteria
+# Mini-project : Checkpoint & Evaluation Criteria
 
 ## Session Details
 
