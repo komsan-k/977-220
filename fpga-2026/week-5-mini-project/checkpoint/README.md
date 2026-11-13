@@ -22,8 +22,9 @@
 
 | Time Slot | Minutes After 10:30 | Penalty (−0.5% per started 15 min) | Final Mark (from 5%) |
 |---|---:|---:|---:|
-| 10:30–10:44 | 0–14 min | −0.5% | **4.50%** |
-| 10:45–10:59 | 15–29 min | −1.0% | **4.00%** |
+| 10:30–10:39 | 0–14 min | −1.0% | **4.0%** |
+| 10:40–10:44 | 0–14 min | −2.0% | **3.0%** |
+| 10:50–10:59 | 0–14 min | −3.0% | **2.0%** |
 | **11:00 onward** | Session ended | **Submission after session; instructor decision required** | **Not specified** |
 
 ---
@@ -32,10 +33,10 @@
 
 | Criterion | Description | Marks |
 |---|---|---:|
-| BCD Counter Functionality | Correct counting & rollover | **1.875%** |
-| Stopwatch Integration | cs → sec → min chaining | **1.875%** |
-| Simulation Output | Waveforms + monitor logs | **0.875%** |
-| Code Quality | Readable, commented, correct | **0.375%** |
+| BCD Counter Functionality | Correct counting & rollover | **1.0%** |
+| Stopwatch Integration | cs → sec → min chaining | **2.0%** |
+| Simulation Output | Waveforms + monitor logs | **1.0%** |
+| Code Quality | Readable, commented, correct | **1.0%** |
 | **Total** | | **5.000%** |
 
 *Rubric weights were scaled proportionally from the original 4% rubric. The 30-minute no-penalty period and 0.5%-per-15-minute deduction were retained, with the session shifted to 10:00–11:00.*
