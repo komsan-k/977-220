@@ -1,4 +1,4 @@
-# Expected Result Pattern for Stopwatch Simulation
+# Expected Result Pattern for Stopwatch
 
 This provides the **expected output pattern** for the stopwatch
 simulation using the provided Verilog testbench.
