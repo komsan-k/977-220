@@ -41,7 +41,6 @@ After completing this laboratory, I can:
 - [ ] Hierarchical top-level MAC module
 - [ ] Simulation waveforms and console outputs
 - [ ] Vivado hierarchy / elaborated RTL schematic screenshots
-- [ ] README with reproduction instructions
 
 ---
 
