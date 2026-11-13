@@ -2,6 +2,7 @@
 
 ## Session Details
 
+- **Date:** **25 November 2026**
 - **Time:** **10:00–11:00**
 - **Total Marks:** **5%**
 - **Penalty Policy:**
