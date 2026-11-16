@@ -169,15 +169,6 @@ The uploaded document specifies `timescale 1ms/1us`, a clock toggle every 5 ms, 
 - XDC constraints and Vivado project.
 - Physical FPGA demonstration and a brief verification table.
 
-## 12. Suggested Evaluation Rubric (5%)
-
-| Criterion | Marks |
-|---|---:|
-| Hierarchical architecture and module integration | 1.0% |
-| Correct stopwatch counting and rollover | 2.0% |
-| Nexys A7 hardware demonstration and documentation | 2.0% |
-| **Total** | **5.0%** |
-
 ---
 
 **Extension:** After completing the stopwatch, students may reuse the clock-enable, button-interface, and FSM design principles in the traffic-light controller with pedestrian crossing.
