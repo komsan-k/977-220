@@ -6,7 +6,7 @@ These two mini projects introduce students to the practical design and implement
 
 The **Digital Stopwatch** project focuses on designing a time-measurement system using FPGA-based counters and control logic. Students will implement start, stop, and reset functions using push buttons and display elapsed time through a seven-segment display. This project strengthens students' understanding of clock division, synchronous counters, and digital display control.
 
-**Learning outcome:** Design and implement a stopwatch using sequential logic and FPGA hardware.
+**Learning outcome:** Design and implement a stopwatch using sequential logic and FPGA hardware using hierarchical Verilog and FPGA.
 
 ## Mini Project 2: Two-Road Intersection Traffic Controller with Pedestrian Crossing
 
