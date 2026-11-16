@@ -1,197 +1,103 @@
 # Expected Result Pattern — Two-Road Intersection Traffic Controller with Pedestrian Crossing
 
-This laboratory reference describes a **two-road intersection**: an **East–West (EW)** road crossing a **North–South (NS)** road. Each road has independent **RED, YELLOW, GREEN** signals, and a pedestrian push button requests an exclusive crossing phase. It revises the earlier one-direction traffic-controller example.
+## 1. Purpose
 
-> **Scope and assumptions:** The original uploaded reference describes a stopwatch, not traffic-controller RTL. The FSM, timings, request-handling policy, and example traces here are **proposed instructional behavior**, not verified results from a supplied Verilog implementation. Adapt the timing and outputs to the actual RTL and testbench.
+This document describes **expected physical FPGA behavior**, not a simulation or testbench. The intersection has separate RED, YELLOW, and GREEN lamps for the East–West (EW) and North–South (NS) roads, plus a pedestrian push button and WALK / DON'T WALK indicators.
 
----
+> **Timing interpretation:** The requested “first post-reset rising edge at 2 ms” is incompatible with a **1 s clock period**. This guide interprets it as **2 s**. The timing below is a proposed hardware demonstration schedule, not measured output from supplied RTL.
 
-## 1. Intersection Concept
+## 2. FPGA Operating Clock and Reset
 
-```text
-                   NORTH
-                     |
-               [NS R Y G]
-                     |
- WEST --- [EW R Y G] + [EW R Y G] --- EAST
-                     |
-               [NS R Y G]
-                     |
-                   SOUTH
+- **Logical operating clock:** `clk` changes level every **0.5 s**, giving a full period of **1 s**.
+- **Active-high reset:** `rst = 1` from **0 to 1 s**; the controller remains in its safe reset state during this interval.
+- **First active rising edge after reset:** **t = 2 s**, assuming rising edges at 0, 1, 2, 3, ... s and reset is released immediately *after* the 1 s edge. The next rising edges occur at **3, 4, 5, ... s**.
+- **Nexys A7 implementation:** Use the board's **100 MHz oscillator** and a **1 Hz clock-enable pulse** for state updates. Do not route a logic-generated 1 Hz signal as an ordinary FPGA clock. A visible 1 Hz clock indicator may toggle every 0.5 s, while the FSM remains on the 100 MHz clock.
+- Synchronize and debounce the physical reset and pedestrian buttons as appropriate. Define reset priority and startup behavior in RTL.
 
-            [Pedestrian request button]
-            [WALK / DON'T WALK signals]
-```
+## 3. Expected FSM States and Outputs
 
-The paired signals on each road represent the same logical traffic phase. **Only one road may receive GREEN at a time.** Pedestrian WALK is permitted only when **both roads are RED**.
+`1` = lamp ON, `0` = lamp OFF; road output order `(R,Y,G)`.
 
-## 2. Testbench Timing Summary (Illustrative)
+| FSM State | EW (R,Y,G) | NS (R,Y,G) | Pedestrian | Purpose |
+|---|:---:|:---:|---|---|
+| `RESET` | `100` | `100` | DON'T WALK | Safe startup |
+| `EW_GREEN` | `001` | `100` | DON'T WALK | EW traffic proceeds |
+| `EW_YELLOW` | `010` | `100` | DON'T WALK | EW traffic prepares to stop |
+| `ALL_RED_EW_NS` | `100` | `100` | DON'T WALK | Intergreen clearance |
+| `NS_GREEN` | `100` | `001` | DON'T WALK | NS traffic proceeds |
+| `NS_YELLOW` | `100` | `010` | DON'T WALK | NS traffic prepares to stop |
+| `ALL_RED_NS_EW` | `100` | `100` | DON'T WALK | Intergreen clearance |
+| `PED_WALK` | `100` | `100` | WALK | Exclusive pedestrian crossing |
+| `PED_CLEAR` | `100` | `100` | DON'T WALK | Pedestrian clearance before vehicles resume |
 
-- `` `timescale 1ms/1us ``
-- `clk` **toggles every 3 ms**; its full period is **6 ms**.
-- Active-high reset `rst` is asserted from **0 to 3 ms** (released at 3 ms).
-- The first rising clock edge **after reset** is **4 ms**. Subsequent rising edges occur at **10, 16, 22, 28, ... ms**.
-- **Clock phase note:** To obtain the specified 4 ms rising edge while toggling every 3 ms, initialize `clk = 1` and toggle at 1, 4, 7, 10, ... ms. The 1 ms rising edge is *not* present: the first toggle at 1 ms is falling. An ordinary `clk=0; always #3 clk=~clk;` instead produces rising edges at 3, 9, 15, ... ms and does **not** match this schedule.
-- One rising edge represents one **accelerated simulation tick**, not one real-world second.
-- EW GREEN: **4 ticks**; EW YELLOW: **2 ticks**.
-- NS GREEN: **4 ticks**; NS YELLOW: **2 ticks**.
-- All-red transition/clearance: **1 tick** per transition.
-- Pedestrian WALK: **3 ticks**; pedestrian clearance (DON'T WALK, both roads RED): **1 tick**.
-- **Pedestrian WALK requires a button press** (`ped_button` / `ped_request`). No request means no WALK phase.
-- A button press is sampled on a rising edge and **latched** as `request_pending` until serviced. The request is served at the **next safe all-red boundary** after the current vehicle phase completes YELLOW; the normal road alternation then resumes.
-- For real FPGA hardware, synchronize and debounce the push button. In the testbench, hold the press long enough to span at least one sampling edge.
+## 4. Proposed Timing for Hardware Demonstration
 
-Tables below describe the outputs **immediately after each rising edge**, with the initial post-reset EW GREEN state at **4 ms**. State durations and request timing are illustrative design assumptions, not measurements from supplied traffic-controller RTL.
+For an easily observed demonstration, use the following **illustrative** state durations, expressed in **1 s FSM update ticks**:
 
-## 3. FSM States and Expected Outputs
+| Phase | Duration |
+|---|---:|
+| EW GREEN | 4 s |
+| EW YELLOW | 2 s |
+| NS GREEN | 4 s |
+| NS YELLOW | 2 s |
+| ALL RED before next phase | 1 s |
+| Pedestrian WALK | 3 s |
+| Pedestrian clearance | 1 s |
 
-`1` means the lamp is ON; `0` means OFF. Signal order is `(R,Y,G)`.
+The FSM should alternate between EW and NS traffic. Pedestrian WALK occurs **only following a button request** and only after the active vehicle road has completed its GREEN/YELLOW phase and both roads have entered ALL RED.
 
-| State | EW (R,Y,G) | NS (R,Y,G) | Pedestrian WALK | Pedestrian DON'T WALK | Meaning |
-|---|:---:|:---:|:---:|:---:|---|
-| `EW_GREEN` | `001` | `100` | 0 | 1 | EW traffic moves |
-| `EW_YELLOW` | `010` | `100` | 0 | 1 | EW prepares to stop |
-| `ALL_RED_EW_NS` | `100` | `100` | 0 | 1 | Clearance before NS or pedestrian phase |
-| `NS_GREEN` | `100` | `001` | 0 | 1 | NS traffic moves |
-| `NS_YELLOW` | `100` | `010` | 0 | 1 | NS prepares to stop |
-| `ALL_RED_NS_EW` | `100` | `100` | 0 | 1 | Clearance before EW or pedestrian phase |
-| `PED_WALK` | `100` | `100` | 1 | 0 | Exclusive pedestrian crossing |
-| `PED_CLEAR` | `100` | `100` | 0 | 1 | Pedestrian clearance before vehicles resume |
-| `RESET` | `100` | `100` | 0 | 1 | Safe reset outputs |
+## 5. Expected Hardware Output — No Pedestrian Request
 
-**Safety requirements:**
+The table shows the state **immediately after each 1 s update**, beginning at the first post-reset update at **2 s**.
 
-- `!(EW_GREEN && NS_GREEN)`
-- `ped_walk -> (EW_RED && NS_RED)`
-- Neither road may display GREEN simultaneously with its own RED or YELLOW.
-- Each road must pass through YELLOW and all-red clearance before the other road turns GREEN.
-
-## 4. Normal Alternating Pattern — No Pedestrian Button Press
-
-| Time (ms) | FSM state | EW (R,Y,G) | NS (R,Y,G) | Pedestrian |
+| Time (s) | State | EW (R,Y,G) | NS (R,Y,G) | Pedestrian |
 |---:|---|:---:|:---:|---|
-| 0–3 | `RESET` | `100` | `100` | DON'T WALK |
-| 4 | `EW_GREEN` | `001` | `100` | DON'T WALK |
-| 10 | `EW_GREEN` | `001` | `100` | DON'T WALK |
-| 16 | `EW_GREEN` | `001` | `100` | DON'T WALK |
-| 22 | `EW_GREEN` | `001` | `100` | DON'T WALK |
-| 28 | `EW_YELLOW` | `010` | `100` | DON'T WALK |
-| 34 | `EW_YELLOW` | `010` | `100` | DON'T WALK |
-| 40 | `ALL_RED_EW_NS` | `100` | `100` | DON'T WALK |
-| 46 | `NS_GREEN` | `100` | `001` | DON'T WALK |
-| 52 | `NS_GREEN` | `100` | `001` | DON'T WALK |
-| 58 | `NS_GREEN` | `100` | `001` | DON'T WALK |
-| 64 | `NS_GREEN` | `100` | `001` | DON'T WALK |
-| 70 | `NS_YELLOW` | `100` | `010` | DON'T WALK |
-| 76 | `NS_YELLOW` | `100` | `010` | DON'T WALK |
-| 82 | `ALL_RED_NS_EW` | `100` | `100` | DON'T WALK |
-| 88 | `EW_GREEN` | `001` | `100` | DON'T WALK |
+| 0–1 | `RESET` | `100` | `100` | DON'T WALK |
+| 2–5 | `EW_GREEN` | `001` | `100` | DON'T WALK |
+| 6–7 | `EW_YELLOW` | `010` | `100` | DON'T WALK |
+| 8 | `ALL_RED_EW_NS` | `100` | `100` | DON'T WALK |
+| 9–12 | `NS_GREEN` | `100` | `001` | DON'T WALK |
+| 13–14 | `NS_YELLOW` | `100` | `010` | DON'T WALK |
+| 15 | `ALL_RED_NS_EW` | `100` | `100` | DON'T WALK |
+| 16–19 | `EW_GREEN` | `001` | `100` | DON'T WALK |
 
-**Without a button press, WALK remains OFF throughout the cycle.**
+**Without a pedestrian request, WALK must remain OFF.**
 
-## 5. Pedestrian Button-Request Pattern
+## 6. Expected Hardware Output — Pedestrian Button Press
 
-Example: the pedestrian **presses the button at 13 ms** while EW is GREEN, and releases it at **19 ms**. The button is high across the rising edge at **16 ms**, so the controller records `request_pending = 1`. The controller finishes the EW GREEN and YELLOW phases and waits until both roads are RED before granting WALK.
+Example: the pedestrian **presses the button during EW GREEN** (e.g., at **t = 3.5 s**) and releases it at **t = 4.5 s**. The synchronized/debounced request is assumed to be recognized by the controller in time for the next safe crossing opportunity.
 
-| Time (ms) | Button | Request pending | FSM state | EW (R,Y,G) | NS (R,Y,G) | Pedestrian |
-|---:|:---:|:---:|---|:---:|:---:|---|
-| 4 | 0 | 0 | `EW_GREEN` | `001` | `100` | DON'T WALK |
-| 10 | 0 | 0 | `EW_GREEN` | `001` | `100` | DON'T WALK |
-| 13 | **1 (pressed)** | 0 | `EW_GREEN` | `001` | `100` | DON'T WALK |
-| 16 | 1 | **1** | `EW_GREEN` | `001` | `100` | DON'T WALK |
-| 19 | **0 (released)** | 1 | `EW_GREEN` | `001` | `100` | DON'T WALK |
-| 22 | 0 | 1 | `EW_GREEN` | `001` | `100` | DON'T WALK |
-| 28 | 0 | 1 | `EW_YELLOW` | `010` | `100` | DON'T WALK |
-| 34 | 0 | 1 | `EW_YELLOW` | `010` | `100` | DON'T WALK |
-| 40 | 0 | 1 | `ALL_RED_EW_NS` | `100` | `100` | DON'T WALK |
-| 46 | 0 | **0** | `PED_WALK` | `100` | `100` | **WALK** |
-| 52 | 0 | 0 | `PED_WALK` | `100` | `100` | **WALK** |
-| 58 | 0 | 0 | `PED_WALK` | `100` | `100` | **WALK** |
-| 64 | 0 | 0 | `PED_CLEAR` | `100` | `100` | DON'T WALK |
-| 70 | 0 | 0 | `NS_GREEN` | `100` | `001` | DON'T WALK |
-| 76 | 0 | 0 | `NS_GREEN` | `100` | `001` | DON'T WALK |
+| Time (s) | Physical event / FSM state | EW (R,Y,G) | NS (R,Y,G) | Pedestrian |
+|---:|---|:---:|:---:|---|
+| 2–5 | `EW_GREEN`; request pressed during phase | `001` | `100` | DON'T WALK |
+| 6–7 | `EW_YELLOW` | `010` | `100` | DON'T WALK |
+| 8 | `ALL_RED_EW_NS` | `100` | `100` | DON'T WALK |
+| 9–11 | `PED_WALK`; pending request serviced | `100` | `100` | **WALK** |
+| 12 | `PED_CLEAR` | `100` | `100` | DON'T WALK |
+| 13–16 | `NS_GREEN` | `100` | `001` | DON'T WALK |
+| 17–18 | `NS_YELLOW` | `100` | `010` | DON'T WALK |
 
-**Request policy:** The pending request is cleared when `PED_WALK` begins. A new request during WALK or clearance needs an explicit RTL policy (e.g., ignore it or queue it for a later safe boundary). A button press never immediately interrupts a vehicle GREEN phase.
+The pedestrian button **does not immediately force WALK** or interrupt a GREEN phase. A latched pending request is served at a safe all-red boundary. Once serviced, the pending flag is cleared. Exact response times depend on the implemented debounce and FSM logic.
 
-## 6. General Expected Sequence
+## 7. Required Safety Conditions
 
-Without a pedestrian request:
+1. EW GREEN and NS GREEN must never be ON simultaneously.
+2. Pedestrian WALK is ON only when **both roads are RED**.
+3. The active vehicle road passes through YELLOW before both roads become RED.
+4. A pedestrian request is stored until the next permitted crossing phase.
+5. Following WALK, the pedestrian clearance phase completes before a vehicle GREEN resumes.
+6. Reset places both roads in RED and pedestrian signals in DON'T WALK.
 
-```text
-RESET (both RED)
-    -> EW_GREEN -> EW_YELLOW -> ALL_RED_EW_NS
-    -> NS_GREEN -> NS_YELLOW -> ALL_RED_NS_EW
-    -> EW_GREEN -> ...
-```
+## 8. Physical FPGA Verification Checklist
 
-With a pedestrian request at a safe phase boundary:
+- [ ] 100 MHz Nexys A7 board clock is used with a 1 Hz update enable.
+- [ ] Reset initializes both road signals to RED.
+- [ ] EW and NS signal lamps alternate through GREEN → YELLOW → ALL RED.
+- [ ] The pedestrian button is physically connected, synchronized, and debounced.
+- [ ] Pressing the button during GREEN does not immediately activate WALK.
+- [ ] WALK activates after both roads reach RED.
+- [ ] WALK does not activate if no request is made.
+- [ ] Pedestrian clearance completes before vehicle GREEN resumes.
+- [ ] Actual observed state timings are recorded and compared with the proposed schedule.
 
-```text
-EW_GREEN -> EW_YELLOW -> ALL_RED_EW_NS
-    -> PED_WALK -> PED_CLEAR -> NS_GREEN -> ...
-```
-
-A request during NS GREEN follows the analogous sequence ending with EW GREEN.
-
-## 7. Example `$monitor` Console Output
-
-**Illustrative output only — not an actual XSim log:**
-
-```text
-Time | Button | State           | EW(RYG) | NS(RYG) | WALK | Pending
--------------------------------------------------------------------
-   4 |   0    | EW_GREEN        | 001     | 100     | 0    | 0
-  10 |   0    | EW_GREEN        | 001     | 100     | 0    | 0
-  16 |   1    | EW_GREEN        | 001     | 100     | 0    | 1
-  22 |   0    | EW_GREEN        | 001     | 100     | 0    | 1
-  28 |   0    | EW_YELLOW       | 010     | 100     | 0    | 1
-  34 |   0    | EW_YELLOW       | 010     | 100     | 0    | 1
-  40 |   0    | ALL_RED_EW_NS   | 100     | 100     | 0    | 1
-  46 |   0    | PED_WALK        | 100     | 100     | 1    | 0
-  52 |   0    | PED_WALK        | 100     | 100     | 1    | 0
-  58 |   0    | PED_WALK        | 100     | 100     | 1    | 0
-  64 |   0    | PED_CLEAR       | 100     | 100     | 0    | 0
-  70 |   0    | NS_GREEN        | 100     | 001     | 0    | 0
-```
-
-### Suggested clock and button stimulus (Verilog testbench)
-
-```verilog
-`timescale 1ms/1us
-reg clk = 1'b1;
-reg rst = 1'b1;
-reg ped_button = 1'b0;
-
-// Falling at 1 ms, rising at 4 ms, then toggling every 3 ms.
-initial begin
-    #1 clk = ~clk;
-    forever #3 clk = ~clk;
-end
-
-initial begin
-    #3  rst = 1'b0;       // Release reset at 3 ms
-    #10 ped_button = 1'b1; // Press at 13 ms
-    #6  ped_button = 1'b0; // Release at 19 ms
-end
-```
-
-This is **stimulus only**; the expected state schedule assumes a controller with the phase durations and request policy specified in Section 2. Ensure the DUT is reset safely at simulation start.
-
-## 8. Verification Checklist
-
-- [ ] Reset forces **both roads RED** and pedestrian DON'T WALK.
-- [ ] EW RED/YELLOW/GREEN outputs follow their prescribed phases.
-- [ ] NS RED/YELLOW/GREEN outputs follow their prescribed phases.
-- [ ] EW GREEN and NS GREEN are **never** asserted together.
-- [ ] A road turns GREEN only after the other road's YELLOW and an all-red interval.
-- [ ] Pedestrian button presses are detected and retained until safely serviced; no press means no WALK.
-- [ ] Pedestrian WALK is active only when **both roads RED**.
-- [ ] WALK ends before vehicle traffic resumes; pedestrian clearance is enforced.
-- [ ] With no request, traffic alternates EW → NS → EW.
-- [ ] With a request during NS GREEN, the controller safely grants WALK and then resumes EW GREEN.
-- [ ] XSim waveform and `$monitor` output agree with the RTL and timing assumptions.
-- [ ] Nexys A7 LED outputs and request push button operate as expected.
-
-**Suggested waveform signals:** `clk`, `rst`, `ped_button`, `request_pending`, `state`, `timer`, `ew_red`, `ew_yellow`, `ew_green`, `ns_red`, `ns_yellow`, `ns_green`, `ped_walk`, `ped_dont_walk`.
-
-> **FPGA implementation:** Use the Nexys A7 100 MHz system clock with a clock-enable counter for practical timing. Synchronize and debounce the pedestrian push button. The 6 ms testbench clock above is for accelerated simulation only.
+**Hardware note:** The 1 s timing is for a classroom-scale demonstration and is not intended as real-world road traffic timing or a safety-certified traffic-control design.
