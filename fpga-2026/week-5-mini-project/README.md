@@ -10,9 +10,9 @@ The **Digital Stopwatch** project focuses on designing a time-measurement system
 
 ## Mini Project 2: One-Direction Intersection Traffic Controller with Pedestrian Crossing
 
-The **One-Direction Intersection Traffic Controller** project focuses on designing an automated traffic-light control system using a finite state machine (FSM). Students will develop a controller that sequences through red, green, and yellow traffic-light states according to predefined timing intervals. LEDs on the FPGA board will represent the traffic signals.
+The **One-Direction Intersection Traffic Controller with Pedestrian Crossing** project focuses on designing an automated traffic-light and pedestrian-crossing control system using a finite state machine (FSM). Students will develop a controller that sequences through red, green, and yellow traffic-light states according to predefined timing intervals while incorporating a pedestrian request button and a safe crossing phase. The system will coordinate vehicle and pedestrian signals to prevent conflicting movements. LEDs and push buttons on the Nexys A7 FPGA board will represent the traffic signals and pedestrian-crossing controls.
 
-**Learning outcome:** Design and implement an FSM-based traffic controller using state transitions, timing counters, and FPGA outputs.
+**Learning outcome:** Design and implement an FSM-based traffic controller with pedestrian-crossing functionality using state transitions, timing counters, push-button inputs, and FPGA outputs.
 
 ## Expected Skills
 
