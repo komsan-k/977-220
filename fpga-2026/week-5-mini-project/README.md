@@ -12,7 +12,7 @@ The **Digital Stopwatch** project focuses on designing a time-measurement system
 
 The **Two-Road Intersection Traffic Controller with Pedestrian Crossing** project focuses on designing an automated traffic-light control system for two intersecting roads: **East–West (EW)** and **North–South (NS)**, using a finite state machine (FSM). Students will develop a controller that coordinates red, yellow, and green traffic signals for both roads according to predefined timing intervals, ensuring that conflicting traffic movements are prevented. The system will also incorporate a pedestrian request button and a safe crossing phase, during which both roads display red signals. LEDs and push buttons on the Nexys A7 FPGA board will represent the vehicle traffic signals and pedestrian-crossing controls.
 
-**Learning outcome:** Design and implement a system-level, FSM-based two-road intersection traffic controller with pedestrian-crossing functionality using hierarchical Verilog modules, state transitions, timing counters, push-button inputs, and FPGA outputs while ensuring safe coordination between vehicle and pedestrian movements.
+**Learning outcome:** Design and implement an FSM-based two-road traffic controller with pedestrian crossing using hierarchical Verilog and FPGA.
 
 ## Expected Skills
 
