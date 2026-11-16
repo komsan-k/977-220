@@ -7,7 +7,7 @@ This document describes **expected physical FPGA behavior**, not a simulation or
 > **Timing interpretation:** The requested “first post-reset rising edge at 2 ms” is incompatible with a **1 s clock period**. This guide interprets it as **2 s**. The timing below is a proposed hardware demonstration schedule, not measured output from supplied RTL. 
 
 
-![Figure 1. Work Concept](Intersection Traffic Control.png)
+![Figure 1. Work Concept](<Intersection Traffic Control.png>)
 
 *Figure 1. Work Concept.*
 
