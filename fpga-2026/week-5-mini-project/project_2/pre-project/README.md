@@ -384,18 +384,7 @@ endmodule
 - Exactly one vehicle light should be on in every defined state.
 - A continuous held button produces only one request event.
 
-## 9. Deliverables and assessment
 
-**Deliverables:** Mermaid architecture and FSM diagrams, five Verilog files, Vivado project and verified XDC, generated bitstream, and live FPGA demonstration. **No testbench, waveform, or XSim report is required.**
-
-| Criterion | Weight |
-|---|---:|
-| System architecture and hierarchy | 25% |
-| FSM state sequencing and phase timing | 25% |
-| Button request handling and pedestrian safety | 30% |
-| FPGA demonstration and explanation | 20% |
-| **Total** | **100%** |
-
-## 10. Extension to Mini-Project II
+## 9. Extension to Mini-Project II
 
 Reuse the button interface, clock-enable generator, and output-decoding approach to implement **two intersecting roads**, East–West and North–South, each with separate RED/YELLOW/GREEN signals. Add an all-red interlock before switching vehicle directions and before enabling pedestrian WALK.
