@@ -9,7 +9,7 @@
 - **Total Marks:** **5%**
 - **Platform:** Nexys A7 FPGA, Verilog HDL, Vivado XSim
 - **Penalty Policy:**
-  - **No deduction from 10:00 to 10:29** (30-minute grace period).
+  - **No deduction from 10:00 to 10:30** (30-minute grace period).
   - **From 10:30 onward, deduct 0.5 percentage points for each started 5-minute interval.**
 
 ---
