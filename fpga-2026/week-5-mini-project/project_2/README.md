@@ -1,122 +1,164 @@
-# Expected Result Pattern for One-Direction Intersection Traffic Controller with Pedestrian Crossing
+# Expected Result Pattern — Two-Road Intersection Traffic Controller with Pedestrian Crossing
 
-This document provides an **illustrative expected output pattern** for a Verilog FSM simulation. It adapts the timing-summary, early-pattern, transition, and console-output structure of the supplied stopwatch reference. **The uploaded file contains stopwatch timing only; no traffic-controller RTL, state durations, or testbench were supplied.** Therefore, the state durations and pedestrian-request timing below are proposed test assumptions, not verified results from an existing design.
+This laboratory reference describes a **two-road intersection**: an **East–West (EW)** road crossing a **North–South (NS)** road. Each road has independent **RED, YELLOW, GREEN** signals, and a pedestrian push button requests an exclusive crossing phase. It revises the earlier one-direction traffic-controller example.
 
----
-
-## ⏱ Testbench Timing Summary (Proposed)
-
-- `timescale 1ms/1us`
-- Clock toggles every **5 ms** → full clock period = **10 ms**.
-- Active-high reset (`rst`) stays high for the first **20 ms**.
-- First rising edge after reset: **t = 25 ms**.
-- One clock cycle is treated as one timing tick for this **accelerated simulation** (not a real-time traffic-light interval).
-- Example state durations: vehicle GREEN = **4 ticks**, YELLOW = **2 ticks**, all-red clearance = **1 tick**, pedestrian WALK = **3 ticks**, pedestrian clearance = **1 tick**.
-- Pedestrian button (`ped_request`) is sampled synchronously and latched until serviced. Requests are **not** allowed to interrupt vehicle GREEN immediately.
-
-> Actual transitions must be adjusted to match the student's RTL and testbench. An FPGA implementation should use a clock-enable generator to achieve practical real-time intervals.
+> **Scope and assumptions:** The original uploaded reference describes a stopwatch, not traffic-controller RTL. The FSM, timings, request-handling policy, and example traces here are **proposed instructional behavior**, not verified results from a supplied Verilog implementation. Adapt the timing and outputs to the actual RTL and testbench.
 
 ---
 
-## 🚦 1. States and Expected Outputs
-
-| State | Vehicle RED | Vehicle YELLOW | Vehicle GREEN | Pedestrian WALK | Pedestrian DON'T WALK |
-|---|:---:|:---:|:---:|:---:|:---:|
-| `VEH_GREEN` | 0 | 0 | 1 | 0 | 1 |
-| `VEH_YELLOW` | 0 | 1 | 0 | 0 | 1 |
-| `ALL_RED` | 1 | 0 | 0 | 0 | 1 |
-| `PED_WALK` | 1 | 0 | 0 | 1 | 0 |
-| `PED_CLEAR` | 1 | 0 | 0 | 0 | 1 |
-
-**Safety invariant:** `!(vehicle_green && pedestrian_walk)` must hold at all times. Vehicle traffic remains red throughout the pedestrian WALK and clearance phases.
-
----
-
-## ✅ 2. Early FSM Pattern (No Pedestrian Request)
-
-After reset, the controller begins in `VEH_GREEN`. The example assumes a timer that counts four active clock edges in the GREEN state, including the first edge at 25 ms.
-
-| Time (ms) | Example state | Vehicle light | Pedestrian signal |
-|---:|---|---|---|
-| 0–20 | Reset | RED (safe reset output) | DON'T WALK |
-| 25 | `VEH_GREEN` | GREEN | DON'T WALK |
-| 35 | `VEH_GREEN` | GREEN | DON'T WALK |
-| 45 | `VEH_GREEN` | GREEN | DON'T WALK |
-| 55 | `VEH_GREEN` | GREEN | DON'T WALK |
-| 65 | `VEH_YELLOW` | YELLOW | DON'T WALK |
-| 75 | `VEH_YELLOW` | YELLOW | DON'T WALK |
-| 85 | `ALL_RED` | RED | DON'T WALK |
-| 95 | `VEH_GREEN` | GREEN | DON'T WALK |
-
-**Note:** The exact edge at which a state changes depends on the FSM timer implementation; this table is a reference schedule for the proposed tick convention.
-
----
-
-## 🚶 3. Pedestrian Request and Crossing Pattern
-
-For this illustrative test, a pedestrian presses the button while vehicles are GREEN, at **t = 40 ms**. The request is latched, and the controller finishes the current GREEN interval, passes through YELLOW and ALL_RED, and then grants pedestrian WALK.
-
-| Time (ms) | Request pending | State | Vehicle light | Pedestrian signal |
-|---:|:---:|---|---|---|
-| 25 | 0 | `VEH_GREEN` | GREEN | DON'T WALK |
-| 45 | 1 | `VEH_GREEN` | GREEN | DON'T WALK |
-| 55 | 1 | `VEH_GREEN` | GREEN | DON'T WALK |
-| 65 | 1 | `VEH_YELLOW` | YELLOW | DON'T WALK |
-| 75 | 1 | `VEH_YELLOW` | YELLOW | DON'T WALK |
-| 85 | 1 | `ALL_RED` | RED | DON'T WALK |
-| 95 | 0 | `PED_WALK` | RED | WALK |
-| 105 | 0 | `PED_WALK` | RED | WALK |
-| 115 | 0 | `PED_WALK` | RED | WALK |
-| 125 | 0 | `PED_CLEAR` | RED | DON'T WALK |
-| 135 | 0 | `VEH_GREEN` | GREEN | DON'T WALK |
-
-This schedule assumes that the pending request is cleared when the `PED_WALK` phase begins. A design may use a different clear point if it is documented and verified.
-
----
-
-## 🔄 4. General Expected Behavior
-
-1. **Reset:** Establish a safe vehicle RED and pedestrian DON'T WALK condition.
-2. **Normal operation:** Sequence vehicle GREEN → YELLOW → ALL_RED → GREEN if no pedestrian request is pending.
-3. **Button request:** Latch a pedestrian request and wait until vehicle GREEN and YELLOW phases have completed.
-4. **Crossing:** Set vehicle RED and pedestrian WALK for the specified crossing interval.
-5. **Clearance:** Turn pedestrian WALK off while keeping vehicle RED for a clearance interval.
-6. **Resume:** Return to vehicle GREEN only after the crossing and clearance phases finish.
-
----
-
-## 🧪 5. Example Console Output
-
-The following is **illustrative**, not an actual simulation log:
+## 1. Intersection Concept
 
 ```text
-Time | State       | Veh(R,Y,G) | Ped(WALK) | Pending
----------------------------------------------------
-  25 | VEH_GREEN   | 0 0 1      | 0         | 0
-  45 | VEH_GREEN   | 0 0 1      | 0         | 1
-  65 | VEH_YELLOW  | 0 1 0      | 0         | 1
-  85 | ALL_RED     | 1 0 0      | 0         | 1
-  95 | PED_WALK    | 1 0 0      | 1         | 0
- 105 | PED_WALK    | 1 0 0      | 1         | 0
- 115 | PED_WALK    | 1 0 0      | 1         | 0
- 125 | PED_CLEAR   | 1 0 0      | 0         | 0
- 135 | VEH_GREEN   | 0 0 1      | 0         | 0
+                   NORTH
+                     |
+               [NS R Y G]
+                     |
+ WEST --- [EW R Y G] + [EW R Y G] --- EAST
+                     |
+               [NS R Y G]
+                     |
+                   SOUTH
+
+            [Pedestrian request button]
+            [WALK / DON'T WALK signals]
 ```
 
----
+The paired signals on each road represent the same logical traffic phase. **Only one road may receive GREEN at a time.** Pedestrian WALK is permitted only when **both roads are RED**.
 
-## ⚠️ 6. Verification Checklist
+## 2. Testbench Timing Summary (Illustrative)
 
-- [ ] Reset establishes safe traffic and pedestrian outputs.
-- [ ] Vehicle lights follow the required state sequence and durations.
-- [ ] A pedestrian request is latched and not lost while GREEN is active.
-- [ ] Vehicle GREEN and pedestrian WALK are never active together.
-- [ ] Pedestrian WALK begins only after vehicle YELLOW and ALL_RED.
-- [ ] Vehicle RED remains active during WALK and pedestrian clearance.
-- [ ] A request-free cycle returns to normal vehicle operation.
-- [ ] Vivado XSim waveforms and `$monitor` output agree with the implemented RTL.
-- [ ] Hardware LEDs and pedestrian request push button behave consistently with simulation.
+- `` `timescale 1ms/1us ``
+- `clk` toggles every **5 ms**: period **10 ms**.
+- Active-high reset `rst` is asserted from **0 to 20 ms**; first post-reset rising edge is **25 ms**.
+- One rising edge represents one **accelerated simulation tick**, not one real-world second.
+- EW GREEN: **4 ticks**; EW YELLOW: **2 ticks**.
+- NS GREEN: **4 ticks**; NS YELLOW: **2 ticks**.
+- All-red transition/clearance: **1 tick** per transition.
+- Pedestrian WALK: **3 ticks**; pedestrian clearance (DON'T WALK, both roads RED): **1 tick**.
+- `ped_request` is sampled and latched until serviced. In this proposed policy, a pending request is served at the **next safe all-red boundary** after the active road finishes YELLOW. The normal road alternation resumes afterward.
 
-**Suggested waveform signals:** `clk`, `rst`, `ped_request`, `request_pending`, `state`, `timer`, `veh_red`, `veh_yellow`, `veh_green`, `ped_walk`.
+For clarity, the tables below show **state outputs immediately after each rising edge**. A state occupies its listed ticks, and the next state appears on the following rising edge. The first post-reset state is EW GREEN at 25 ms.
 
-*The sample values are instructional assumptions and must be replaced by measured XSim results when students submit their checkpoint evidence.*
+## 3. FSM States and Expected Outputs
+
+`1` means the lamp is ON; `0` means OFF. Signal order is `(R,Y,G)`.
+
+| State | EW (R,Y,G) | NS (R,Y,G) | Pedestrian WALK | Pedestrian DON'T WALK | Meaning |
+|---|:---:|:---:|:---:|:---:|---|
+| `EW_GREEN` | `001` | `100` | 0 | 1 | EW traffic moves |
+| `EW_YELLOW` | `010` | `100` | 0 | 1 | EW prepares to stop |
+| `ALL_RED_EW_NS` | `100` | `100` | 0 | 1 | Clearance before NS or pedestrian phase |
+| `NS_GREEN` | `100` | `001` | 0 | 1 | NS traffic moves |
+| `NS_YELLOW` | `100` | `010` | 0 | 1 | NS prepares to stop |
+| `ALL_RED_NS_EW` | `100` | `100` | 0 | 1 | Clearance before EW or pedestrian phase |
+| `PED_WALK` | `100` | `100` | 1 | 0 | Exclusive pedestrian crossing |
+| `PED_CLEAR` | `100` | `100` | 0 | 1 | Pedestrian clearance before vehicles resume |
+| `RESET` | `100` | `100` | 0 | 1 | Safe reset outputs |
+
+**Safety requirements:**
+
+- `!(EW_GREEN && NS_GREEN)`
+- `ped_walk -> (EW_RED && NS_RED)`
+- Neither road may display GREEN simultaneously with its own RED or YELLOW.
+- Each road must pass through YELLOW and all-red clearance before the other road turns GREEN.
+
+## 4. Normal Alternating Pattern — No Pedestrian Request
+
+| Time (ms) | FSM state | EW (R,Y,G) | NS (R,Y,G) | Pedestrian |
+|---:|---|:---:|:---:|---|
+| 0–20 | `RESET` | `100` | `100` | DON'T WALK |
+| 25 | `EW_GREEN` | `001` | `100` | DON'T WALK |
+| 35 | `EW_GREEN` | `001` | `100` | DON'T WALK |
+| 45 | `EW_GREEN` | `001` | `100` | DON'T WALK |
+| 55 | `EW_GREEN` | `001` | `100` | DON'T WALK |
+| 65 | `EW_YELLOW` | `010` | `100` | DON'T WALK |
+| 75 | `EW_YELLOW` | `010` | `100` | DON'T WALK |
+| 85 | `ALL_RED_EW_NS` | `100` | `100` | DON'T WALK |
+| 95 | `NS_GREEN` | `100` | `001` | DON'T WALK |
+| 105 | `NS_GREEN` | `100` | `001` | DON'T WALK |
+| 115 | `NS_GREEN` | `100` | `001` | DON'T WALK |
+| 125 | `NS_GREEN` | `100` | `001` | DON'T WALK |
+| 135 | `NS_YELLOW` | `100` | `010` | DON'T WALK |
+| 145 | `NS_YELLOW` | `100` | `010` | DON'T WALK |
+| 155 | `ALL_RED_NS_EW` | `100` | `100` | DON'T WALK |
+| 165 | `EW_GREEN` | `001` | `100` | DON'T WALK |
+
+This is an illustrative state schedule. Actual transition edges depend on the implemented counter convention.
+
+## 5. Pedestrian Request Pattern
+
+Example: a pedestrian presses the button at **40 ms** during EW GREEN. The request is latched at the next rising edge. EW completes GREEN and YELLOW; both roads turn RED before WALK. After pedestrian clearance, NS receives the next GREEN phase.
+
+| Time (ms) | Request pending | FSM state | EW (R,Y,G) | NS (R,Y,G) | Pedestrian |
+|---:|:---:|---|:---:|:---:|---|
+| 25 | 0 | `EW_GREEN` | `001` | `100` | DON'T WALK |
+| 45 | 1 | `EW_GREEN` | `001` | `100` | DON'T WALK |
+| 55 | 1 | `EW_GREEN` | `001` | `100` | DON'T WALK |
+| 65 | 1 | `EW_YELLOW` | `010` | `100` | DON'T WALK |
+| 75 | 1 | `EW_YELLOW` | `010` | `100` | DON'T WALK |
+| 85 | 1 | `ALL_RED_EW_NS` | `100` | `100` | DON'T WALK |
+| 95 | 0 | `PED_WALK` | `100` | `100` | WALK |
+| 105 | 0 | `PED_WALK` | `100` | `100` | WALK |
+| 115 | 0 | `PED_WALK` | `100` | `100` | WALK |
+| 125 | 0 | `PED_CLEAR` | `100` | `100` | DON'T WALK |
+| 135 | 0 | `NS_GREEN` | `100` | `001` | DON'T WALK |
+| 145 | 0 | `NS_GREEN` | `100` | `001` | DON'T WALK |
+
+**Policy clarification:** A request is cleared when `PED_WALK` starts. The next vehicle phase is the road that would normally have followed the interrupted all-red boundary. Requests during WALK or clearance require a defined policy (for example, ignore until the next vehicle phase or queue for the next safe boundary); students should document their choice.
+
+## 6. General Expected Sequence
+
+Without a pedestrian request:
+
+```text
+RESET (both RED)
+    -> EW_GREEN -> EW_YELLOW -> ALL_RED_EW_NS
+    -> NS_GREEN -> NS_YELLOW -> ALL_RED_NS_EW
+    -> EW_GREEN -> ...
+```
+
+With a pedestrian request at a safe phase boundary:
+
+```text
+EW_GREEN -> EW_YELLOW -> ALL_RED_EW_NS
+    -> PED_WALK -> PED_CLEAR -> NS_GREEN -> ...
+```
+
+A request during NS GREEN follows the analogous sequence ending with EW GREEN.
+
+## 7. Example `$monitor` Console Output
+
+**Illustrative output only — not an actual XSim log:**
+
+```text
+Time | State           | EW(RYG) | NS(RYG) | WALK | Pending
+---------------------------------------------------------
+  25 | EW_GREEN        | 001     | 100     | 0    | 0
+  45 | EW_GREEN        | 001     | 100     | 0    | 1
+  65 | EW_YELLOW       | 010     | 100     | 0    | 1
+  85 | ALL_RED_EW_NS   | 100     | 100     | 0    | 1
+  95 | PED_WALK        | 100     | 100     | 1    | 0
+ 105 | PED_WALK        | 100     | 100     | 1    | 0
+ 115 | PED_WALK        | 100     | 100     | 1    | 0
+ 125 | PED_CLEAR       | 100     | 100     | 0    | 0
+ 135 | NS_GREEN        | 100     | 001     | 0    | 0
+```
+
+## 8. Verification Checklist
+
+- [ ] Reset forces **both roads RED** and pedestrian DON'T WALK.
+- [ ] EW RED/YELLOW/GREEN outputs follow their prescribed phases.
+- [ ] NS RED/YELLOW/GREEN outputs follow their prescribed phases.
+- [ ] EW GREEN and NS GREEN are **never** asserted together.
+- [ ] A road turns GREEN only after the other road's YELLOW and an all-red interval.
+- [ ] Pedestrian button requests are detected and retained until safely serviced.
+- [ ] Pedestrian WALK is active only when **both roads RED**.
+- [ ] WALK ends before vehicle traffic resumes; pedestrian clearance is enforced.
+- [ ] With no request, traffic alternates EW → NS → EW.
+- [ ] With a request during NS GREEN, the controller safely grants WALK and then resumes EW GREEN.
+- [ ] XSim waveform and `$monitor` output agree with the RTL and timing assumptions.
+- [ ] Nexys A7 LED outputs and request push button operate as expected.
+
+**Suggested waveform signals:** `clk`, `rst`, `ped_request`, `request_pending`, `state`, `timer`, `ew_red`, `ew_yellow`, `ew_green`, `ns_red`, `ns_yellow`, `ns_green`, `ped_walk`, `ped_dont_walk`.
+
+> **FPGA implementation:** Use the Nexys A7 100 MHz system clock with a clock-enable counter for practical timing. Synchronize and debounce the pedestrian push button. The 10 ms testbench clock above is for accelerated simulation only.
