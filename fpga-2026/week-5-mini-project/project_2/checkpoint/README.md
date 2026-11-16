@@ -4,7 +4,7 @@
 
 ## Session Details
 
-- **Date:** **25 November 2026**
+- **Date:** **26 November 2026**
 - **Time:** **10:00–11:00**
 - **Total Marks:** **5%**
 - **Platform:** Nexys A7 FPGA, Verilog HDL, Vivado XSim
