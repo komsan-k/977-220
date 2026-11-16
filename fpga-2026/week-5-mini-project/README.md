@@ -8,11 +8,11 @@ The **Digital Stopwatch** project focuses on designing a time-measurement system
 
 **Learning outcome:** Design and implement a stopwatch using sequential logic and FPGA hardware.
 
-## Mini Project 2: One-Direction Intersection Traffic Controller with Pedestrian Crossing
+## Mini Project 2: Two-Road Intersection Traffic Controller with Pedestrian Crossing
 
-The **One-Direction Intersection Traffic Controller with Pedestrian Crossing** project focuses on designing an automated traffic-light and pedestrian-crossing control system using a finite state machine (FSM). Students will develop a controller that sequences through red, green, and yellow traffic-light states according to predefined timing intervals while incorporating a pedestrian request button and a safe crossing phase. The system will coordinate vehicle and pedestrian signals to prevent conflicting movements. LEDs and push buttons on the Nexys A7 FPGA board will represent the traffic signals and pedestrian-crossing controls.
+The **Two-Road Intersection Traffic Controller with Pedestrian Crossing** project focuses on designing an automated traffic-light control system for two intersecting roads: **East–West (EW)** and **North–South (NS)**, using a finite state machine (FSM). Students will develop a controller that coordinates red, yellow, and green traffic signals for both roads according to predefined timing intervals, ensuring that conflicting traffic movements are prevented. The system will also incorporate a pedestrian request button and a safe crossing phase, during which both roads display red signals. LEDs and push buttons on the Nexys A7 FPGA board will represent the vehicle traffic signals and pedestrian-crossing controls.
 
-**Learning outcome:** Design and implement an FSM-based traffic controller with pedestrian-crossing functionality using state transitions, timing counters, push-button inputs, and FPGA outputs.
+**Learning outcome:** Design and implement a system-level, FSM-based two-road intersection traffic controller with pedestrian-crossing functionality using hierarchical Verilog modules, state transitions, timing counters, push-button inputs, and FPGA outputs while ensuring safe coordination between vehicle and pedestrian movements.
 
 ## Expected Skills
 
