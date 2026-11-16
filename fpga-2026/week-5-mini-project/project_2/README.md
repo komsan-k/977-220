@@ -4,7 +4,12 @@
 
 This document describes **expected physical FPGA behavior**, not a simulation or testbench. The intersection has separate RED, YELLOW, and GREEN lamps for the East–West (EW) and North–South (NS) roads, plus a pedestrian push button and WALK / DON'T WALK indicators.
 
-> **Timing interpretation:** The requested “first post-reset rising edge at 2 ms” is incompatible with a **1 s clock period**. This guide interprets it as **2 s**. The timing below is a proposed hardware demonstration schedule, not measured output from supplied RTL.
+> **Timing interpretation:** The requested “first post-reset rising edge at 2 ms” is incompatible with a **1 s clock period**. This guide interprets it as **2 s**. The timing below is a proposed hardware demonstration schedule, not measured output from supplied RTL. 
+
+
+![Figure 1. Work Concept](Intersection Traffic Control.png)
+
+*Figure 1. Work Concept.*
 
 ## 2. FPGA Operating Clock and Reset
 
