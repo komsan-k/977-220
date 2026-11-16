@@ -16,3 +16,4 @@ set_property -dict { PACKAGE_PIN R11 IOSTANDARD LVCMOS33 } [get_ports {green}]
 ## LD16 RGB: R16=N15, G16=M16
 set_property -dict { PACKAGE_PIN M16 IOSTANDARD LVCMOS33 } [get_ports {ped_walk}]
 set_property -dict { PACKAGE_PIN N15 IOSTANDARD LVCMOS33 } [get_ports {ped_stop}]
+
