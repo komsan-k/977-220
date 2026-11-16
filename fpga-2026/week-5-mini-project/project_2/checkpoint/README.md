@@ -10,7 +10,7 @@
 - **Platform:** Nexys A7 FPGA, Verilog HDL, Vivado XSim
 - **Penalty Policy:**
   - **No deduction from 10:00 to 10:29** (30-minute grace period).
-  - **From 10:30 onward, deduct 0.5 percentage points for each started 15-minute interval.**
+  - **From 10:30 onward, deduct 0.5 percentage points for each started 5-minute interval.**
 
 ---
 
@@ -36,11 +36,15 @@ Demonstrate an FSM-based traffic controller for a single vehicle direction with 
 
 ## 📉 Penalty After 10:30
 
-| Time Slot | Penalty (−0.5 percentage points per started 15 min) | Maximum Mark (from 5%) |
-|---|---:|---:|
-| **10:30–10:44** | −0.5% | **4.50%** |
-| **10:45–10:59** | −1.0% | **4.00%** |
-| **11:00 onward** | Session ended; instructor decision required | **Not specified** |
+| Time Slot | Minutes After 10:30 | Penalty (−0.5% per started 15 min) | Final Mark (from 5%) |
+|---|---:|---:|---:|
+| 10:30–10:35 | 0–14 min | −1.0% | **4.5%** |
+| 10:35–10:39 | 0–14 min | −1.0% | **4.0%** |
+| 10:40–10:45 | 0–14 min | −1.0% | **3.5%** |
+| 10:45–10:49 | 0–14 min | −2.0% | **3.0%** |
+| 10:50–10:55 | 0–14 min | −1.0% | **2.5%** |
+| 10:55–10:59 | 0–14 min | −3.0% | **2.0%** |
+| **11:00 onward** | Session ended | **Submission after session; instructor decision required** | **Not specified** |
 
 *Note: This schedule follows the penalty rule stated in the uploaded document. Its original penalty table contained inconsistent time slots and deductions.*
 
