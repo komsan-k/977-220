@@ -183,3 +183,42 @@ endmodule
 The display can show `00MMSSCC`, with the two unused digits set to zero.
 
 **Implementation note:** The display refresh counter is independent of the stopwatch's 100 Hz clock-enable generator, allowing the seven-segment display to refresh continuously while the stopwatch counts, pauses, or resets.
+
+
+## 6. Nexys A7 XDC Pin Constraints
+
+Use the following constraints with the example `display_top` module (`clk`, `rst`, `seg[6:0]`, `dp`, `an[7:0]`). Add this as a `.xdc` constraints file in Vivado.
+
+```tcl
+## Nexys A7 - display_top constraints
+## Clock: 100 MHz onboard oscillator
+set_property -dict { PACKAGE_PIN E3 IOSTANDARD LVCMOS33 } [get_ports {clk}]
+create_clock -name sys_clk -period 10.000 [get_ports {clk}]
+
+## Reset: center push button (BTNC), active high
+set_property -dict { PACKAGE_PIN N17 IOSTANDARD LVCMOS33 } [get_ports {rst}]
+
+## Seven-segment display: seg[0]=CA ... seg[6]=CG (active low)
+set_property -dict { PACKAGE_PIN T10 IOSTANDARD LVCMOS33 } [get_ports {seg[0]}]
+set_property -dict { PACKAGE_PIN R10 IOSTANDARD LVCMOS33 } [get_ports {seg[1]}]
+set_property -dict { PACKAGE_PIN K16 IOSTANDARD LVCMOS33 } [get_ports {seg[2]}]
+set_property -dict { PACKAGE_PIN K13 IOSTANDARD LVCMOS33 } [get_ports {seg[3]}]
+set_property -dict { PACKAGE_PIN P15 IOSTANDARD LVCMOS33 } [get_ports {seg[4]}]
+set_property -dict { PACKAGE_PIN T11 IOSTANDARD LVCMOS33 } [get_ports {seg[5]}]
+set_property -dict { PACKAGE_PIN L18 IOSTANDARD LVCMOS33 } [get_ports {seg[6]}]
+set_property -dict { PACKAGE_PIN H15 IOSTANDARD LVCMOS33 } [get_ports {dp}]
+
+## Digit enables: active low
+set_property -dict { PACKAGE_PIN J17 IOSTANDARD LVCMOS33 } [get_ports {an[0]}]
+set_property -dict { PACKAGE_PIN J18 IOSTANDARD LVCMOS33 } [get_ports {an[1]}]
+set_property -dict { PACKAGE_PIN T9 IOSTANDARD LVCMOS33 } [get_ports {an[2]}]
+set_property -dict { PACKAGE_PIN J14 IOSTANDARD LVCMOS33 } [get_ports {an[3]}]
+set_property -dict { PACKAGE_PIN P14 IOSTANDARD LVCMOS33 } [get_ports {an[4]}]
+set_property -dict { PACKAGE_PIN T14 IOSTANDARD LVCMOS33 } [get_ports {an[5]}]
+set_property -dict { PACKAGE_PIN K2 IOSTANDARD LVCMOS33 } [get_ports {an[6]}]
+set_property -dict { PACKAGE_PIN U13 IOSTANDARD LVCMOS33 } [get_ports {an[7]}]
+```
+
+**Hardware notes:** Segments, decimal point, and digit enables are active low. `seg[0]` maps to segment A, while `seg[6]` maps to segment G. The decimal point is disabled by `dp = 1'b1`. The example top-level displays `12345678` (left to right) using digit 7 as the leftmost digit.
+
+**Implementation steps:** Add the Verilog modules and XDC file to a Vivado project, set `display_top` as the top module, then run synthesis, implementation, bitstream generation, and program the Nexys A7.
