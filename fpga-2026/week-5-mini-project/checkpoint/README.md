@@ -7,7 +7,7 @@
 - **Total Marks:** **5%**
 - **Penalty Policy:**
   - **No deduction from 10:00 to 10:29** (30-minute grace period, retained from the original policy).
-  - **From 10:30 onward, deduct 0.5 percentage points for each started 15-minute interval.**
+  - **From 10:30 onward, deduct 0.5 percentage points for each started 5-minute interval.**
 
 ---
 
@@ -23,9 +23,12 @@
 
 | Time Slot | Minutes After 10:30 | Penalty (−0.5% per started 15 min) | Final Mark (from 5%) |
 |---|---:|---:|---:|
-| 10:30–10:39 | 0–14 min | −1.0% | **4.0%** |
-| 10:40–10:44 | 0–14 min | −2.0% | **3.0%** |
-| 10:50–10:59 | 0–14 min | −3.0% | **2.0%** |
+| 10:30–10:35 | 0–14 min | −1.0% | **4.5%** |
+| 10:35–10:39 | 0–14 min | −1.0% | **4.0%** |
+| 10:40–10:45 | 0–14 min | −1.0% | **3.5%** |
+| 10:45–10:49 | 0–14 min | −2.0% | **3.0%** |
+| 10:50–10:55 | 0–14 min | −1.0% | **2.5%** |
+| 10:55–10:59 | 0–14 min | −3.0% | **2.0%** |
 | **11:00 onward** | Session ended | **Submission after session; instructor decision required** | **Not specified** |
 
 ---
