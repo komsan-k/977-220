@@ -316,4 +316,3 @@ ______________________________________________________________________________
 ### Reference Material
 
 Based on the uploaded **Topic-13: AI-FPGA — Artificial Neural Network for XOR Function** teaching manuscript, including its integer-scaled XOR ANN, hierarchical Verilog modules, testbench, simulation, and FPGA implementation tasks.
-
