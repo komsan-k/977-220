@@ -392,20 +392,6 @@ ______________________________________________________________________________
 
 ______________________________________________________________________________
 
-## 15. Submission Checklist
-
-- [ ] Completed Python training log and exported `ann_weights.vh`
-- [ ] Completed manual calculation table
-- [ ] Sequential MAC RTL and FSM screenshot
-- [ ] Parallel MAC RTL and FSM screenshot
-- [ ] Self-checking XSim testbench with all four XOR cases passing
-- [ ] Measured cycle counts for both architectures
-- [ ] Separate Vivado synthesis and timing reports
-- [ ] Nexys A7 demonstration of both architectures
-- [ ] Comparison, discussion answers, and conclusion
-
-**Student signature:** __________________________ **Date:** __________________
-
 ---
 
 ### Reference and Implementation Notes
