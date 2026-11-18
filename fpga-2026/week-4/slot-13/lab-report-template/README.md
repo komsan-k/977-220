@@ -271,7 +271,7 @@ Answer each question briefly, using evidence from your calculations and FPGA res
 
 ---
 
-## 11. Optional Extension (Choose One)
+## 11. Optional Extension 
 
 - [ ] Change an activation threshold and explain the resulting truth table.
 - [ ] Replace one constant weight with a programmable input.
@@ -280,9 +280,6 @@ Answer each question briefly, using evidence from your calculations and FPGA res
 - [ ] Train a 2–2–1 XOR ANN in Python and discuss weight quantization.
 - [ ] Add a seven-segment output to display the predicted class.
 
-**Selected extension:** ________________________________________________________
-
-**Method and results:** ________________________________________________________
 
 ---
 
