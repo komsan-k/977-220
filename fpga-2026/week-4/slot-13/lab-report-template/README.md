@@ -296,20 +296,6 @@ ______________________________________________________________________________
 
 ______________________________________________________________________________
 
----
-
-## 13. Submission Checklist
-
-- [ ] Completed manual ANN calculation table
-- [ ] All Verilog source files (`xor_hidden_layer`, `xor_output_neuron`, `xor_ann_top`)
-- [ ] Testbench and simulation results for four XOR cases
-- [ ] RTL hierarchy / schematic screenshot
-- [ ] FPGA utilization report
-- [ ] Completed Nexys A7 hardware verification table
-- [ ] FPGA demonstration evidence
-- [ ] Discussion answers and conclusion
-
-**Student signature:** ________________________  **Date:** __________________
 
 ---
 
