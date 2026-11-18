@@ -3,12 +3,11 @@
 ## Laboratory Worksheet and Report Template
 
 **Course:** 977-220 FPGA  
-**Reference laboratory:** [Week 4 / Slot 14 — ANN for Smart Traffic Control](https://github.com/komsan-k/977-220/blob/main/fpga-2026/week-4/slot-14/README.md)  
+
 **Student name:** __________________________________________  
 **Student ID:** _____________________________________________  
-**Group:** __________________ **Date:** _____________________  
-**FPGA board:** ☐ Nexys A7 ☐ Basys 3 ☐ Other: ______________  
-**Vivado / simulator version:** ______________________________
+**Date:** _____________________  
+
 
 > **Instructions:** Complete the tables and questions as you perform the laboratory. Attach Verilog source files, simulation waveforms, Vivado reports, and FPGA demonstration evidence. Record *measured* results rather than assuming that expected results were observed. The source laboratory supplies an illustrative threshold-based ANN for FPGA **inference**; Python training is optional.
 
@@ -346,7 +345,7 @@ Answer using your calculations, simulation results, and hardware evidence.
 
 ---
 
-## 10. Optional Extension (Choose One)
+## 10. Optional Extension 
 
 - [ ] Implement four traffic classes: Very Low, Low, Medium, High.
 - [ ] Add a third road input `X3` and revise the ANN.
@@ -356,12 +355,6 @@ Answer using your calculations, simulation results, and hardware evidence.
 - [ ] Display `green_time` using a 7-segment display driver.
 - [ ] Compare FPGA resource utilization between two implementations.
 - [ ] Extend the controller to choose both the road and its green-light duration.
-
-**Selected extension:** _________________________________________________________________
-
-**Design changes:** ____________________________________________________________________
-
-**Results and evidence:** ______________________________________________________________
 
 ---
 
@@ -375,24 +368,6 @@ ________________________________________________________________________________
 
 ____________________________________________________________________________________
 
----
-
-## 12. Submission Checklist
-
-- [ ] Completed student and equipment information.
-- [ ] Manual ANN calculation table and one worked example.
-- [ ] All Verilog source files and correct top-module hierarchy.
-- [ ] Testbench and observed simulation results.
-- [ ] Boundary-case verification table.
-- [ ] XSim waveform screenshot.
-- [ ] Vivado synthesis/utilization screenshot.
-- [ ] FPGA XDC and hardware verification table.
-- [ ] FPGA demonstration evidence.
-- [ ] Adaptive timing verification and fixed-time comparison.
-- [ ] Discussion questions and conclusion.
-- [ ] Optional extension results, if attempted.
-
-**Student signature:** __________________________ **Date:** __________________________
 
 ---
 
