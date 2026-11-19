@@ -58,19 +58,19 @@ flowchart LR
 
 The activation function is:
 
-\[
+$$
 f(z)=\begin{cases}1,&z>0\\0,&z\leq0\end{cases}
-\]
+$$
 
 Use the **integer-scaled** neuron equations from the source material:
 
-\[
+$$
 \begin{aligned}
 z_1 &= 2A+2B-1, & H_1&=f(z_1),\\
 z_2 &=-2A-2B+3, & H_2&=f(z_2),\\
 z_o &=2H_1+2H_2-3, & Y&=f(z_o).
 \end{aligned}
-\]
+$$
 
 **Question:** Why is a hidden layer required for a conventional feedforward ANN to represent XOR?
 
