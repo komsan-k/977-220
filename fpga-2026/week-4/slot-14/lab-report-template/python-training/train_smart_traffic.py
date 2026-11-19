@@ -16,7 +16,7 @@ import csv
 import random
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parent
+HERE = Path('.')
 FIELDS = ["road_a", "road_b", "total", "h1_target", "h2_target",
           "h3_target", "y1_target", "y0_target", "traffic_class", "green_time"]
 
@@ -163,7 +163,7 @@ def main() -> None:
     p.add_argument("--data", type=Path, default=HERE / "smart_traffic_dataset.csv")
     p.add_argument("--out", type=Path, default=HERE)
     p.add_argument("--regenerate-data", action="store_true")
-    args = p.parse_args()
+    args = p.parse_args([])
     if args.regenerate_data or not args.data.exists():
         write_dataset(args.data)
     rows = load_dataset(args.data)
