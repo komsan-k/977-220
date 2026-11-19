@@ -59,7 +59,7 @@ flowchart LR
 The activation function is:
 
 $$
-f(z)=\begin{cases}1,&z>0\\0,&z\leq0\end{cases}
+f(z)=\begin{cases}1,&z>0\  \0,&z\leq0\end{cases}
 $$
 
 Use the **integer-scaled** neuron equations from the source material:
