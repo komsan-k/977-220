@@ -81,7 +81,7 @@ $$
 with the step activation:
 
 $$
-f(z)=\begin{cases}1,&z>0\\0,&z\leq0.\end{cases}
+f(z)=\begin{cases}1,&z>0\\0,  &z\leq0.\end{cases}
 $$
 
 Thus, in the supplied Verilog, `H1` is 1 when the sum is at least 5, `H2` at least 9, and `H3` at least 13. The output layer assigns **High** if `H3` or `H2` is active, **Medium** if only `H1` is active, and **Low** otherwise.
