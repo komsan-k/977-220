@@ -72,17 +72,17 @@ flowchart LR
 
 The supplied simplified model is:
 
-\[
+$$
 H_1=f(x_1+x_2-4),\qquad
 H_2=f(x_1+x_2-8),\qquad
 H_3=f(x_1+x_2-12)
-\]
+$$
 
 with the step activation:
 
-\[
+$$
 f(z)=\begin{cases}1,&z>0\\0,&z\leq0.\end{cases}
-\]
+$$
 
 Thus, in the supplied Verilog, `H1` is 1 when the sum is at least 5, `H2` at least 9, and `H3` at least 13. The output layer assigns **High** if `H3` or `H2` is active, **Medium** if only `H1` is active, and **Low** otherwise.
 
