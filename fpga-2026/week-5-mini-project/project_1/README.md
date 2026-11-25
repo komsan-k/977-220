@@ -70,7 +70,7 @@ You **will not** see `00:00:99`.
 
 -   Every **10 ms** → `cs` increments
 -   Every **100 cs counts** → seconds increment
--   Every **100 seconds** → minutes increment
+-   Every **60 seconds** → minutes increment
 
 Console output from `$monitor` should look like:
 
